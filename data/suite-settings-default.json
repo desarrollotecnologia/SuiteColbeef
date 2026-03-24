@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "cuenta": {
+    "empleadoId": "",
+    "nombreCompleto": "Coolbeef",
+    "cargo": "ninguno",
+    "departamento": "santander",
+    "fotoUrl": null,
+    "iniciales": "C",
+    "autenticacionDosPasosActiva": false
+  },
+  "preferencias": {
+    "paginaInicioPorDefecto": "inventario",
+    "tema": "claro",
+    "idioma": "es-CO",
+    "zonaHoraria": "America/Bogota"
+  },
+  "notificaciones": {
+    "alertasInventario": true,
+    "actualizacionesLogistica": true,
+    "avisosSistema": true,
+    "canalCorreo": true,
+    "canalApp": true
+  },
+  "privacidad": {
+    "historialPaginas": "guardar_30_dias"
+  }
+}

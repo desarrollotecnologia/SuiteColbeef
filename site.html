@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Suite Colbeef</title>
+    <link rel="stylesheet" href="./css/site.css" />
+  </head>
+  <body>
+    <div class="suiteLayout" id="suiteLayout">
+      <div id="sidebarHoverZone" class="sidebarHoverZone" aria-hidden="true"></div>
+
+      <aside class="sidebar" id="sidebar" aria-label="Navegación">
+        <div class="brand">
+          <div class="brandAvatar" aria-label="Colbeef">C</div>
+          <div class="brandText">
+            <div class="brandTitle"><span class="brandCol">Col</span><span class="brandBeef">beef</span></div>
+            <div class="brandSub">Colbeef</div>
+          </div>
+        </div>
+
+        <nav class="menu" id="appsMenu">
+          <a class="menuItem active" href="#" data-app-id="control-operativo" data-app-name="Control operativo" data-target-url="#">
+            <img class="menuIcon" src="img/site/controlOperativo.svg" alt="" />
+            <span>Control operativo</span>
+          </a>
+          <a class="menuItem" href="gestion-humana" data-app-id="gestion-humana" data-app-name="Gestion Humana" >
+            <img class="menuIcon" src="img/site/gestionHumana.png" alt="" />
+            <span>Gestion Humana</span>
+          </a>
+          <a class="menuItem" href="#" data-app-id="logistica" data-app-name="Logistica" data-target-url="#">
+            <img class="menuIcon" src="img/site/logistica.png" alt="" />
+            <span>Logistica</span>
+          </a>
+          <a class="menuItem" href="#" data-app-id="inventario" data-app-name="Inventario" data-target-url="#">
+            <img class="menuIcon" src="img/site/inventario.png" alt="" />
+            <span>Inventario</span>
+          </a>
+          <a class="menuItem" href="#" data-app-id="despacho" data-app-name="Despacho" data-target-url="#">
+            <img class="menuIcon" src="img/site/despacho.png" alt="" />
+            <span>Despacho</span>
+          </a>
+          <a class="menuItem" href="#" data-app-id="locker" data-app-name="Locker" data-target-url="#">
+            <img class="menuIcon" src="img/site/locker.png" alt="" />
+            <span>Locker</span>
+          </a>
+          <a class="menuItem" href="#" data-app-id="canales" data-app-name="Canales" data-target-url="#">
+            <img class="menuIcon" src="img/site/liberacionCanales.png" alt="" />
+            <span>Canales</span>
+          </a>
+        </nav>
+
+        <div class="menuDivider" aria-hidden="true"></div>
+
+        <nav class="utilityMenu" id="utilityMenu" aria-label="Herramientas rápidas">
+          <a class="toolItem" href="#" id="settingsOpenBtn" data-tip="Ajustes" aria-label="Ajustes">
+            <svg class="toolIcon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3" />
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" />
+            </svg>
+          </a>
+          <a class="toolItem" href="#" data-tip="Ayuda" aria-label="Ayuda">
+            <svg class="toolIcon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M9.5 9.5a2.5 2.5 0 1 1 3.4 2.3c-.4.2-.6.5-.6 1v.4" />
+              <path d="M12 17h.01" />
+            </svg>
+          </a>
+          <a class="toolItem" href="#" id="searchOpenBtn" data-tip="Buscar" aria-label="Buscar en la suite">
+            <svg class="toolIcon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="6.5" />
+              <path d="m16.5 16.5 5 5" />
+            </svg>
+          </a>
+          <a class="toolItem" href="#" id="bugReportOpenBtn" data-tip="Bug" aria-label="Reportar error o bug">
+            <svg class="toolIcon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <ellipse cx="12" cy="14" rx="5" ry="3.5" />
+              <path d="M12 7v3.5M9 5.5l1.2 2M15 5.5l-1.2 2M7 11H5M19 11h-2M7 17H5M19 17h-2" />
+            </svg>
+          </a>
+        </nav>
+      </aside>
+
+      <main class="mainPanel">
+        <header class="topBar">
+          <h1><span class="brandCol">Col</span><span class="brandBeef">beef</span></h1>
+          <div class="topBarActions">
+            <button id="backFromSettingsBtn" type="button" class="ghostBtn" hidden>Volver al panel</button>
+          </div>
+        </header>
+
+        <div id="mainContent" class="mainContent">
+          <section id="viewHome" class="mainView mainView--active" aria-label="Panel principal">
+            <div class="dashboard">
+              <header class="dashboardIntro">
+                <p class="dashboardKicker">Suite Colbeef</p>
+                <h2 class="dashboardTitle">Panel de módulos</h2>
+                <p class="dashboardSubtitle">Accede a cada área del sistema o desplázate para conocer en detalle qué hace cada módulo.</p>
+              </header>
+
+              <div class="moduleMosaic" role="navigation" aria-label="Accesos a módulos">
+                <a class="moduleTile" href="http://192.168.100.241:5001/" data-app-id="control-operativo" data-app-name="Control operativo">
+                  <span class="moduleTileIcon" aria-hidden="true">
+                    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="8" y="10" width="32" height="28" rx="3" stroke="currentColor" stroke-width="2"/><path d="M14 20h8M14 26h20M14 32h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="34" cy="20" r="3" stroke="currentColor" stroke-width="2"/></svg>
+                  </span>
+                  <span class="moduleTileName">Control operativo</span>
+                  <span class="moduleTileDesc">Central operativa para gestionar el flujo de procesos de la planta de beneficio.</span>
+                </a>
+                <a class="moduleTile" href="http://192.168.20.205:5000/login" data-app-id="gestion-humana" data-app-name="Gestion Humana">
+                  <span class="moduleTileIcon" aria-hidden="true">
+                    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="18" r="6" stroke="currentColor" stroke-width="2"/><path d="M8 38c0-6 6-10 10-10s10 4 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="34" cy="20" r="5" stroke="currentColor" stroke-width="2"/><path d="M28 38c-.5-4 3-7 6-7s6 3 6 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                  </span>
+                  <span class="moduleTileName">Gestión humana</span>
+                  <span class="moduleTileDesc">Personal activo, permisos, eventos, beneficios, EPS y tableros de talento.</span>
+                </a>
+                <a class="moduleTile" href="#detalle-logistica" data-app-id="logistica" data-app-name="Logistica">
+                  <span class="moduleTileIcon" aria-hidden="true">
+                    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 32h26v-8l-6-10H8v18z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="16" cy="36" r="3" stroke="currentColor" stroke-width="2"/><circle cx="30" cy="36" r="3" stroke="currentColor" stroke-width="2"/><path d="M34 32h6l4-8v-6h-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  <span class="moduleTileName">Logística</span>
+                  <span class="moduleTileDesc">Rutas, despachos, trazabilidad y movimiento de producto en frío.</span>
+                </a>
+                <a class="moduleTile" href="#detalle-inventario" data-app-id="inventario" data-app-name="Inventario">
+                  <span class="moduleTileIcon" aria-hidden="true">
+                    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="12" width="12" height="12" rx="1" stroke="currentColor" stroke-width="2"/><rect x="26" y="12" width="12" height="12" rx="1" stroke="currentColor" stroke-width="2"/><rect x="10" y="28" width="12" height="12" rx="1" stroke="currentColor" stroke-width="2"/><rect x="26" y="28" width="12" height="12" rx="1" stroke="currentColor" stroke-width="2"/></svg>
+                  </span>
+                  <span class="moduleTileName">Inventario</span>
+                  <span class="moduleTileDesc">Consulta de existencias, ingresos y salidas, trazabilidad, estadísticas y totales.</span>
+                </a>
+                <a class="moduleTile" href="#detalle-despacho" data-app-id="despacho" data-app-name="Despacho">
+                  <span class="moduleTileIcon" aria-hidden="true">
+                    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="8" y="14" width="32" height="22" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 22h32M20 14v-4h8v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                  </span>
+                  <span class="moduleTileName">Despacho</span>
+                  <span class="moduleTileDesc">Pedidos, preparación y salida de mercancía hacia clientes.</span>
+                </a>
+                <a class="moduleTile" href="#detalle-locker" data-app-id="locker" data-app-name="Locker">
+                  <span class="moduleTileIcon" aria-hidden="true">
+                    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="14" y="10" width="20" height="32" rx="2" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="26" r="2.5" fill="currentColor"/><path d="M24 18v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                  </span>
+                  <span class="moduleTileName">Locker</span>
+                  <span class="moduleTileDesc">Entregas, retiros y cajas inteligentes para personal y visitas.</span>
+                </a>
+                <a class="moduleTile" href="#detalle-canales" data-app-id="canales" data-app-name="Canales">
+                  <span class="moduleTileIcon" aria-hidden="true">
+                    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 24h8l4-12 4 24 4-16 4 10 8-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8" cy="24" r="2" fill="currentColor"/><circle cx="40" cy="24" r="2" fill="currentColor"/></svg>
+                  </span>
+                  <span class="moduleTileName">Canales</span>
+                  <span class="moduleTileDesc">Liberación y gestión de canales comerciales y de distribución.</span>
+                </a>
+              </div>
+
+              <div class="dashboardScrollHint" aria-hidden="true">
+                <span>Desplázate para ver el detalle de cada módulo</span>
+                <svg class="dashboardScrollIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+              </div>
+
+              <div class="moduleDetailStack">
+                <section class="moduleDetail moduleDetail--accent" id="detalle-control-operativo" aria-labelledby="titulo-detalle-control">
+                  <div class="moduleDetailInner">
+                    <header class="moduleDetailHeader">
+                      <span class="moduleDetailBadge">01</span>
+                      <div class="moduleDetailIconWrap" aria-hidden="true">
+                        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="12" width="44" height="40" rx="4" stroke="currentColor" stroke-width="2" opacity=".9"/><path d="M18 28h12M18 36h28M18 44h20" stroke="currentColor" stroke-width="2"/><circle cx="46" cy="28" r="4" stroke="currentColor" stroke-width="2"/><path d="M22 20h4v4h-4z" stroke="currentColor" stroke-width="2"/></svg>
+                      </div>
+                      <h2 class="moduleDetailTitle" id="titulo-detalle-control">Control operativo</h2>
+                      <p class="moduleDetailLead">Control operativo de los procesos de beneficio Colbeef: supervisión integral del flujo desde el ingreso hasta la salida de producto.</p>
+                    </header>
+                    <div class="moduleDetailBody">
+                      <p class="moduleDetailIntro">Este módulo concentra la operación diaria de la planta. Los puntos clave incluyen:</p>
+                      <ul class="moduleDetailList">
+                        <li><strong>Ingreso de vehículos</strong> — Registro y orden de llegada para descarga y proceso.</li>
+                        <li><strong>Plan de faena</strong> — Programación y secuencia de faena según capacidad y pedidos.</li>
+                        <li><strong>Pesaje</strong> — Pesajes de animales, medias y subproductos con trazabilidad.</li>
+                        <li><strong>Corrales</strong> — Ocupación, rotación y bienestar animal antes del proceso.</li>
+                        <li><strong>Insensibilización</strong> — Etapa en la que se aplica el método aprobado para reducir el estado de consciencia antes de la faena (término correcto en proceso cárnico; no “inselibización”).</li>
+                        <li><strong>Rendimientos</strong> — Análisis de rendimiento por lote y comparación con estándares.</li>
+                        <li><strong>Facturas</strong> — Emisión y control documental asociado a ventas y despachos.</li>
+                        <li><strong>Ranking de clientes</strong> — Indicadores de volumen, frecuencia y cumplimiento.</li>
+                      </ul>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="moduleDetail moduleDetail--gh" id="detalle-gestion-humana" aria-labelledby="titulo-detalle-gh">
+                  <div class="moduleDetailInner moduleDetailInner--wide">
+                    <header class="moduleDetailHeader">
+                      <span class="moduleDetailBadge">02</span>
+                      <h2 class="moduleDetailTitle" id="titulo-detalle-gh">Gestión humana</h2>
+                      <p class="moduleDetailLead">Administración integral del personal Colbeef: personal activo, datos del colaborador, eventos, solicitudes de permisos y vacaciones, beneficios, seguridad social y analítica conectada con el resto de la suite.</p>
+                    </header>
+                    <div class="moduleDetailBody">
+                      <p class="moduleDetailIntro">Este módulo concentra la vida laboral del colaborador en un solo lugar. A continuación, el alcance funcional previsto:</p>
+
+                      <h3 class="moduleDetailH3">Personal activo y ficha del colaborador</h3>
+                      <ul class="moduleDetailList">
+                        <li>
+                          <strong>Estado y cuenta de usuario</strong>
+                          Identificación del colaborador como <em>personal activo</em>, con campos asociados al usuario del sistema (acceso, roles y estado laboral).
+                        </li>
+                        <li>
+                          <strong>Áreas y ubicación</strong>
+                          Registro de las <em>áreas</em>, sedes o zonas donde se encuentra cada empleado (planta de beneficio, cámaras, administración, logística, etc.) para reportes y comunicaciones.
+                        </li>
+                        <li>
+                          <strong>Perfil ocupacional</strong>
+                          Cargo, nivel, competencias, jefe inmediato y descripción del puesto para alinear evaluaciones, capacitaciones y movimientos internos.
+                        </li>
+                      </ul>
+
+                      <h3 class="moduleDetailH3">Alta de nuevos empleados</h3>
+                      <ul class="moduleDetailList">
+                        <li>
+                          <strong>Ingreso al directorio</strong>
+                          Flujo para dar de alta a una persona al <em>personal activo</em> y al listado unificado de <em>personas que trabajan</em> en la organización.
+                        </li>
+                        <li>
+                          <strong>Datos coherentes entre submódulos</strong>
+                          La misma persona puede participar en <strong>eventos</strong>, <strong>cumpleaños</strong> y notificaciones sin duplicar información: el módulo mantiene una sola fuente de verdad por colaborador.
+                        </li>
+                        <li>
+                          <strong>Vínculo con talento y cultura</strong>
+                          Desde el alta se puede marcar participación en programas internos, beneficios aplicables y contactos de emergencia.
+                        </li>
+                      </ul>
+
+                      <h3 class="moduleDetailH3">Eventos y cumpleaños</h3>
+                      <ul class="moduleDetailList">
+                        <li>
+                          <strong>Eventos corporativos</strong>
+                          Calendario de actividades (capacitaciones, integraciones, fechas institucionales) con convocatorias y confirmación de asistencia.
+                        </li>
+                        <li>
+                          <strong>Cumpleaños</strong>
+                          Fechas de nacimiento con avisos para el equipo y opciones de privacidad según política interna.
+                        </li>
+                      </ul>
+
+                      <h3 class="moduleDetailH3">Permisos y vacaciones</h3>
+                      <ul class="moduleDetailList">
+                        <li>
+                          <strong>Solicitudes</strong>
+                          Los colaboradores registran <em>solicitudes</em> de permisos personales o vacaciones con fechas, motivo y documentos de soporte cuando aplique.
+                        </li>
+                        <li>
+                          <strong>Aprobaciones</strong>
+                          Bandeja para jefes inmediatos y/o RR.&nbsp;HH. donde se <strong>aprueban o rechazan</strong> las solicitudes, con trazabilidad y comentarios.
+                        </li>
+                        <li>
+                          <strong>Saldo y calendario</strong>
+                          Visualización de días disponibles, histórico de ausencias y coherencia con el plan de trabajo.
+                        </li>
+                      </ul>
+
+                      <h3 class="moduleDetailH3">Beneficios y seguridad social</h3>
+                      <ul class="moduleDetailList">
+                        <li>
+                          <strong>Beneficios</strong>
+                          Paquete de beneficios Colbeef (seguros, subsidios, convenios) con elegibilidad por perfil y vigencia.
+                        </li>
+                        <li>
+                          <strong>EPS y afiliaciones</strong>
+                          Datos de la <strong>EPS</strong>, estado de afiliación y novedades reportadas a nómina o a salud ocupacional.
+                        </li>
+                        <li>
+                          <strong>Fondo de pensiones</strong>
+                          Información del fondo, porcentajes cuando corresponda y actualización de novedades contractuales.
+                        </li>
+                      </ul>
+
+                      <h3 class="moduleDetailH3">Gráficos e información cruzada</h3>
+                      <ul class="moduleDetailList">
+                        <li>
+                          <strong>Tableros y gráficos</strong>
+                          Indicadores de headcount, rotación, ausentismo, distribución por área, antigüedad y otros KPI de gestión humana en formatos gráficos claros.
+                        </li>
+                        <li>
+                          <strong>Integración con otros módulos</strong>
+                          La suite permite <strong>relacionar la información de personas</strong> con procesos operativos (por ejemplo turnos, accesos físicos o responsabilidades en planta) según la configuración de Colbeef, manteniendo una visión única del talento y la operación.
+                        </li>
+                      </ul>
+
+                      <p class="moduleDetailFootnote">Los textos anteriores describen el alcance funcional del módulo; la implementación final puede ajustarse a políticas internas y normativa laboral vigente.</p>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="moduleDetail moduleDetail--alt" id="detalle-logistica" aria-labelledby="titulo-detalle-log">
+                  <div class="moduleDetailInner">
+                    <header class="moduleDetailHeader">
+                      <span class="moduleDetailBadge">03</span>
+                      <h2 class="moduleDetailTitle" id="titulo-detalle-log">Logística</h2>
+                      <p class="moduleDetailLead">Cadena de frío, rutas y cumplimiento de entregas.</p>
+                    </header>
+                    <div class="moduleDetailBody">
+                      <p class="moduleDetailPlaceholder">Contenido detallado pendiente de definición. Típicamente: programación de rutas, temperatura, vehículos, integración con despacho y trazabilidad regulatoria.</p>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="moduleDetail moduleDetail--inv" id="detalle-inventario" aria-labelledby="titulo-detalle-inv">
+                  <div class="moduleDetailInner moduleDetailInner--wide">
+                    <header class="moduleDetailHeader">
+                      <span class="moduleDetailBadge">04</span>
+                      <h2 class="moduleDetailTitle" id="titulo-detalle-inv">Inventario</h2>
+                      <p class="moduleDetailLead">Módulo para consultar existencias, registrar movimientos de <strong>ingreso</strong> y <strong>salida</strong>, profundizar en el detalle, mantener <strong>trazabilidad</strong> y disponer de <strong>estadísticas</strong> y <strong>totales</strong> consolidados.</p>
+                    </header>
+                    <div class="moduleDetailBody">
+                      <p class="moduleDetailIntro">Desde aquí el equipo de planta y administración tiene una vista unificada del stock Colbeef y de cada movimiento asociado.</p>
+
+                      <h3 class="moduleDetailH3">Consulta de inventario</h3>
+                      <ul class="moduleDetailList">
+                        <li>
+                          <strong>Vista general de existencias</strong>
+                          Pantallas donde se puede <strong>ver el inventario</strong> por producto, lote, ubicación (cámara, bodega, línea) y estado, con filtros por fecha, cliente interno o familia de producto.
+                        </li>
+                        <li>
+                          <strong>Ver más detalle</strong>
+                          Desde cada ítem o renglón se abre el <em>detalle ampliado</em>: historial de movimientos, documentos de soporte, temperaturas cuando aplique y enlaces a lotes o ordenes relacionadas.
+                        </li>
+                      </ul>
+
+                      <h3 class="moduleDetailH3">Ingresos y salidas</h3>
+                      <ul class="moduleDetailList">
+                        <li>
+                          <strong>Ingresos</strong>
+                          Registro de entradas a inventario (producción, compras, devoluciones, ajustes positivos) con cantidades, unidades de medida y responsable del movimiento.
+                        </li>
+                        <li>
+                          <strong>Salidas</strong>
+                          Registro de salidas (despacho a clientes, consumo interno, mermas autorizadas, ajustes negativos) con trazabilidad al documento o proceso que las origina.
+                        </li>
+                        <li>
+                          <strong>Coherencia con otros módulos</strong>
+                          Los movimientos pueden integrarse con despacho, logística y control operativo para que el stock refleje la operación real.
+                        </li>
+                      </ul>
+
+                      <h3 class="moduleDetailH3">Trazabilidad</h3>
+                      <ul class="moduleDetailList">
+                        <li>
+                          <strong>Seguimiento de lote y origen</strong>
+                          Consulta del recorrido del producto: desde ingreso hasta salida, incluyendo ubicaciones intermedias y fechas clave.
+                        </li>
+                        <li>
+                          <strong>Auditoría</strong>
+                          Registro de quién y cuándo modificó cantidades o ubicaciones, para cumplimiento interno y exigencias de calidad.
+                        </li>
+                      </ul>
+
+                      <h3 class="moduleDetailH3">Estadísticas y totales</h3>
+                      <ul class="moduleDetailList">
+                        <li>
+                          <strong>Estadísticas</strong>
+                          Gráficos y tableros de rotación, productos más movidos, comparativos por periodo, alertas de stock mínimo y análisis de desviaciones.
+                        </li>
+                        <li>
+                          <strong>Totales</strong>
+                          Consolidados por SKU, por bodega, por familia o a nivel global: existencias valorizadas o en unidades, según la configuración de Colbeef.
+                        </li>
+                      </ul>
+
+                      <p class="moduleDetailFootnote">Los reportes y totales pueden ajustarse a la política de costos y a la normativa sanitaria aplicable a producto cárnico.</p>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="moduleDetail moduleDetail--alt" id="detalle-despacho" aria-labelledby="titulo-detalle-desp">
+                  <div class="moduleDetailInner">
+                    <header class="moduleDetailHeader">
+                      <span class="moduleDetailBadge">05</span>
+                      <h2 class="moduleDetailTitle" id="titulo-detalle-desp">Despacho</h2>
+                      <p class="moduleDetailLead">Salida de producto terminado y documentación.</p>
+                    </header>
+                    <div class="moduleDetailBody">
+                      <p class="moduleDetailPlaceholder">Contenido detallado pendiente de definición. Típicamente: órdenes, picking, empaque y remisiones.</p>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="moduleDetail" id="detalle-locker" aria-labelledby="titulo-detalle-lock">
+                  <div class="moduleDetailInner">
+                    <header class="moduleDetailHeader">
+                      <span class="moduleDetailBadge">06</span>
+                      <h2 class="moduleDetailTitle" id="titulo-detalle-lock">Locker</h2>
+                      <p class="moduleDetailLead">Entregas controladas y retiros seguros.</p>
+                    </header>
+                    <div class="moduleDetailBody">
+                      <p class="moduleDetailPlaceholder">Contenido detallado pendiente de definición. Típicamente: asignación de casilleros, notificaciones y auditoría de retiros.</p>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="moduleDetail moduleDetail--alt" id="detalle-canales" aria-labelledby="titulo-detalle-can">
+                  <div class="moduleDetailInner">
+                    <header class="moduleDetailHeader">
+                      <span class="moduleDetailBadge">07</span>
+                      <h2 class="moduleDetailTitle" id="titulo-detalle-can">Canales</h2>
+                      <p class="moduleDetailLead">Liberación y gestión de canales comerciales.</p>
+                    </header>
+                    <div class="moduleDetailBody">
+                      <p class="moduleDetailPlaceholder">Contenido detallado pendiente de definición. Típicamente: condiciones comerciales, cupos y liberación de canales.</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </section>
+
+          <section id="viewSettings" class="mainView" hidden aria-label="Configuracion del sistema">
+            <div class="settingsPage">
+              <h2 class="settingsTitle">Configuración del Sistema</h2>
+
+              <div class="settingsTabs" role="tablist" aria-label="Secciones de configuracion">
+                <button type="button" class="settingsTab is-active" role="tab" id="tab-cuenta" aria-selected="true" aria-controls="panel-cuenta" data-tab="cuenta">Mi Cuenta</button>
+                <button type="button" class="settingsTab" role="tab" id="tab-preferencias" aria-selected="false" aria-controls="panel-preferencias" data-tab="preferencias">Preferencias</button>
+                <button type="button" class="settingsTab" role="tab" id="tab-notificaciones" aria-selected="false" aria-controls="panel-notificaciones" data-tab="notificaciones">Notificaciones</button>
+                <button type="button" class="settingsTab" role="tab" id="tab-privacidad" aria-selected="false" aria-controls="panel-privacidad" data-tab="privacidad">Privacidad</button>
+              </div>
+
+              <div class="settingsPanels">
+                <div class="settingsPanel is-visible" role="tabpanel" id="panel-cuenta" aria-labelledby="tab-cuenta">
+                  <article class="settingsCard">
+                    <h3 class="settingsCardTitle">Perfil del empleado</h3>
+                    <div class="profileRow">
+                      <div class="profileAvatar" id="settingsProfileAvatar" aria-hidden="true">C</div>
+                      <div class="profileMeta">
+                        <div class="profileName" id="settingsNombreCompleto">Coolbeef</div>
+                        <div class="profileLine"><span class="profileLabel">Cargo</span> <span id="settingsCargo">ninguno</span></div>
+                        <div class="profileLine"><span class="profileLabel">Departamento</span> <span id="settingsDepartamento">santander</span></div>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+
+                <div class="settingsPanel" role="tabpanel" id="panel-preferencias" aria-labelledby="tab-preferencias" hidden>
+                  <article class="settingsCard">
+                    <h3 class="settingsCardTitle">Preferencias del Sistema</h3>
+                    <div class="fieldGrid">
+                      <label class="field">
+                        <span class="fieldLabel">Página de inicio por defecto</span>
+                        <select class="fieldControl" id="prefPaginaInicio" name="paginaInicio">
+                          <option value="control-operativo">Control operativo</option>
+                          <option value="gestion-humana">Gestión Humana</option>
+                          <option value="logistica">Logística</option>
+                          <option value="inventario" selected>Inventario</option>
+                          <option value="despacho">Despacho</option>
+                          <option value="locker">Locker</option>
+                          <option value="canales">Canales</option>
+                        </select>
+                      </label>
+                      <label class="field">
+                        <span class="fieldLabel">Tema</span>
+                        <select class="fieldControl" id="prefTema" name="tema">
+                          <option value="claro" selected>Claro</option>
+                          <option value="oscuro">Oscuro</option>
+                        </select>
+                      </label>
+                      <label class="field">
+                        <span class="fieldLabel">Idioma</span>
+                        <select class="fieldControl" id="prefIdioma" name="idioma">
+                          <option value="es-CO" selected>Español (Colombia)</option>
+                          <option value="es-ES">Español (España)</option>
+                          <option value="en-US">English (US)</option>
+                        </select>
+                      </label>
+                      <label class="field">
+                        <span class="fieldLabel">Zona horaria</span>
+                        <select class="fieldControl" id="prefZona" name="zonaHoraria">
+                          <option value="America/Bogota" selected>America/Bogota (GMT-5)</option>
+                          <option value="America/Mexico_City">America/Mexico_City (GMT-6)</option>
+                          <option value="America/New_York">America/New_York (GMT-5/-4)</option>
+                          <option value="Europe/Madrid">Europe/Madrid (GMT+1/+2)</option>
+                        </select>
+                      </label>
+                    </div>
+                  </article>
+                </div>
+
+                <div class="settingsPanel" role="tabpanel" id="panel-notificaciones" aria-labelledby="tab-notificaciones" hidden>
+                  <article class="settingsCard">
+                    <h3 class="settingsCardTitle">Alertas y avisos</h3>
+                    <div class="toggleList">
+                      <label class="toggleRow">
+                        <span>Alertas de inventario</span>
+                        <input type="checkbox" class="toggleInput" id="notifInventario" checked role="switch" aria-checked="true" />
+                        <span class="toggleUi" aria-hidden="true"></span>
+                      </label>
+                      <label class="toggleRow">
+                        <span>Actualizaciones de logística</span>
+                        <input type="checkbox" class="toggleInput" id="notifLogistica" checked role="switch" aria-checked="true" />
+                        <span class="toggleUi" aria-hidden="true"></span>
+                      </label>
+                      <label class="toggleRow">
+                        <span>Avisos de sistema</span>
+                        <input type="checkbox" class="toggleInput" id="notifSistema" checked role="switch" aria-checked="true" />
+                        <span class="toggleUi" aria-hidden="true"></span>
+                      </label>
+                    </div>
+                    <div class="dividerSoft"></div>
+                    <h4 class="settingsSubTitle">Canales de entrega</h4>
+                    <div class="checkList">
+                      <label class="checkRow">
+                        <input type="checkbox" id="canalEmail" checked />
+                        <span>Recibir por correo</span>
+                      </label>
+                      <label class="checkRow">
+                        <input type="checkbox" id="canalApp" checked />
+                        <span>Notificaciones en la app</span>
+                      </label>
+                    </div>
+                  </article>
+                </div>
+
+                <div class="settingsPanel" role="tabpanel" id="panel-privacidad" aria-labelledby="tab-privacidad" hidden>
+                  <article class="settingsCard">
+                    <h3 class="settingsCardTitle">Privacidad y datos</h3>
+                    <label class="field">
+                      <span class="fieldLabel">Historial de páginas</span>
+                      <select class="fieldControl" id="privHistorial" name="historialPaginas">
+                        <option value="borrar_al_cerrar">Borrar automáticamente al cerrar sesión</option>
+                        <option value="guardar_7_dias">Guardar hasta 7 días</option>
+                        <option value="guardar_30_dias" selected>Guardar hasta 30 días</option>
+                      </select>
+                    </label>
+                    <p class="fieldHint">Define cómo se conserva el historial de módulos visitados en este equipo.</p>
+                  </article>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <div id="searchModal" class="searchModal" hidden aria-hidden="true">
+      <div class="searchModal-backdrop" id="searchModalBackdrop" tabindex="-1"></div>
+      <div class="searchModal-dialog" role="dialog" aria-modal="true" aria-labelledby="searchModalTitle">
+        <button type="button" class="searchModal-close" id="searchModalClose" aria-label="Cerrar">&times;</button>
+        <h2 class="searchModal-title" id="searchModalTitle">Buscar en Suite Colbeef</h2>
+        <div class="searchModal-searchWrap">
+          <svg class="searchModal-lupa" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="11" cy="11" r="6.5" />
+            <path d="m16.5 16.5 5 5" />
+          </svg>
+          <input type="search" id="searchModalInput" class="searchModal-input" placeholder="Busca módulos, páginas, personas, herramientas y documentos de Colbeef…" autocomplete="off" />
+        </div>
+        <h3 class="searchModal-sectionTitle">Módulos</h3>
+        <p class="searchModal-live" id="searchModalLive" aria-live="polite"></p>
+        <ul class="searchModal-list" id="searchModalRecentList">
+          <li class="searchModal-item" data-app="control-operativo">
+            <a class="searchModal-link" href="#detalle-control-operativo" data-search="control operativo planta beneficio faena proceso">Control operativo</a>
+          </li>
+          <li class="searchModal-item" data-app="gestion-humana">
+            <a class="searchModal-link" href="#detalle-gestion-humana" data-search="gestion humana rrhh personal talento permisos nómina">Gestión humana</a>
+          </li>
+          <li class="searchModal-item" data-app="logistica">
+            <a class="searchModal-link" href="#detalle-logistica" data-search="logistica rutas frio despacho transporte">Logística</a>
+          </li>
+          <li class="searchModal-item" data-app="inventario">
+            <a class="searchModal-link" href="#detalle-inventario" data-search="inventario stock existencias lotes bodega">Inventario</a>
+          </li>
+          <li class="searchModal-item" data-app="despacho">
+            <a class="searchModal-link" href="#detalle-despacho" data-search="despacho pedidos clientes salida mercancia">Despacho</a>
+          </li>
+          <li class="searchModal-item" data-app="locker">
+            <a class="searchModal-link" href="#detalle-locker" data-search="locker casilleros retiros entregas">Locker</a>
+          </li>
+          <li class="searchModal-item" data-app="canales">
+            <a class="searchModal-link" href="#detalle-canales" data-search="canales comercial distribucion liberacion">Canales</a>
+          </li>
+        </ul>
+        <p class="searchModal-empty" id="searchModalEmpty" hidden>No hay resultados para esa búsqueda.</p>
+        <p class="searchModal-hint">Escribe para filtrar en tiempo real. Pulsa Enter para abrir el primer resultado.</p>
+      </div>
+    </div>
+
+    <div id="adminAccessModal" class="adminAccessModal" hidden aria-hidden="true">
+      <div class="adminAccessModal-backdrop" id="adminAccessBackdrop" tabindex="-1"></div>
+      <div class="adminAccessModal-dialog" role="dialog" aria-modal="true" aria-labelledby="adminAccessTitle">
+        <button type="button" class="adminAccessModal-close" id="adminAccessClose" aria-label="Cerrar">&times;</button>
+        <h2 class="adminAccessModal-title" id="adminAccessTitle">Acceso privado a ajustes</h2>
+        <p class="adminAccessModal-intro">Ingresa la contraseña maestra para continuar.</p>
+        <form id="adminAccessForm" class="adminAccessModal-form" novalidate>
+          <label class="adminAccessModal-field">
+            <span>Contraseña maestra</span>
+            <input
+              type="password"
+              id="adminAccessPassword"
+              class="adminAccessModal-input"
+              placeholder="••••••••"
+              minlength="6"
+              autocomplete="current-password"
+              required
+            />
+          </label>
+          <p id="adminAccessError" class="adminAccessModal-error" hidden></p>
+          <div class="adminAccessModal-actions">
+            <button type="button" class="adminAccessModal-btn adminAccessModal-btn--ghost" id="adminAccessCancel">Cancelar</button>
+            <button type="submit" class="adminAccessModal-btn adminAccessModal-btn--primary" id="adminAccessSubmit">Entrar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="feedbackModal" class="feedbackModal" hidden aria-hidden="true">
+      <div class="feedbackModal-backdrop" id="feedbackModalBackdrop" tabindex="-1"></div>
+      <div class="feedbackModal-dialog" role="dialog" aria-modal="true" aria-labelledby="feedbackModalTitle">
+        <button type="button" class="feedbackModal-close" id="feedbackModalClose" aria-label="Cerrar">&times;</button>
+        <div class="feedbackModal-illustration" aria-hidden="true">
+          <svg viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg" class="feedbackModal-illuSvg">
+            <ellipse cx="40" cy="48" rx="18" ry="22" fill="rgba(31,157,58,0.15)" stroke="var(--green)" stroke-width="1.5" />
+            <circle cx="36" cy="44" r="3" fill="var(--green)" />
+            <path d="M28 58c4 4 16 4 20 0" stroke="var(--green)" stroke-width="1.5" stroke-linecap="round" />
+            <rect x="72" y="28" width="32" height="24" rx="3" fill="rgba(198,40,40,0.1)" stroke="var(--red)" stroke-width="1.5" />
+            <path d="M78 38h20M78 44h14" stroke="var(--red)" stroke-width="1.2" stroke-linecap="round" />
+            <circle cx="60" cy="24" r="8" fill="rgba(31,157,58,0.2)" stroke="var(--green)" />
+            <path d="M56 24h8M60 20v8" stroke="var(--green)" stroke-width="1.5" stroke-linecap="round" />
+          </svg>
+        </div>
+        <h2 class="feedbackModal-title" id="feedbackModalTitle">¿Cómo podemos mejorar?</h2>
+        <p class="feedbackModal-intro">
+          Danos tu opinión o reporta un problema. Si necesitas ayuda puntual, contacta también a
+          <a href="mailto:desarrollo.tecnologia@colbeef.com">desarrollo.tecnologia@colbeef.com</a>.
+        </p>
+        <form id="feedbackForm" class="feedbackForm" novalidate>
+          <label class="feedbackField">
+            <span class="feedbackLabel">Tema</span>
+            <select class="feedbackControl" id="feedbackTema" name="tema" required>
+              <option value="">Seleccionar un tema</option>
+              <option value="Error o fallo">Error o fallo</option>
+              <option value="Rendimiento o lentitud">Rendimiento o lentitud</option>
+              <option value="Sugerencia de mejora">Sugerencia de mejora</option>
+              <option value="Acceso o sesión">Acceso o sesión</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </label>
+          <label class="feedbackField">
+            <span class="feedbackLabel">Detalle del tema</span>
+            <select class="feedbackControl" id="feedbackDetalle" name="detalle" disabled>
+              <option value="">Seleccionar detalles del tema</option>
+            </select>
+          </label>
+          <label class="feedbackField">
+            <span class="feedbackLabel">Descripción</span>
+            <textarea class="feedbackControl feedbackTextarea" id="feedbackMensaje" name="mensaje" rows="5" placeholder="Incluye toda la información posible (pasos para reproducir el error, mensaje en pantalla, navegador, etc.)." required></textarea>
+          </label>
+          <p class="feedbackHint">
+            <span class="feedbackHintIcon" aria-hidden="true">&#128206;</span>
+            Si quieres adjuntar captura o vídeo, envía el correo desde tu cliente y añade el archivo allí (recomendado).
+          </p>
+          <p class="feedbackMailtoNote">Al enviar se abrirá tu aplicación de correo con el mensaje dirigido a <strong>desarrollo.tecnologia@colbeef.com</strong>. Solo debes confirmar el envío.</p>
+          <div class="feedbackActions">
+            <button type="button" class="feedbackBtn feedbackBtn--ghost" id="feedbackCancelBtn">Cancelar</button>
+            <button type="submit" class="feedbackBtn feedbackBtn--primary">Enviar comentarios</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="colbeefChat" class="colbeefChat" aria-label="Asistente virtual">
+      <div
+        id="colbeefChatPanel"
+        class="colbeefChat-panel"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="colbeefChatTitle"
+        hidden
+      >
+        <header class="colbeefChat-header">
+          <h2 class="colbeefChat-title" id="colbeefChatTitle">Asistente Colbeef</h2>
+          <button type="button" class="colbeefChat-close" id="colbeefChatClose" aria-label="Cerrar">&times;</button>
+        </header>
+        <div class="colbeefChat-messages" id="colbeefChatMessages" role="log" aria-live="polite"></div>
+        <footer class="colbeefChat-footer">
+          <input
+            type="text"
+            id="colbeefChatInput"
+            class="colbeefChat-input"
+            placeholder="Escribe tu mensaje…"
+            autocomplete="off"
+            maxlength="4000"
+          />
+          <button type="button" class="colbeefChat-send" id="colbeefChatSend">Enviar</button>
+        </footer>
+      </div>
+      <button
+        type="button"
+        class="colbeefChat-fab"
+        id="colbeefChatToggle"
+        aria-expanded="false"
+        aria-controls="colbeefChatPanel"
+      >
+        💬 Ayuda
+      </button>
+    </div>
+
+    <script src="./script/site.js" defer></script>
+  </body>
+</html>
+

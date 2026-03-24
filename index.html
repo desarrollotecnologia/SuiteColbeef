@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Colbeef - Cargando</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <div class="screen" role="presentation" data-next-url="./site.html">
+      <!-- Capa 1: Fondo -->
+      <img class="bgImg bgImg--pc" src="img/pantallaCarga/fondoPC.jpg" alt="" draggable="false" />
+      <img class="bgImg bgImg--phone" src="img/pantallaCarga/fondoIPHONE.jpg" alt="" draggable="false" />
+
+      <!-- Capa 2: Cielo -->
+      <div class="cielo" aria-hidden="true">
+        <img class="sun" src="img/pantallaCarga/SolSonriente.png" alt="" draggable="false" />
+
+        <img class="cloud cloud--1" src="img/pantallaCarga/1nube.png" alt="" draggable="false" />
+        <img class="cloud cloud--2" src="img/pantallaCarga/2nube.png" alt="" draggable="false" />
+        <img class="cloud cloud--3" src="img/pantallaCarga/3nube.png" alt="" draggable="false" />
+      </div>
+
+      <!-- Capa 3: Centro (Colbeef + chuleta) -->
+      <div class="centerStage" aria-hidden="true">
+        <img class="steak" src="img/pantallaCarga/chuleta.png" alt="" draggable="false" />
+
+        <div class="word" aria-label="Colbeef">
+          <img class="letter letter--c" src="img/pantallaCarga/C%20letra.png" alt="" draggable="false" />
+          <img class="letter letter--o" src="img/pantallaCarga/O%20letra.png" alt="" draggable="false" />
+          <img class="letter letter--l" src="img/pantallaCarga/L%20letra.png" alt="" draggable="false" />
+          <img class="letter letter--b" src="img/pantallaCarga/b%20letra.png" alt="" draggable="false" />
+          <img class="letter letter--e1" src="img/pantallaCarga/letra%20e%201.png" alt="" draggable="false" />
+          <img class="letter letter--e2" src="img/pantallaCarga/letra%20e.png" alt="" draggable="false" />
+          <img class="letter letter--f" src="img/pantallaCarga/letra%20f.png" alt="" draggable="false" />
+        </div>
+      </div>
+
+      <!-- Capa 4: UI superior (notificatoria / barra de carga) -->
+      <div class="uiTop">
+        <div class="status" id="statusText" aria-live="polite">Cargando...</div>
+
+        <div class="loader" aria-label="Barra de progreso">
+          <div class="loaderTrack" aria-hidden="true">
+            <div class="loaderFill" id="loaderFill"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./script/script.js" defer></script>
+  </body>
+</html>
