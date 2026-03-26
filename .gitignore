@@ -26,3 +26,22 @@ Desktop.ini
 tmp/
 temp/
 .cache/
+
+## Laravel (rutas explícitas; también aplica laravel/.gitignore)
+laravel/vendor/
+laravel/node_modules/
+laravel/public/hot
+laravel/public/build
+laravel/.phpunit.result.cache
+laravel/.phpunit.cache
+
+## Composer / vendor en la raíz (por si se añade algo fuera de laravel/)
+/vendor/
+
+## Claves y credenciales locales (además de .env)
+*.pem
+auth.json
+
+## Cobertura / herramientas
+coverage/
+.nyc_output/

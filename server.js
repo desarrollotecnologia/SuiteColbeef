@@ -17,7 +17,7 @@ var GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-2.5-flash";
 var ADMIN_PASSWORD_HASH = process.env.ADMIN_PASSWORD_HASH || "";
 var ADMIN_JWT_SECRET = process.env.ADMIN_JWT_SECRET || "";
 var ADMIN_JWT_EXPIRES = process.env.ADMIN_JWT_EXPIRES || "8h";
-var ADMIN_COOKIE_NAME = process.env.ADMIN_COOKIE_NAME || "colbeef_admin_token";
+var ADMIN_COOKIE_NAME = process.env.ADMIN_COOKIE_NAME || "workbeef_admin_token";
 var IS_PROD = String(process.env.NODE_ENV || "").toLowerCase() === "production";
 
 function normalizeModelName(rawModel) {
@@ -32,7 +32,7 @@ function normalizeModelName(rawModel) {
 }
 
 var COLBEEF_CHAT_SYSTEM =
-  "Eres el asistente virtual del sistema de Colbeef. Respondes de forma breve, amable y profesional. Ayudas a los usuarios a navegar por el sistema. Conoces dos módulos principales: 1) CONTROL OPERATIVO (incluye: ingreso de vehículos, plan de faena, pesaje, corrales, insensibilización, rendimientos, facturas, ranking de clientes). 2) GESTIÓN HUMANA (incluye: personal activo, perfiles por área, eventos como cumpleaños, solicitudes de permisos y vacaciones, datos de beneficios como EPS y pensiones, y panel de gráficos). Si te preguntan algo fuera de este sistema, indica amablemente que solo puedes ayudar con la plataforma Colbeef.";
+  "Eres el asistente virtual del sistema Workbeef. Respondes de forma breve, amable y profesional. Ayudas a los usuarios a navegar por el sistema. Conoces módulos principales: 1) CONTROL OPERATIVO (incluye: ingreso de vehículos, plan de faena, pesaje, corrales, insensibilización, rendimientos, facturas, ranking de clientes). 2) GESTIÓN HUMANA (incluye: personal activo, perfiles por área, eventos como cumpleaños, solicitudes de permisos y vacaciones, datos de beneficios como EPS y pensiones, y panel de gráficos). 3) LOGÍSTICA (incluye: ingresar lenguas a inventario y generar documentación operativa). 4) CANALES (incluye: registro de hallazgos y tolerancia, historial de registros, animales procesados, dashboards diarios y mensuales con resumen gráfico, asignación de operación, asignación de puestos de trabajo que puede cambiar cada día, gestión de usuarios, seguimiento de tiempo de uso o usabilidad). Si te preguntan algo fuera de este sistema, indica amablemente que solo puedes ayudar con la plataforma Workbeef.";
 
 var rootDir = path.join(__dirname);
 var loginAttemptsByIp = new Map();
@@ -219,7 +219,7 @@ app.use("/admin", requireAdminJwt, express.static(path.join(rootDir, "admin")));
 app.use(express.static(rootDir));
 
 app.listen(PORT, function () {
-  console.log("Suite Colbeef → http://localhost:" + PORT + "/site.html");
+  console.log("Workbeef → http://localhost:" + PORT + "/site.html");
   console.log("La API Key de Gemini se lee solo desde .env (no expuesta al navegador).");
   console.log("Modelo Gemini activo → " + normalizeModelName(GEMINI_MODEL));
   console.log("Auth admin activa → " + (ADMIN_PASSWORD_HASH && ADMIN_JWT_SECRET ? "SI" : "NO"));
