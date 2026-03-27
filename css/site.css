@@ -26,8 +26,8 @@
   --canales-icon-boost: 10px;
   --tool-icon-size: 32px;
   --avatar-size: 52px;
-  /* Logo Workbeef detrás del mosaico de módulos */
-  --site-bg-image: url("../img/site/Workbeef.png");
+  /* Fondo artístico detrás del mosaico de módulos */
+  --site-bg-image: url("../img/site/fondoSite.png");
   --surface-glass: rgba(255, 255, 255, 0.78);
   --surface-glass-strong: rgba(255, 255, 255, 0.88);
 }
@@ -507,25 +507,25 @@ body {
   margin-left: calc(50% - 50vw + 202px);
 }
 
-/* Logo Workbeef a ancho de la franja + degradados suaves en los bordes */
+/* fondoSite.png a ancho de la franja + degradados suaves en los bordes */
 .moduleMosaic::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background-color: rgba(238, 242, 236, 0.35);
+  background-color: rgba(238, 242, 236, 0.4);
   background-image:
-    linear-gradient(180deg, var(--bg) 0%, rgba(238, 242, 236, 0.12) 22%, transparent 48%),
-    linear-gradient(0deg, var(--bg) 0%, rgba(238, 242, 236, 0.1) 14%, transparent 38%),
+    linear-gradient(180deg, var(--bg) 0%, rgba(238, 242, 236, 0.15) 24%, transparent 52%),
+    linear-gradient(0deg, var(--bg) 0%, rgba(238, 242, 236, 0.12) 16%, transparent 40%),
     linear-gradient(90deg, var(--bg) 0%, transparent 4%, transparent 96%, var(--bg) 100%),
     var(--site-bg-image);
   background-repeat: no-repeat;
-  background-position: center center;
-  background-size: auto, auto, auto, contain;
+  background-position: center bottom;
+  background-size: auto, auto, auto, cover;
 }
 
-/* Velo muy ligero para que las tarjetas sigan legibles sin tapar el logo */
+/* Velo ligero para legibilidad de las tarjetas sin ocultar el fondo */
 .moduleMosaic::after {
   content: "";
   position: absolute;
@@ -533,10 +533,10 @@ body {
   z-index: 1;
   pointer-events: none;
   background: radial-gradient(
-    130% 100% at 50% 50%,
-    rgba(255, 255, 255, 0.06) 0%,
-    rgba(238, 242, 236, 0.18) 55%,
-    rgba(238, 242, 236, 0.42) 100%
+    130% 100% at 50% 52%,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(238, 242, 236, 0.22) 50%,
+    rgba(238, 242, 236, 0.48) 100%
   );
 }
 
