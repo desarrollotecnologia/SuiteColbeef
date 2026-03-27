@@ -392,6 +392,7 @@ body {
 
 .mainPanel {
   padding: 22px;
+  overflow-x: clip;
 }
 
 .topBar {
@@ -492,29 +493,56 @@ body {
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 16px;
   margin-bottom: 32px;
-  padding: 16px;
-  border-radius: 18px;
+  padding: 20px 16px 24px;
+  border-radius: 0;
   overflow: hidden;
+  /* Ancho completo del panel principal (columna derecha), no solo el bloque centrado */
+  width: calc(100vw - 88px - 44px);
+  max-width: none;
+  margin-left: calc(50% - 50vw + 66px);
 }
 
-/* Fondo decorativo solo detrás del mosaico de módulos (no pantalla completa) */
+.suiteLayout.sidebar-open .moduleMosaic {
+  width: calc(100vw - 360px - 44px);
+  margin-left: calc(50% - 50vw + 202px);
+}
+
+/* Imagen a ancho de la franja + degradados que funden con el fondo de la página */
 .moduleMosaic::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: 0;
-  border-radius: inherit;
   pointer-events: none;
-  background-color: rgba(238, 242, 236, 0.92);
-  background-image: var(--site-bg-image);
+  background-color: rgba(238, 242, 236, 0.55);
+  background-image:
+    linear-gradient(180deg, var(--bg) 0%, rgba(238, 242, 236, 0.35) 28%, transparent 55%),
+    linear-gradient(0deg, var(--bg) 0%, rgba(238, 242, 236, 0.25) 18%, transparent 42%),
+    linear-gradient(90deg, var(--bg) 0%, transparent 5%, transparent 95%, var(--bg) 100%),
+    var(--site-bg-image);
   background-repeat: no-repeat;
   background-position: center bottom;
-  background-size: contain;
+  background-size: auto, auto, auto, cover;
+}
+
+/* Velo suave encima de la imagen para que no “corte” recto y el texto siga legible */
+.moduleMosaic::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    120% 90% at 50% 55%,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(238, 242, 236, 0.45) 45%,
+    rgba(238, 242, 236, 0.82) 100%
+  );
 }
 
 .moduleMosaic > * {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .moduleTile {
@@ -896,7 +924,8 @@ body[data-suite-theme="oscuro"] .moduleTile:hover .moduleTileIcon {
   filter: drop-shadow(0 2px 10px rgba(31, 157, 58, 0.45));
 }
 
-body[data-suite-theme="oscuro"] .moduleMosaic::before {
+body[data-suite-theme="oscuro"] .moduleMosaic::before,
+body[data-suite-theme="oscuro"] .moduleMosaic::after {
   display: none;
 }
 
@@ -1461,6 +1490,17 @@ body[data-suite-theme="oscuro"] .toggleUi {
 
   .suiteLayout.sidebar-open {
     grid-template-columns: 1fr;
+  }
+
+  /* Mosaico: ancho pantalla sin columna lateral fija */
+  .moduleMosaic {
+    width: calc(100vw - 44px);
+    margin-left: calc(50% - 50vw + 22px);
+  }
+
+  .suiteLayout.sidebar-open .moduleMosaic {
+    width: calc(100vw - 44px);
+    margin-left: calc(50% - 50vw + 22px);
   }
 
   .sidebar {
