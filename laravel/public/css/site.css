@@ -49,12 +49,7 @@ html {
 body {
   margin: 0;
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-  background-color: var(--bg);
-  background-image: var(--site-bg-image);
-  background-size: cover;
-  background-position: center top;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  background: var(--bg);
   color: var(--text);
 }
 
@@ -83,9 +78,7 @@ body {
 }
 
 .sidebar {
-  background: rgba(243, 244, 242, 0.82);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: var(--sidebar-bg);
   border-right: 1px solid var(--border);
   padding: 14px 10px 12px;
   overflow: hidden;
@@ -452,13 +445,11 @@ body {
   margin-bottom: 28px;
   padding: 20px 20px 18px;
   border-radius: 16px;
-  border: 1px solid rgba(31, 157, 58, 0.2);
+  border: 1px solid rgba(31, 157, 58, 0.16);
   background:
-    radial-gradient(120% 120% at 0% 0%, rgba(31, 157, 58, 0.14) 0%, rgba(31, 157, 58, 0.06) 35%, transparent 70%),
-    var(--surface-glass);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 10px 24px rgba(11, 30, 20, 0.08);
+    radial-gradient(120% 120% at 0% 0%, rgba(31, 157, 58, 0.12) 0%, rgba(31, 157, 58, 0.04) 35%, transparent 70%),
+    #fff;
+  box-shadow: 0 10px 24px rgba(11, 30, 20, 0.06);
   animation: fadeUpIn 420ms ease both;
 }
 
@@ -495,10 +486,35 @@ body {
 }
 
 .moduleMosaic {
+  position: relative;
+  isolation: isolate;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 16px;
   margin-bottom: 32px;
+  padding: 16px;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+/* Fondo decorativo solo detrás del mosaico de módulos (no pantalla completa) */
+.moduleMosaic::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background-color: rgba(238, 242, 236, 0.92);
+  background-image: var(--site-bg-image);
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: contain;
+}
+
+.moduleMosaic > * {
+  position: relative;
+  z-index: 1;
 }
 
 .moduleTile {
@@ -770,9 +786,7 @@ body {
 .moduleDetailList li {
   position: relative;
   padding: 14px 16px 14px 18px;
-  background: rgba(255, 255, 255, 0.78);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: #fff;
   border: 1px solid var(--border);
   border-radius: 12px;
   border-left: 4px solid var(--green);
@@ -880,6 +894,10 @@ body[data-suite-theme="oscuro"] .moduleTile:hover .moduleTileDesc {
 body[data-suite-theme="oscuro"] .moduleTile:hover .moduleTileIcon {
   color: #7fd398;
   filter: drop-shadow(0 2px 10px rgba(31, 157, 58, 0.45));
+}
+
+body[data-suite-theme="oscuro"] .moduleMosaic::before {
+  display: none;
 }
 
 body[data-suite-theme="oscuro"] .dashboardIntro {
@@ -1000,9 +1018,7 @@ body[data-suite-theme="oscuro"] .moduleDetailPlaceholder {
 
 .settingsCard {
   position: relative;
-  background: rgba(250, 252, 251, 0.82);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: var(--panel);
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 18px 18px 16px;
@@ -1248,13 +1264,6 @@ body[data-suite-theme="oscuro"] {
   --row-active: #20362a;
   --input-surface: #1a2e22;
   background-image: none;
-  background-attachment: scroll;
-}
-
-body[data-suite-theme="oscuro"] .sidebar {
-  background: var(--sidebar-bg);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
 }
 
 body[data-suite-theme="oscuro"] .settingsCard {
@@ -1373,9 +1382,7 @@ body[data-suite-theme="oscuro"] .toggleUi {
 
 .historyWrap {
   position: relative;
-  background: rgba(255, 255, 255, 0.82);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: #ffffff;
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 16px;
