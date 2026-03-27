@@ -38,6 +38,8 @@ class ChatProxyController extends Controller
             .'4) CANALES (incluye: registro de hallazgos y tolerancia, historial de registros, animales procesados, '
             .'dashboards diarios y mensuales con resumen gráfico, asignación de operación, asignación de puestos de trabajo '
             .'que puede cambiar cada día, gestión de usuarios, seguimiento de tiempo de uso o usabilidad). '
+            .'5) LOCKERBEEF (incluye: migración del control basado en hojas de cálculo a un aplicativo web integral para la '
+            .'gestión de recursos físicos, operando sobre una base de datos robusta y centralizada). '
             .'Si te preguntan algo fuera de este sistema, indica amablemente que solo puedes ayudar con la plataforma Workbeef.';
 
         $url = 'https://generativelanguage.googleapis.com/v1beta/models/'
