@@ -610,12 +610,32 @@
     if (el) el.scrollTop = el.scrollHeight;
   }
 
+  var COLBEEF_CHAT_BOT_AVATAR = "./img/site/Graident Ai Robot.png";
+
+  function colbeefChatAppendBotAvatar(container) {
+    var img = document.createElement("img");
+    img.className = "colbeefChat-msgAvatar";
+    img.src = COLBEEF_CHAT_BOT_AVATAR;
+    img.alt = "";
+    img.setAttribute("aria-hidden", "true");
+    img.decoding = "async";
+    container.appendChild(img);
+  }
+
   function appendColbeefChatMsg(role, text) {
     var wrap = document.getElementById("colbeefChatMessages");
     if (!wrap) return;
     var div = document.createElement("div");
     div.className = "colbeefChat-msg colbeefChat-msg--" + (role === "user" ? "user" : "bot");
-    div.textContent = text;
+    if (role === "user") {
+      div.textContent = text;
+    } else {
+      colbeefChatAppendBotAvatar(div);
+      var body = document.createElement("div");
+      body.className = "colbeefChat-msgBody";
+      body.textContent = text;
+      div.appendChild(body);
+    }
     wrap.appendChild(div);
     colbeefChatScrollToBottom();
   }
@@ -629,7 +649,11 @@
     var div = document.createElement("div");
     div.id = "colbeefChatThinking";
     div.className = "colbeefChat-msg colbeefChat-msg--bot colbeefChat-msg--thinking";
-    div.textContent = "Pensando...";
+    colbeefChatAppendBotAvatar(div);
+    var body = document.createElement("div");
+    body.className = "colbeefChat-msgBody";
+    body.textContent = "Pensando...";
+    div.appendChild(body);
     wrap.appendChild(div);
     colbeefChatScrollToBottom();
   }

@@ -14,7 +14,11 @@
         <div class="brand">
           <div class="brandAvatar" aria-label="Workbeef">W</div>
           <div class="brandText">
-            <div class="brandTitle"><span class="brandCol">Work</span><span class="brandBeef">beef</span></div>
+            <div class="brandTitle">
+              <span class="brandLetters" aria-hidden="true">
+                <span class="brandLetter brandLetter--work" style="--i: 0">W</span><span class="brandLetter brandLetter--work" style="--i: 1">o</span><span class="brandLetter brandLetter--work" style="--i: 2">r</span><span class="brandLetter brandLetter--work" style="--i: 3">k</span><span class="brandLetter brandLetter--beef" style="--i: 4">b</span><span class="brandLetter brandLetter--beef" style="--i: 5">e</span><span class="brandLetter brandLetter--beef" style="--i: 6">e</span><span class="brandLetter brandLetter--beef" style="--i: 7">f</span>
+              </span>
+            </div>
             <div class="brandSub">Workbeef</div>
           </div>
         </div>
@@ -79,7 +83,11 @@
 
       <main class="mainPanel">
         <header class="topBar">
-          <h1><span class="brandCol">Work</span><span class="brandBeef">beef</span></h1>
+          <h1 class="topBarBrandTitle" aria-label="Workbeef">
+            <span class="brandLetters" aria-hidden="true">
+              <span class="brandLetter brandLetter--work" style="--i: 0">W</span><span class="brandLetter brandLetter--work" style="--i: 1">o</span><span class="brandLetter brandLetter--work" style="--i: 2">r</span><span class="brandLetter brandLetter--work" style="--i: 3">k</span><span class="brandLetter brandLetter--beef" style="--i: 4">b</span><span class="brandLetter brandLetter--beef" style="--i: 5">e</span><span class="brandLetter brandLetter--beef" style="--i: 6">e</span><span class="brandLetter brandLetter--beef" style="--i: 7">f</span>
+            </span>
+          </h1>
           <div class="topBarActions">
             <button id="backFromSettingsBtn" type="button" class="ghostBtn" hidden>Volver al panel</button>
           </div>
@@ -89,7 +97,11 @@
           <section id="viewHome" class="mainView mainView--active" aria-label="Panel principal">
             <div class="dashboard">
               <header class="dashboardIntro">
-                <p class="dashboardKicker">Workbeef</p>
+                <p class="dashboardKicker">
+                  <span class="brandLetters brandLetters--dash" aria-hidden="true">
+                    <span class="brandLetter brandLetter--work" style="--i: 0">W</span><span class="brandLetter brandLetter--work" style="--i: 1">o</span><span class="brandLetter brandLetter--work" style="--i: 2">r</span><span class="brandLetter brandLetter--work" style="--i: 3">k</span><span class="brandLetter brandLetter--beef" style="--i: 4">b</span><span class="brandLetter brandLetter--beef" style="--i: 5">e</span><span class="brandLetter brandLetter--beef" style="--i: 6">e</span><span class="brandLetter brandLetter--beef" style="--i: 7">f</span>
+                  </span>
+                </p>
                 <h2 class="dashboardTitle">Panel de módulos</h2>
                 <p class="dashboardSubtitle">Accede a cada área del sistema o desplázate para conocer en detalle qué hace cada módulo.</p>
               </header>
@@ -370,13 +382,6 @@
                       <p><a class="btnPrimary btnPrimary--outline" href="http://192.168.20.205:5001/login" target="_blank" rel="noopener">Abrir Locker</a></p>
                       <p class="moduleDetailIntro"><strong>Lockerbeef</strong> representa la evolución digital en la gestión de recursos físicos de la empresa.</p>
                       <p>Se realizó la <strong>migración</strong> del antiguo control basado en <strong>hojas de cálculo</strong> hacia un <strong>aplicativo web integral</strong> que opera sobre una <strong>base de datos robusta y centralizada</strong>.</p>
-                      <ul class="moduleDetailList">
-                        <li><strong>Asignación de recursos</strong> — Control de asignaciones, cambios y devoluciones de recursos físicos por persona o área.</li>
-                        <li><strong>Inventario y trazabilidad</strong> — Historial de movimientos y estado actual para auditoría, pérdidas y seguimiento.</li>
-                        <li><strong>Operación diaria</strong> — Registro ágil de entregas y retiros con validaciones para evitar inconsistencias.</li>
-                        <li><strong>Gestión de usuarios</strong> — Roles y permisos para administración y operación.</li>
-                        <li><strong>Reportes</strong> — Resumen operativo y métricas para control y toma de decisiones.</li>
-                      </ul>
                     </div>
                   </div>
                 </section>
@@ -688,8 +693,17 @@
         id="colbeefChatToggle"
         aria-expanded="false"
         aria-controls="colbeefChatPanel"
+        aria-label="Abrir asistente virtual"
+        title="Asistente Workbeef"
       >
-        💬 Ayuda
+        <span class="colbeefChat-fabBob" aria-hidden="true">
+          <img
+            class="colbeefChat-robotImg"
+            src="./img/site/Graident Ai Robot.png"
+            alt=""
+            aria-hidden="true"
+          />
+        </span>
       </button>
     </div>
 

@@ -1,4 +1,7 @@
 :root {
+  /* Misma paleta que la Suite (Workbeef) */
+  --green: #1f9d3a;
+  --red: #c62828;
   --shadow3d: drop-shadow(0px 10px 15px rgba(0, 0, 0, 0.5));
 }
 
@@ -118,6 +121,49 @@ body {
   gap: clamp(4px, 1.3vw, 10px);
 }
 
+/* Marca Workbeef: letras aparecen en orden y se quedan (sin temblor) */
+.word--workbeef {
+  align-items: center;
+  gap: clamp(2px, 0.9vw, 8px);
+}
+
+.letterChar {
+  display: inline-block;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  font-size: clamp(2.4rem, 10vw, 4.2rem);
+  opacity: 0;
+  transform: translateY(14px);
+  animation: letterReveal 0.42s ease forwards;
+  animation-delay: calc(var(--i) * 0.09s);
+}
+
+.letterChar--work {
+  color: var(--green);
+  text-shadow:
+    0 2px 0 rgba(0, 40, 18, 0.35),
+    0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+.letterChar--beef {
+  color: var(--red);
+  text-shadow:
+    0 2px 0 rgba(80, 10, 10, 0.35),
+    0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+@keyframes letterReveal {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .letter {
   height: clamp(86px, 12.8vh, 110px);
   width: auto;
@@ -179,6 +225,10 @@ body {
     gap: clamp(8px, 1.2vw, 20px);
   }
 
+  .letterChar {
+    font-size: clamp(3.2rem, 7vw, 5.5rem);
+  }
+
   .letter {
     height: clamp(115px, 14vh, 190px);
   }
@@ -192,6 +242,12 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .cloud {
     animation: none;
+  }
+
+  .letterChar {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
 }
 
