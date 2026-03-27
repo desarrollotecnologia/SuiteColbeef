@@ -397,8 +397,9 @@ body {
 .topBar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   margin-bottom: 16px;
+  min-height: 0;
 }
 
 .topBarActions {
@@ -1378,19 +1379,6 @@ body[data-suite-theme="oscuro"] .toggleUi {
   .settingsTab {
     white-space: nowrap;
   }
-}
-
-.topBar h1,
-.topBarBrandTitle {
-  margin: 0;
-  color: var(--green);
-}
-
-.topBarBrandTitle {
-  font-size: clamp(1.25rem, 2.2vw, 1.65rem);
-  font-weight: 900;
-  letter-spacing: -0.03em;
-  line-height: 1.15;
 }
 
 .clearBtn {
