@@ -24,27 +24,27 @@
         </div>
 
         <nav class="menu" id="appsMenu">
-          <a class="menuItem active" href="#" data-app-id="control-operativo" data-app-name="Control operativo" data-target-url="#">
+          <a class="menuItem active" href="http://192.168.100.241:5001/" data-app-id="control-operativo" data-app-name="Control operativo" data-target-url="http://192.168.100.241:5001/">
             <img class="menuIcon" src="img/site/controlOperativo.svg" alt="" />
             <span>Control operativo</span>
           </a>
-          <a class="menuItem" href="gestion-humana" data-app-id="gestion-humana" data-app-name="Gestion Humana" >
+          <a class="menuItem" href="http://192.168.20.205:5000/login" data-app-id="gestion-humana" data-app-name="Gestion Humana" data-target-url="http://192.168.20.205:5000/login">
             <img class="menuIcon" src="img/site/gestionHumana.png" alt="" />
             <span>Gestion Humana</span>
           </a>
-          <a class="menuItem" href="#" data-app-id="logistica" data-app-name="Logistica" data-target-url="#">
+          <a class="menuItem" href="http://192.168.20.205:8005/" data-app-id="logistica" data-app-name="Logistica" data-target-url="http://192.168.20.205:8005/">
             <img class="menuIcon" src="img/site/logistica.png" alt="" />
             <span>Logistica</span>
           </a>
-          <a class="menuItem" href="#" data-app-id="inventario" data-app-name="Inventario" data-target-url="#">
+          <a class="menuItem" href="http://192.168.20.205:8501/" data-app-id="inventario" data-app-name="Inventario" data-target-url="http://192.168.20.205:8501/">
             <img class="menuIcon" src="img/site/inventario.png" alt="" />
             <span>Inventario</span>
           </a>
-          <a class="menuItem" href="#" data-app-id="locker" data-app-name="Locker" data-target-url="#">
+          <a class="menuItem" href="http://192.168.20.205:5001/login" data-app-id="locker" data-app-name="Locker" data-target-url="http://192.168.20.205:5001/login">
             <img class="menuIcon" src="img/site/locker.png" alt="" />
             <span>Locker</span>
           </a>
-          <a class="menuItem" href="#" data-app-id="canales" data-app-name="Canales" data-target-url="#">
+          <a class="menuItem" href="http://192.168.20.205:8006/login" data-app-id="canales" data-app-name="Canales" data-target-url="http://192.168.20.205:8006/login">
             <img class="menuIcon" src="img/site/liberacionCanales.png" alt="" />
             <span>Canales</span>
           </a>
@@ -103,7 +103,7 @@
                   </span>
                 </p>
                 <h2 class="dashboardTitle">Panel de módulos</h2>
-                <p class="dashboardSubtitle">Accede a cada área del sistema o desplázate para conocer en detalle qué hace cada módulo.</p>
+                <p class="dashboardSubtitle">Elige un módulo para ir a su aplicación.</p>
               </header>
 
               <div class="moduleMosaic" role="navigation" aria-label="Accesos a módulos">
@@ -112,304 +112,37 @@
                     <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="8" y="10" width="32" height="28" rx="3" stroke="currentColor" stroke-width="2"/><path d="M14 20h8M14 26h20M14 32h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="34" cy="20" r="3" stroke="currentColor" stroke-width="2"/></svg>
                   </span>
                   <span class="moduleTileName">Control operativo</span>
-                  <span class="moduleTileDesc">Central operativa para gestionar el flujo de procesos de la planta de beneficio.</span>
                 </a>
                 <a class="moduleTile" href="http://192.168.20.205:5000/login" data-app-id="gestion-humana" data-app-name="Gestion Humana">
                   <span class="moduleTileIcon" aria-hidden="true">
                     <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="18" r="6" stroke="currentColor" stroke-width="2"/><path d="M8 38c0-6 6-10 10-10s10 4 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="34" cy="20" r="5" stroke="currentColor" stroke-width="2"/><path d="M28 38c-.5-4 3-7 6-7s6 3 6 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                   </span>
                   <span class="moduleTileName">Gestión humana</span>
-                  <span class="moduleTileDesc">Personal activo, permisos, eventos, beneficios, EPS y tableros de talento.</span>
                 </a>
                 <a class="moduleTile" href="http://192.168.20.205:8005/" data-app-id="logistica" data-app-name="Logistica">
                   <span class="moduleTileIcon" aria-hidden="true">
                     <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 32h26v-8l-6-10H8v18z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="16" cy="36" r="3" stroke="currentColor" stroke-width="2"/><circle cx="30" cy="36" r="3" stroke="currentColor" stroke-width="2"/><path d="M34 32h6l4-8v-6h-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                   </span>
                   <span class="moduleTileName">Logística</span>
-                  <span class="moduleTileDesc">Rutas, despachos, trazabilidad y movimiento de producto en frío.</span>
                 </a>
                 <a class="moduleTile" href="http://192.168.20.205:8501/" data-app-id="inventario" data-app-name="Inventario">
                   <span class="moduleTileIcon" aria-hidden="true">
                     <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="12" width="12" height="12" rx="1" stroke="currentColor" stroke-width="2"/><rect x="26" y="12" width="12" height="12" rx="1" stroke="currentColor" stroke-width="2"/><rect x="10" y="28" width="12" height="12" rx="1" stroke="currentColor" stroke-width="2"/><rect x="26" y="28" width="12" height="12" rx="1" stroke="currentColor" stroke-width="2"/></svg>
                   </span>
                   <span class="moduleTileName">Inventario</span>
-                  <span class="moduleTileDesc">Consulta de existencias, ingresos y salidas, trazabilidad, estadísticas y totales.</span>
                 </a>
                 <a class="moduleTile" href="http://192.168.20.205:5001/login" data-app-id="locker" data-app-name="Locker">
                   <span class="moduleTileIcon" aria-hidden="true">
                     <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="14" y="10" width="20" height="32" rx="2" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="26" r="2.5" fill="currentColor"/><path d="M24 18v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                   </span>
                   <span class="moduleTileName">Locker</span>
-                  <span class="moduleTileDesc">Migración del control en hojas de cálculo a un aplicativo web integral con base de datos centralizada.</span>
                 </a>
                 <a class="moduleTile" href="http://192.168.20.205:8006/login" data-app-id="canales" data-app-name="Canales">
                   <span class="moduleTileIcon" aria-hidden="true">
                     <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 24h8l4-12 4 24 4-16 4 10 8-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8" cy="24" r="2" fill="currentColor"/><circle cx="40" cy="24" r="2" fill="currentColor"/></svg>
                   </span>
                   <span class="moduleTileName">Canales</span>
-                  <span class="moduleTileDesc">Hallazgos, tolerancia, historial, animales procesados, dashboards y asignación de puestos.</span>
                 </a>
-              </div>
-
-              <div class="dashboardScrollHint" aria-hidden="true">
-                <span>Desplázate para ver el detalle de cada módulo</span>
-                <svg class="dashboardScrollIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-              </div>
-
-              <div class="moduleDetailStack">
-                <section class="moduleDetail moduleDetail--accent" id="detalle-control-operativo" aria-labelledby="titulo-detalle-control">
-                  <div class="moduleDetailInner">
-                    <header class="moduleDetailHeader">
-                      <span class="moduleDetailBadge">01</span>
-                      <div class="moduleDetailIconWrap" aria-hidden="true">
-                        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="12" width="44" height="40" rx="4" stroke="currentColor" stroke-width="2" opacity=".9"/><path d="M18 28h12M18 36h28M18 44h20" stroke="currentColor" stroke-width="2"/><circle cx="46" cy="28" r="4" stroke="currentColor" stroke-width="2"/><path d="M22 20h4v4h-4z" stroke="currentColor" stroke-width="2"/></svg>
-                      </div>
-                      <h2 class="moduleDetailTitle" id="titulo-detalle-control">Control operativo</h2>
-                      <p class="moduleDetailLead">Control operativo de los procesos de beneficio en Workbeef: supervisión integral del flujo desde el ingreso hasta la salida de producto.</p>
-                    </header>
-                    <div class="moduleDetailBody">
-                      <p class="moduleDetailIntro">Este módulo concentra la operación diaria de la planta. Los puntos clave incluyen:</p>
-                      <ul class="moduleDetailList">
-                        <li><strong>Ingreso de vehículos</strong> — Registro y orden de llegada para descarga y proceso.</li>
-                        <li><strong>Plan de faena</strong> — Programación y secuencia de faena según capacidad y pedidos.</li>
-                        <li><strong>Pesaje</strong> — Pesajes de animales, medias y subproductos con trazabilidad.</li>
-                        <li><strong>Corrales</strong> — Ocupación, rotación y bienestar animal antes del proceso.</li>
-                        <li><strong>Insensibilización</strong> — Etapa en la que se aplica el método aprobado para reducir el estado de consciencia antes de la faena (término correcto en proceso cárnico; no “inselibización”).</li>
-                        <li><strong>Rendimientos</strong> — Análisis de rendimiento por lote y comparación con estándares.</li>
-                        <li><strong>Facturas</strong> — Emisión y control documental asociado a ventas y despachos.</li>
-                        <li><strong>Ranking de clientes</strong> — Indicadores de volumen, frecuencia y cumplimiento.</li>
-                      </ul>
-                    </div>
-                  </div>
-                </section>
-
-                <section class="moduleDetail moduleDetail--gh" id="detalle-gestion-humana" aria-labelledby="titulo-detalle-gh">
-                  <div class="moduleDetailInner moduleDetailInner--wide">
-                    <header class="moduleDetailHeader">
-                      <span class="moduleDetailBadge">02</span>
-                      <h2 class="moduleDetailTitle" id="titulo-detalle-gh">Gestión humana</h2>
-                      <p class="moduleDetailLead">Administración integral del personal en Workbeef: personal activo, datos del colaborador, eventos, solicitudes de permisos y vacaciones, beneficios, seguridad social y analítica conectada con el resto de la suite.</p>
-                    </header>
-                    <div class="moduleDetailBody">
-                      <p class="moduleDetailIntro">Este módulo concentra la vida laboral del colaborador en un solo lugar. A continuación, el alcance funcional previsto:</p>
-
-                      <h3 class="moduleDetailH3">Personal activo y ficha del colaborador</h3>
-                      <ul class="moduleDetailList">
-                        <li>
-                          <strong>Estado y cuenta de usuario</strong>
-                          Identificación del colaborador como <em>personal activo</em>, con campos asociados al usuario del sistema (acceso, roles y estado laboral).
-                        </li>
-                        <li>
-                          <strong>Áreas y ubicación</strong>
-                          Registro de las <em>áreas</em>, sedes o zonas donde se encuentra cada empleado (planta de beneficio, cámaras, administración, logística, etc.) para reportes y comunicaciones.
-                        </li>
-                        <li>
-                          <strong>Perfil ocupacional</strong>
-                          Cargo, nivel, competencias, jefe inmediato y descripción del puesto para alinear evaluaciones, capacitaciones y movimientos internos.
-                        </li>
-                      </ul>
-
-                      <h3 class="moduleDetailH3">Alta de nuevos empleados</h3>
-                      <ul class="moduleDetailList">
-                        <li>
-                          <strong>Ingreso al directorio</strong>
-                          Flujo para dar de alta a una persona al <em>personal activo</em> y al listado unificado de <em>personas que trabajan</em> en la organización.
-                        </li>
-                        <li>
-                          <strong>Datos coherentes entre submódulos</strong>
-                          La misma persona puede participar en <strong>eventos</strong>, <strong>cumpleaños</strong> y notificaciones sin duplicar información: el módulo mantiene una sola fuente de verdad por colaborador.
-                        </li>
-                        <li>
-                          <strong>Vínculo con talento y cultura</strong>
-                          Desde el alta se puede marcar participación en programas internos, beneficios aplicables y contactos de emergencia.
-                        </li>
-                      </ul>
-
-                      <h3 class="moduleDetailH3">Eventos y cumpleaños</h3>
-                      <ul class="moduleDetailList">
-                        <li>
-                          <strong>Eventos corporativos</strong>
-                          Calendario de actividades (capacitaciones, integraciones, fechas institucionales) con convocatorias y confirmación de asistencia.
-                        </li>
-                        <li>
-                          <strong>Cumpleaños</strong>
-                          Fechas de nacimiento con avisos para el equipo y opciones de privacidad según política interna.
-                        </li>
-                      </ul>
-
-                      <h3 class="moduleDetailH3">Permisos y vacaciones</h3>
-                      <ul class="moduleDetailList">
-                        <li>
-                          <strong>Solicitudes</strong>
-                          Los colaboradores registran <em>solicitudes</em> de permisos personales o vacaciones con fechas, motivo y documentos de soporte cuando aplique.
-                        </li>
-                        <li>
-                          <strong>Aprobaciones</strong>
-                          Bandeja para jefes inmediatos y/o RR.&nbsp;HH. donde se <strong>aprueban o rechazan</strong> las solicitudes, con trazabilidad y comentarios.
-                        </li>
-                        <li>
-                          <strong>Saldo y calendario</strong>
-                          Visualización de días disponibles, histórico de ausencias y coherencia con el plan de trabajo.
-                        </li>
-                      </ul>
-
-                      <h3 class="moduleDetailH3">Beneficios y seguridad social</h3>
-                      <ul class="moduleDetailList">
-                        <li>
-                          <strong>Beneficios</strong>
-                          Paquete de beneficios Workbeef (seguros, subsidios, convenios) con elegibilidad por perfil y vigencia.
-                        </li>
-                        <li>
-                          <strong>EPS y afiliaciones</strong>
-                          Datos de la <strong>EPS</strong>, estado de afiliación y novedades reportadas a nómina o a salud ocupacional.
-                        </li>
-                        <li>
-                          <strong>Fondo de pensiones</strong>
-                          Información del fondo, porcentajes cuando corresponda y actualización de novedades contractuales.
-                        </li>
-                      </ul>
-
-                      <h3 class="moduleDetailH3">Gráficos e información cruzada</h3>
-                      <ul class="moduleDetailList">
-                        <li>
-                          <strong>Tableros y gráficos</strong>
-                          Indicadores de headcount, rotación, ausentismo, distribución por área, antigüedad y otros KPI de gestión humana en formatos gráficos claros.
-                        </li>
-                        <li>
-                          <strong>Integración con otros módulos</strong>
-                          La suite permite <strong>relacionar la información de personas</strong> con procesos operativos (por ejemplo turnos, accesos físicos o responsabilidades en planta) según la configuración de Workbeef, manteniendo una visión única del talento y la operación.
-                        </li>
-                      </ul>
-
-                      <p class="moduleDetailFootnote">Los textos anteriores describen el alcance funcional del módulo; la implementación final puede ajustarse a políticas internas y normativa laboral vigente.</p>
-                    </div>
-                  </div>
-                </section>
-
-                <section class="moduleDetail moduleDetail--alt" id="detalle-logistica" aria-labelledby="titulo-detalle-log">
-                  <div class="moduleDetailInner">
-                    <header class="moduleDetailHeader">
-                      <span class="moduleDetailBadge">03</span>
-                      <h2 class="moduleDetailTitle" id="titulo-detalle-log">Logística</h2>
-                      <p class="moduleDetailLead">Cadena de frío, rutas y cumplimiento de entregas.</p>
-                    </header>
-                    <div class="moduleDetailBody">
-                      <p><a class="btnPrimary btnPrimary--outline" href="http://192.168.20.205:8005/" target="_blank" rel="noopener">Abrir Logística</a></p>
-                      <ul class="moduleDetailList">
-                        <li><strong>Ingreso de lenguas a inventario</strong> — Registro de lenguas y actualización de existencias para control y trazabilidad.</li>
-                        <li><strong>Generación de documentación</strong> — Emisión de soportes operativos (documentos internos, remisiones y formatos según aplique).</li>
-                      </ul>
-                    </div>
-                  </div>
-                </section>
-
-                <section class="moduleDetail moduleDetail--inv" id="detalle-inventario" aria-labelledby="titulo-detalle-inv">
-                  <div class="moduleDetailInner moduleDetailInner--wide">
-                    <header class="moduleDetailHeader">
-                      <span class="moduleDetailBadge">04</span>
-                      <h2 class="moduleDetailTitle" id="titulo-detalle-inv">Inventario</h2>
-                      <p class="moduleDetailLead">Módulo para consultar existencias, registrar movimientos de <strong>ingreso</strong> y <strong>salida</strong>, profundizar en el detalle, mantener <strong>trazabilidad</strong> y disponer de <strong>estadísticas</strong> y <strong>totales</strong> consolidados.</p>
-                    </header>
-                    <div class="moduleDetailBody">
-                      <p><a class="btnPrimary btnPrimary--outline" href="http://192.168.20.205:8501/" target="_blank" rel="noopener">Abrir Inventario</a></p>
-                      <p class="moduleDetailIntro">Desde aquí el equipo de planta y administración tiene una vista unificada del stock de Workbeef y de cada movimiento asociado.</p>
-
-                      <h3 class="moduleDetailH3">Consulta de inventario</h3>
-                      <ul class="moduleDetailList">
-                        <li>
-                          <strong>Vista general de existencias</strong>
-                          Pantallas donde se puede <strong>ver el inventario</strong> por producto, lote, ubicación (cámara, bodega, línea) y estado, con filtros por fecha, cliente interno o familia de producto.
-                        </li>
-                        <li>
-                          <strong>Ver más detalle</strong>
-                          Desde cada ítem o renglón se abre el <em>detalle ampliado</em>: historial de movimientos, documentos de soporte, temperaturas cuando aplique y enlaces a lotes o ordenes relacionadas.
-                        </li>
-                      </ul>
-
-                      <h3 class="moduleDetailH3">Ingresos y salidas</h3>
-                      <ul class="moduleDetailList">
-                        <li>
-                          <strong>Ingresos</strong>
-                          Registro de entradas a inventario (producción, compras, devoluciones, ajustes positivos) con cantidades, unidades de medida y responsable del movimiento.
-                        </li>
-                        <li>
-                          <strong>Salidas</strong>
-                          Registro de salidas (despacho a clientes, consumo interno, mermas autorizadas, ajustes negativos) con trazabilidad al documento o proceso que las origina.
-                        </li>
-                        <li>
-                          <strong>Coherencia con otros módulos</strong>
-                          Los movimientos pueden integrarse con despacho, logística y control operativo para que el stock refleje la operación real.
-                        </li>
-                      </ul>
-
-                      <h3 class="moduleDetailH3">Trazabilidad</h3>
-                      <ul class="moduleDetailList">
-                        <li>
-                          <strong>Seguimiento de lote y origen</strong>
-                          Consulta del recorrido del producto: desde ingreso hasta salida, incluyendo ubicaciones intermedias y fechas clave.
-                        </li>
-                        <li>
-                          <strong>Auditoría</strong>
-                          Registro de quién y cuándo modificó cantidades o ubicaciones, para cumplimiento interno y exigencias de calidad.
-                        </li>
-                      </ul>
-
-                      <h3 class="moduleDetailH3">Estadísticas y totales</h3>
-                      <ul class="moduleDetailList">
-                        <li>
-                          <strong>Estadísticas</strong>
-                          Gráficos y tableros de rotación, productos más movidos, comparativos por periodo, alertas de stock mínimo y análisis de desviaciones.
-                        </li>
-                        <li>
-                          <strong>Totales</strong>
-                          Consolidados por SKU, por bodega, por familia o a nivel global: existencias valorizadas o en unidades, según la configuración de Workbeef.
-                        </li>
-                      </ul>
-
-                      <p class="moduleDetailFootnote">Los reportes y totales pueden ajustarse a la política de costos y a la normativa sanitaria aplicable a producto cárnico.</p>
-                    </div>
-                  </div>
-                </section>
-
-                <section class="moduleDetail" id="detalle-locker" aria-labelledby="titulo-detalle-lock">
-                  <div class="moduleDetailInner">
-                    <header class="moduleDetailHeader">
-                      <span class="moduleDetailBadge">06</span>
-                      <h2 class="moduleDetailTitle" id="titulo-detalle-lock">Locker</h2>
-                      <p class="moduleDetailLead">Entregas controladas y retiros seguros.</p>
-                    </header>
-                    <div class="moduleDetailBody">
-                      <p><a class="btnPrimary btnPrimary--outline" href="http://192.168.20.205:5001/login" target="_blank" rel="noopener">Abrir Locker</a></p>
-                      <p class="moduleDetailIntro"><strong>Lockerbeef</strong> representa la evolución digital en la gestión de recursos físicos de la empresa.</p>
-                      <p>Se realizó la <strong>migración</strong> del antiguo control basado en <strong>hojas de cálculo</strong> hacia un <strong>aplicativo web integral</strong> que opera sobre una <strong>base de datos robusta y centralizada</strong>.</p>
-                    </div>
-                  </div>
-                </section>
-
-                <section class="moduleDetail moduleDetail--alt" id="detalle-canales" aria-labelledby="titulo-detalle-can">
-                  <div class="moduleDetailInner">
-                    <header class="moduleDetailHeader">
-                      <span class="moduleDetailBadge">07</span>
-                      <h2 class="moduleDetailTitle" id="titulo-detalle-can">Canales</h2>
-                      <p class="moduleDetailLead">Control operativo del canal: hallazgos, trazabilidad de faena, indicadores y asignación diaria de puestos.</p>
-                    </header>
-                    <div class="moduleDetailBody">
-                      <p><a class="btnPrimary btnPrimary--outline" href="http://192.168.20.205:8006/login" target="_blank" rel="noopener">Abrir Canales</a></p>
-                      <p class="moduleDetailIntro">El módulo <strong>Canales</strong> concentra el registro y seguimiento de la operación asociada al canal. Incluye:</p>
-                      <ul class="moduleDetailList">
-                        <li><strong>Registro de hallazgos</strong> — Captura y seguimiento de hallazgos con criterios de <strong>tolerancia</strong> definidos para la operación.</li>
-                        <li><strong>Historial de registros</strong> — Consulta del histórico de registros para auditoría y trazabilidad.</li>
-                        <li><strong>Animales procesados</strong> — Registro y visualización de <strong>animales procesados</strong> (faena) vinculado a la operación del canal.</li>
-                        <li><strong>Dashboards</strong> — Tableros <strong>diarios</strong> y <strong>mensuales</strong> con <strong>resumen gráfico</strong> de los indicadores clave.</li>
-                        <li><strong>Asignación de operación</strong> — Definición y seguimiento de la operación asignada en el contexto del canal.</li>
-                        <li><strong>Asignación de puestos</strong> — Distribución de <strong>puestos de trabajo</strong> que puede <strong>cambiar cada día</strong> según la planificación.</li>
-                        <li><strong>Gestión de usuarios</strong> — Administración de usuarios y permisos asociados al módulo.</li>
-                        <li><strong>Tiempo de usabilidad</strong> — Seguimiento del <strong>tiempo de uso</strong> o <strong>usabilidad</strong> de la herramienta para análisis de adopción.</li>
-                      </ul>
-                      <p class="moduleDetailFootnote">Los textos describen el alcance funcional esperado; la implementación en pantalla puede variar según la configuración de Workbeef.</p>
-                    </div>
-                  </div>
-                </section>
               </div>
             </div>
           </section>
@@ -555,22 +288,22 @@
         <p class="searchModal-live" id="searchModalLive" aria-live="polite"></p>
         <ul class="searchModal-list" id="searchModalRecentList">
           <li class="searchModal-item" data-app="control-operativo">
-            <a class="searchModal-link" href="#detalle-control-operativo" data-search="control operativo planta beneficio faena proceso">Control operativo</a>
+            <a class="searchModal-link" href="http://192.168.100.241:5001/" data-search="control operativo planta beneficio faena proceso">Control operativo</a>
           </li>
           <li class="searchModal-item" data-app="gestion-humana">
-            <a class="searchModal-link" href="#detalle-gestion-humana" data-search="gestion humana rrhh personal talento permisos nómina">Gestión humana</a>
+            <a class="searchModal-link" href="http://192.168.20.205:5000/login" data-search="gestion humana rrhh personal talento permisos nómina">Gestión humana</a>
           </li>
           <li class="searchModal-item" data-app="logistica">
-            <a class="searchModal-link" href="#detalle-logistica" data-search="logistica rutas frio transporte lenguas documentación documentos remisiones">Logística</a>
+            <a class="searchModal-link" href="http://192.168.20.205:8005/" data-search="logistica rutas frio transporte lenguas documentación documentos remisiones">Logística</a>
           </li>
           <li class="searchModal-item" data-app="inventario">
-            <a class="searchModal-link" href="#detalle-inventario" data-search="inventario stock existencias lotes bodega">Inventario</a>
+            <a class="searchModal-link" href="http://192.168.20.205:8501/" data-search="inventario stock existencias lotes bodega">Inventario</a>
           </li>
           <li class="searchModal-item" data-app="locker">
-            <a class="searchModal-link" href="#detalle-locker" data-search="locker lockerbeef casilleros retiros entregas recursos fisicos migracion hojas de calculo aplicativo web base de datos">Locker</a>
+            <a class="searchModal-link" href="http://192.168.20.205:5001/login" data-search="locker lockerbeef casilleros retiros entregas recursos fisicos migracion hojas de calculo aplicativo web base de datos">Locker</a>
           </li>
           <li class="searchModal-item" data-app="canales">
-            <a class="searchModal-link" href="#detalle-canales" data-search="canales hallazgos tolerancia historial animales procesados faena dashboard grafico puestos operacion usuarios">Canales</a>
+            <a class="searchModal-link" href="http://192.168.20.205:8006/login" data-search="canales hallazgos tolerancia historial animales procesados faena dashboard grafico puestos operacion usuarios">Canales</a>
           </li>
         </ul>
         <p class="searchModal-empty" id="searchModalEmpty" hidden>No hay resultados para esa búsqueda.</p>

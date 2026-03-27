@@ -26,8 +26,8 @@
   --canales-icon-boost: 10px;
   --tool-icon-size: 32px;
   --avatar-size: 52px;
-  /* Fondo principal (ruta relativa a este archivo css/site.css) */
-  --site-bg-image: url("../img/site/fondoSite.png");
+  /* Logo Workbeef detrás del mosaico de módulos */
+  --site-bg-image: url("../img/site/Workbeef.png");
   --surface-glass: rgba(255, 255, 255, 0.78);
   --surface-glass-strong: rgba(255, 255, 255, 0.88);
 }
@@ -507,25 +507,25 @@ body {
   margin-left: calc(50% - 50vw + 202px);
 }
 
-/* Imagen a ancho de la franja + degradados que funden con el fondo de la página */
+/* Logo Workbeef a ancho de la franja + degradados suaves en los bordes */
 .moduleMosaic::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background-color: rgba(238, 242, 236, 0.55);
+  background-color: rgba(238, 242, 236, 0.35);
   background-image:
-    linear-gradient(180deg, var(--bg) 0%, rgba(238, 242, 236, 0.35) 28%, transparent 55%),
-    linear-gradient(0deg, var(--bg) 0%, rgba(238, 242, 236, 0.25) 18%, transparent 42%),
-    linear-gradient(90deg, var(--bg) 0%, transparent 5%, transparent 95%, var(--bg) 100%),
+    linear-gradient(180deg, var(--bg) 0%, rgba(238, 242, 236, 0.12) 22%, transparent 48%),
+    linear-gradient(0deg, var(--bg) 0%, rgba(238, 242, 236, 0.1) 14%, transparent 38%),
+    linear-gradient(90deg, var(--bg) 0%, transparent 4%, transparent 96%, var(--bg) 100%),
     var(--site-bg-image);
   background-repeat: no-repeat;
-  background-position: center bottom;
-  background-size: auto, auto, auto, cover;
+  background-position: center center;
+  background-size: auto, auto, auto, contain;
 }
 
-/* Velo suave encima de la imagen para que no “corte” recto y el texto siga legible */
+/* Velo muy ligero para que las tarjetas sigan legibles sin tapar el logo */
 .moduleMosaic::after {
   content: "";
   position: absolute;
@@ -533,10 +533,10 @@ body {
   z-index: 1;
   pointer-events: none;
   background: radial-gradient(
-    120% 90% at 50% 55%,
-    rgba(255, 255, 255, 0.15) 0%,
-    rgba(238, 242, 236, 0.45) 45%,
-    rgba(238, 242, 236, 0.82) 100%
+    130% 100% at 50% 50%,
+    rgba(255, 255, 255, 0.06) 0%,
+    rgba(238, 242, 236, 0.18) 55%,
+    rgba(238, 242, 236, 0.42) 100%
   );
 }
 

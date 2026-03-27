@@ -168,12 +168,6 @@
     });
   }
 
-  function scrollToModuleDetail(appId) {
-    var el = document.getElementById("detalle-" + appId);
-    if (!el) return;
-    el.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-
   function showView(which) {
     var home = document.getElementById("viewHome");
     var settings = document.getElementById("viewSettings");
@@ -574,14 +568,15 @@
     var links = Array.prototype.slice.call(document.querySelectorAll(".searchModal-link"));
     links.forEach(function (a) {
       a.addEventListener("click", function (e) {
-        e.preventDefault();
         var href = a.getAttribute("href") || "";
-        var appId = href.replace(/^#detalle-/, "");
+        e.preventDefault();
         closeSearchModal();
         closeSettingsView();
-        if (appId) {
-          setActiveMenuByAppId(appId);
-          scrollToModuleDetail(appId);
+        var li = a.closest(".searchModal-item");
+        var appId = li && li.getAttribute("data-app");
+        if (appId) setActiveMenuByAppId(appId);
+        if (/^https?:\/\//i.test(href)) {
+          window.location.href = href;
         }
       });
     });
@@ -836,7 +831,13 @@
           window.location.href = targetUrl;
           return;
         }
-        scrollToModuleDetail(appId);
+        if (appId) {
+          var tile = document.querySelector('.moduleTile[data-app-id="' + appId + '"]');
+          var href = tile && tile.getAttribute("href");
+          if (href && /^https?:\/\//i.test(href)) {
+            window.location.href = href;
+          }
+        }
       });
     });
   }
