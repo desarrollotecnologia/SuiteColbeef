@@ -493,7 +493,7 @@ body {
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 16px;
   margin-bottom: 32px;
-  padding: 20px 16px 24px;
+  padding: 20px 16px 88px;
   border-radius: 0;
   overflow: hidden;
   /* Ancho completo del panel principal (columna derecha), no solo el bloque centrado */
@@ -521,7 +521,12 @@ body {
     linear-gradient(90deg, var(--bg) 0%, transparent 4%, transparent 96%, var(--bg) 100%),
     var(--site-bg-image);
   background-repeat: no-repeat;
-  background-position: center bottom;
+  /* Capas 1–3: degradados; capa 4: imagen más abajo (logo Workbeef en zona baja) */
+  background-position:
+    0 0,
+    0 0,
+    0 0,
+    center calc(100% + 48px);
   background-size: auto, auto, auto, cover;
 }
 
