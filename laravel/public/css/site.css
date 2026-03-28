@@ -567,13 +567,19 @@ body {
   background: var(--panel);
 }
 
-.homePanelArt picture {
+.homePanelArtMedia {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.homePanelArtMedia picture {
   display: block;
   width: 100%;
   height: 100%;
 }
 
-.homePanelArt img {
+.homePanelArtMedia img {
   display: block;
   width: 100%;
   height: 100%;
@@ -581,12 +587,42 @@ body {
   object-position: center 30%;
 }
 
+.homePanelArtOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  padding: 8px 16px;
+}
+
+.brandLetters--hero {
+  display: inline-flex;
+  align-items: baseline;
+  flex-wrap: nowrap;
+  gap: 0;
+  font-size: clamp(1.65rem, 5.2vw, 2.85rem);
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.95))
+    drop-shadow(0 0 20px rgba(255, 255, 255, 0.65))
+    drop-shadow(0 2px 14px rgba(0, 0, 0, 0.14));
+}
+
+.brandLetters--hero .brandLetter {
+  animation-duration: 0.52s;
+  animation-delay: calc(var(--i) * 0.055s);
+}
+
 @media (min-width: 1100px) {
   .homePanelArt {
     height: clamp(180px, 26vh, 340px);
   }
 
-  .homePanelArt img {
+  .homePanelArtMedia img {
     object-position: center 28%;
   }
 }
@@ -1712,8 +1748,12 @@ body[data-suite-theme="oscuro"] .toggleUi {
     max-height: min(30vh, 280px);
   }
 
-  .homePanelArt img {
+  .homePanelArtMedia img {
     object-position: center 26%;
+  }
+
+  .brandLetters--hero {
+    font-size: clamp(1.4rem, 6vw, 2.1rem);
   }
 
   .sidebar {

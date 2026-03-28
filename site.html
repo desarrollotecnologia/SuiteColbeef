@@ -143,27 +143,34 @@
 
         <div id="mainContent" class="mainContent">
           <section id="viewHome" class="mainView mainView--active" aria-label="Panel principal">
-            <div class="homePanelArt" aria-hidden="true">
-              <picture>
-                <source
-                  type="image/webp"
-                  srcset="
-                    img/site/fondoSite-900.webp 900w,
-                    img/site/fondoSite-1200.webp 1200w,
-                    img/site/fondoSite-1600.webp 1600w
-                  "
-                  sizes="(max-width: 900px) 100vw, (max-width: 1200px) calc(100vw - 120px), min(1600px, calc(100vw - 120px))"
-                />
-                <source type="image/jpeg" srcset="img/site/fondoSite-hero.jpg" />
-                <img
-                  src="img/site/fondoSite.png"
-                  alt=""
-                  width="1920"
-                  height="1080"
-                  decoding="async"
-                  fetchpriority="high"
-                />
-              </picture>
+            <div class="homePanelArt">
+              <div class="homePanelArtMedia" aria-hidden="true">
+                <picture>
+                  <source
+                    type="image/webp"
+                    srcset="
+                      img/site/fondoSite-900.webp 900w,
+                      img/site/fondoSite-1200.webp 1200w,
+                      img/site/fondoSite-1600.webp 1600w
+                    "
+                    sizes="(max-width: 900px) 100vw, (max-width: 1200px) calc(100vw - 120px), min(1600px, calc(100vw - 120px))"
+                  />
+                  <source type="image/jpeg" srcset="img/site/fondoSite-hero.jpg" />
+                  <img
+                    src="img/site/fondoSite.png"
+                    alt=""
+                    width="1920"
+                    height="1080"
+                    decoding="async"
+                    fetchpriority="high"
+                  />
+                </picture>
+              </div>
+              <div class="homePanelArtOverlay" aria-label="Workbeef">
+                <span class="brandLetters brandLetters--hero" aria-hidden="true">
+                  <span class="brandLetter brandLetter--work" style="--i: 0">W</span><span class="brandLetter brandLetter--work" style="--i: 1">o</span><span class="brandLetter brandLetter--work" style="--i: 2">r</span><span class="brandLetter brandLetter--work" style="--i: 3">k</span><span class="brandLetter brandLetter--beef" style="--i: 4">b</span><span class="brandLetter brandLetter--beef" style="--i: 5">e</span><span class="brandLetter brandLetter--beef" style="--i: 6">e</span><span class="brandLetter brandLetter--beef" style="--i: 7">f</span>
+                </span>
+              </div>
             </div>
             <div class="dashboard">
               <header class="dashboardIntro">
