@@ -4,7 +4,8 @@
   "description": "Servidor local: sirve Workbeef y el proxy /api/chat (clave Gemini solo en .env).",
   "scripts": {
     "start": "node server.js",
-    "optimize:hero": "node scripts/optimize-hero-image.js"
+    "optimize:hero": "node scripts/optimize-hero-image.js",
+    "optimize:menu": "node scripts/optimize-menu-icons.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
