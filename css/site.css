@@ -590,17 +590,41 @@ body {
     background 200ms ease;
   overflow: hidden;
   scroll-margin-top: 24px;
-  transform: translateY(8px);
   opacity: 0;
-  animation: fadeUpIn 520ms ease forwards;
+  transform: translateY(28px) scale(0.94);
+  animation: moduleMosaicTileIn 0.72s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-.moduleTile:nth-child(1) { animation-delay: 40ms; }
-.moduleTile:nth-child(2) { animation-delay: 80ms; }
-.moduleTile:nth-child(3) { animation-delay: 120ms; }
-.moduleTile:nth-child(4) { animation-delay: 160ms; }
-.moduleTile:nth-child(5) { animation-delay: 200ms; }
-.moduleTile:nth-child(6) { animation-delay: 240ms; }
+.moduleTile:nth-child(1) {
+  animation-delay: 0.08s;
+}
+.moduleTile:nth-child(2) {
+  animation-delay: 0.18s;
+}
+.moduleTile:nth-child(3) {
+  animation-delay: 0.28s;
+}
+.moduleTile:nth-child(4) {
+  animation-delay: 0.38s;
+}
+.moduleTile:nth-child(5) {
+  animation-delay: 0.48s;
+}
+.moduleTile:nth-child(6) {
+  animation-delay: 0.58s;
+}
+.moduleTile:nth-child(7) {
+  animation-delay: 0.68s;
+}
+.moduleTile:nth-child(8) {
+  animation-delay: 0.78s;
+}
+.moduleTile:nth-child(9) {
+  animation-delay: 0.88s;
+}
+.moduleTile:nth-child(10) {
+  animation-delay: 0.98s;
+}
 
 .moduleTile::before {
   content: "";
@@ -710,6 +734,18 @@ body {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Módulos: entrada escalonada (suben y “salen” al estado final) */
+@keyframes moduleMosaicTileIn {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
 
