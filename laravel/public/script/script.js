@@ -8,27 +8,30 @@
   var screenEl = document.querySelector(".screen");
   var nextUrl = screenEl ? screenEl.getAttribute("data-next-url") || "" : "";
 
-  // --- Lógica de la Chuleta Animada ---
-  var steakEl = document.querySelector(".steak");
-  var steakFrames = [
-    "img/pantallaCarga/chuleta.png",
-    "img/pantallaCarga/chuleta mordida1.png",
-    "img/pantallaCarga/chuleta mordida2.png"
-  ];
-  var currentFrame = 0;
+  var startTime = Date.now();
+  /** Mínimo en pantalla para ver letras + sensación de carga (ms). */
+  var MIN_MS = 650;
+  /** Máximo antes de forzar salida (ms). */
+  var MAX_MS = 2200;
+  /** Duración visual de la barra (ms). */
+  var PROGRESS_MS = 850;
 
-  function animateSteak() {
-    currentFrame = (currentFrame + 1) % steakFrames.length;
-    if (steakEl) {
-      steakEl.src = steakFrames[currentFrame];
+  var navigated = false;
+  var progressRaf = null;
+
+  function go() {
+    if (navigated) return;
+    navigated = true;
+    if (progressRaf) {
+      cancelAnimationFrame(progressRaf);
+      progressRaf = null;
+    }
+    if (fillEl) fillEl.style.transform = "scaleX(1)";
+    if (statusEl) statusEl.textContent = "Listo";
+    if (nextUrl) {
+      window.location.href = nextUrl;
     }
   }
-  // Cambia el frame cada 500ms (ajusta el tiempo si lo quieres más rápido)
-  setInterval(animateSteak, 500);
-
-  // --- Lógica de Progreso ---
-  var DURATION_MS = 3400;
-  var START = null;
 
   function easeOutCubic(t) {
     return 1 - Math.pow(1 - t, 3);
@@ -44,28 +47,39 @@
     }
   }
 
-  function tick(ts) {
-    if (!START) START = ts;
-    var elapsed = ts - START;
-    var t = elapsed / DURATION_MS;
-    var p = easeOutCubic(Math.min(1, t)) * 100;
-    setProgress(p);
-
+  function tickProgress(ts) {
+    if (navigated) return;
+    if (!tickProgress._start) tickProgress._start = ts;
+    var t = Math.min(1, (ts - tickProgress._start) / PROGRESS_MS);
+    setProgress(easeOutCubic(t) * 100);
     if (t < 1) {
-      requestAnimationFrame(tick);
+      progressRaf = requestAnimationFrame(tickProgress);
     } else {
-      if (statusEl) statusEl.textContent = "Listo";
       setProgress(100);
-      if (nextUrl) {
-        window.location.href = nextUrl;
-      }
     }
   }
 
+  function scheduleNavigation() {
+    var elapsed = Date.now() - startTime;
+    var wait = Math.max(0, MIN_MS - elapsed);
+    setTimeout(go, wait);
+  }
+
+  window.addEventListener(
+    "load",
+    function () {
+      scheduleNavigation();
+    },
+    { once: true }
+  );
+
+  setTimeout(go, MAX_MS);
+
   function init() {
+    tickProgress._start = null;
     if (fillEl) fillEl.style.transform = "scaleX(0)";
     setProgress(0);
-    requestAnimationFrame(tick);
+    progressRaf = requestAnimationFrame(tickProgress);
   }
 
   if (document.readyState === "loading") {

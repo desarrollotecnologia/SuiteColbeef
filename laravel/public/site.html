@@ -3,7 +3,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Suite Workbeef: acceso a módulos operativos, talento, logística e inventario." />
     <title>Workbeef</title>
+    <link rel="preload" href="./css/site.css" as="style" />
+    <link rel="preload" href="./img/site/fondoSite-900.webp" as="image" type="image/webp" media="(max-width: 900px)" />
+    <link rel="preload" href="./img/site/fondoSite-1200.webp" as="image" type="image/webp" media="(min-width: 901px) and (max-width: 1199px)" />
+    <link rel="preload" href="./img/site/fondoSite-1600.webp" as="image" type="image/webp" media="(min-width: 1200px)" />
     <link rel="stylesheet" href="./css/site.css" />
   </head>
   <body>
@@ -25,27 +30,27 @@
 
         <nav class="menu" id="appsMenu">
           <a class="menuItem active" href="http://192.168.100.241:5001/" data-app-id="control-operativo" data-app-name="Control operativo" data-target-url="http://192.168.100.241:5001/">
-            <img class="menuIcon" src="img/site/controlOperativo.svg" alt="" />
+            <img class="menuIcon" src="img/site/controlOperativo.svg" alt="" loading="lazy" decoding="async" />
             <span>Control operativo</span>
           </a>
           <a class="menuItem" href="http://192.168.20.205:5000/login" data-app-id="gestion-humana" data-app-name="Gestion Humana" data-target-url="http://192.168.20.205:5000/login">
-            <img class="menuIcon" src="img/site/gestionHumana.png" alt="" />
+            <img class="menuIcon" src="img/site/gestionHumana.png" alt="" loading="lazy" decoding="async" />
             <span>Gestion Humana</span>
           </a>
           <a class="menuItem" href="http://192.168.20.205:8005/" data-app-id="logistica" data-app-name="Logistica" data-target-url="http://192.168.20.205:8005/">
-            <img class="menuIcon" src="img/site/logistica.png" alt="" />
+            <img class="menuIcon" src="img/site/logistica.png" alt="" loading="lazy" decoding="async" />
             <span>Logistica</span>
           </a>
           <a class="menuItem" href="http://192.168.20.205:8501/" data-app-id="inventario" data-app-name="Inventario" data-target-url="http://192.168.20.205:8501/">
-            <img class="menuIcon" src="img/site/inventario.png" alt="" />
+            <img class="menuIcon" src="img/site/inventario.png" alt="" loading="lazy" decoding="async" />
             <span>Inventario</span>
           </a>
           <a class="menuItem" href="http://192.168.20.205:5001/login" data-app-id="locker" data-app-name="Locker" data-target-url="http://192.168.20.205:5001/login">
-            <img class="menuIcon" src="img/site/locker.png" alt="" />
+            <img class="menuIcon" src="img/site/locker.png" alt="" loading="lazy" decoding="async" />
             <span>Locker</span>
           </a>
           <a class="menuItem" href="http://192.168.20.205:8006/login" data-app-id="canales" data-app-name="Canales" data-target-url="http://192.168.20.205:8006/login">
-            <img class="menuIcon" src="img/site/liberacionCanales.png" alt="" />
+            <img class="menuIcon" src="img/site/liberacionCanales.png" alt="" loading="lazy" decoding="async" />
             <span>Canales</span>
           </a>
         </nav>
@@ -91,7 +96,26 @@
         <div id="mainContent" class="mainContent">
           <section id="viewHome" class="mainView mainView--active" aria-label="Panel principal">
             <div class="homePanelArt" aria-hidden="true">
-              <img src="img/site/fondoSite.png" alt="" width="1920" height="1080" decoding="async" fetchpriority="high" />
+              <picture>
+                <source
+                  type="image/webp"
+                  srcset="
+                    img/site/fondoSite-900.webp 900w,
+                    img/site/fondoSite-1200.webp 1200w,
+                    img/site/fondoSite-1600.webp 1600w
+                  "
+                  sizes="(max-width: 900px) 100vw, (max-width: 1200px) calc(100vw - 120px), min(1600px, calc(100vw - 120px))"
+                />
+                <source type="image/jpeg" srcset="img/site/fondoSite-hero.jpg" />
+                <img
+                  src="img/site/fondoSite.png"
+                  alt=""
+                  width="1920"
+                  height="1080"
+                  decoding="async"
+                  fetchpriority="high"
+                />
+              </picture>
             </div>
             <div class="dashboard">
               <header class="dashboardIntro">
@@ -439,6 +463,8 @@
             src="./img/site/Graident Ai Robot.png"
             alt=""
             aria-hidden="true"
+            loading="lazy"
+            decoding="async"
           />
         </span>
       </button>

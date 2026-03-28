@@ -3,13 +3,18 @@
   "private": true,
   "description": "Servidor local: sirve Workbeef y el proxy /api/chat (clave Gemini solo en .env).",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "optimize:hero": "node scripts/optimize-hero-image.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "compression": "^1.8.1",
     "cookie-parser": "^1.4.7",
     "dotenv": "^16.4.5",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.5"
   }
 }

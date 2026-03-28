@@ -6,6 +6,7 @@ require("dotenv").config();
 
 var path = require("path");
 var express = require("express");
+var compression = require("compression");
 var bcrypt = require("bcryptjs");
 var jwt = require("jsonwebtoken");
 var cookieParser = require("cookie-parser");
@@ -39,6 +40,7 @@ var loginAttemptsByIp = new Map();
 var MAX_ATTEMPTS = 5;
 var ATTEMPT_WINDOW_MS = 15 * 60 * 1000;
 
+app.use(compression());
 app.use(express.json({ limit: "1mb" }));
 app.use(cookieParser());
 

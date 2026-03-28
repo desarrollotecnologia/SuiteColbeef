@@ -464,6 +464,11 @@ body {
   border-radius: 0 0 18px 18px;
 }
 
+.homePanelArt picture {
+  display: block;
+  width: 100%;
+}
+
 .homePanelArt img {
   display: block;
   width: 100%;

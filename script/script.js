@@ -10,9 +10,9 @@
 
   var startTime = Date.now();
   /** Mínimo en pantalla para ver letras + sensación de carga (ms). */
-  var MIN_MS = 900;
+  var MIN_MS = 650;
   /** Máximo antes de forzar salida (ms). */
-  var MAX_MS = 2400;
+  var MAX_MS = 2200;
   /** Duración visual de la barra (ms). */
   var PROGRESS_MS = 850;
 
