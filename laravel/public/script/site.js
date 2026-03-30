@@ -588,6 +588,11 @@
     if (!panel) return;
     panel.hidden = false;
     if (fab) fab.setAttribute("aria-expanded", "true");
+    var wrap = document.getElementById("colbeefChatMessages");
+    if (wrap && !wrap.dataset.welcomeShown) {
+      appendColbeefChatMsg("bot", COLBEEF_CHAT_WELCOME);
+      wrap.dataset.welcomeShown = "true";
+    }
     var inp = document.getElementById("colbeefChatInput");
     if (inp) setTimeout(function () { inp.focus(); }, 0);
   }
@@ -606,6 +611,7 @@
   }
 
   var COLBEEF_CHAT_BOT_AVATAR = "./img/site/Graident Ai Robot.png";
+  var COLBEEF_CHAT_WELCOME = "Hola soy Beef";
 
   function colbeefChatAppendBotAvatar(container) {
     var img = document.createElement("img");
