@@ -20,7 +20,7 @@
       autenticacionDosPasosActiva: false
     },
     preferencias: {
-      paginaInicioPorDefecto: "inventario",
+      paginaInicioPorDefecto: "control-operativo",
       tema: "claro",
       idioma: "es-CO",
       zonaHoraria: "America/Bogota"
@@ -95,7 +95,7 @@
     var elTema = document.getElementById("prefTema");
     var elIdi = document.getElementById("prefIdioma");
     var elZ = document.getElementById("prefZona");
-    if (elPag) elPag.value = p.paginaInicioPorDefecto || "inventario";
+    if (elPag) elPag.value = p.paginaInicioPorDefecto || "control-operativo";
     if (elTema) elTema.value = p.tema === "oscuro" ? "oscuro" : "claro";
     if (elIdi) elIdi.value = p.idioma || "es-CO";
     if (elZ) elZ.value = p.zonaHoraria || "America/Bogota";
