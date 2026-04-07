@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Suite Workbeef: acceso a módulos operativos, talento, logística e inventario." />
+    <meta name="description" content="Suite Workbeef: acceso a módulos operativos, talento y logística." />
     <title>Workbeef</title>
     <link rel="preload" href="./css/site.css" as="style" />
     <link rel="preload" href="./img/site/fondoSite-900.webp" as="image" type="image/webp" media="(max-width: 900px)" />
@@ -64,42 +64,6 @@
               decoding="async"
             />
             <span>Logistica</span>
-          </a>
-          <a class="menuItem" href="http://192.168.20.205:8501/" data-app-id="inventario" data-app-name="Inventario" data-target-url="http://192.168.20.205:8501/">
-            <img
-              class="menuIcon"
-              src="img/site/menu/inventario.webp"
-              alt=""
-              width="96"
-              height="96"
-              loading="eager"
-              decoding="async"
-            />
-            <span>Inventario</span>
-          </a>
-          <a class="menuItem" href="http://192.168.20.205:5001/login" data-app-id="locker" data-app-name="Locker" data-target-url="http://192.168.20.205:5001/login">
-            <img
-              class="menuIcon"
-              src="img/site/menu/locker.webp"
-              alt=""
-              width="96"
-              height="96"
-              loading="eager"
-              decoding="async"
-            />
-            <span>Locker</span>
-          </a>
-          <a class="menuItem" href="http://192.168.20.205:8006/login" data-app-id="canales" data-app-name="Canales" data-target-url="http://192.168.20.205:8006/login">
-            <img
-              class="menuIcon"
-              src="img/site/menu/liberacionCanales.webp"
-              alt=""
-              width="96"
-              height="96"
-              loading="eager"
-              decoding="async"
-            />
-            <span>Canales</span>
           </a>
         </nav>
 
@@ -242,12 +206,9 @@
                       <label class="field">
                         <span class="fieldLabel">Página de inicio por defecto</span>
                         <select class="fieldControl" id="prefPaginaInicio" name="paginaInicio">
-                          <option value="control-operativo">Control operativo</option>
+                          <option value="control-operativo" selected>Control operativo</option>
                           <option value="gestion-humana">Gestión Humana</option>
                           <option value="logistica">Logística</option>
-                          <option value="inventario" selected>Inventario</option>
-                          <option value="locker">Locker</option>
-                          <option value="canales">Canales</option>
                         </select>
                       </label>
                       <label class="field">
@@ -357,15 +318,6 @@
           </li>
           <li class="searchModal-item" data-app="logistica">
             <a class="searchModal-link" href="http://192.168.20.205:8005/" data-search="logistica rutas frio transporte lenguas documentación documentos remisiones">Logística</a>
-          </li>
-          <li class="searchModal-item" data-app="inventario">
-            <a class="searchModal-link" href="http://192.168.20.205:8501/" data-search="inventario stock existencias lotes bodega">Inventario</a>
-          </li>
-          <li class="searchModal-item" data-app="locker">
-            <a class="searchModal-link" href="http://192.168.20.205:5001/login" data-search="locker lockerbeef casilleros retiros entregas recursos fisicos migracion hojas de calculo aplicativo web base de datos">Locker</a>
-          </li>
-          <li class="searchModal-item" data-app="canales">
-            <a class="searchModal-link" href="http://192.168.20.205:8006/login" data-search="canales hallazgos tolerancia historial animales procesados faena dashboard grafico puestos operacion usuarios">Canales</a>
           </li>
         </ul>
         <p class="searchModal-empty" id="searchModalEmpty" hidden>No hay resultados para esa búsqueda.</p>
