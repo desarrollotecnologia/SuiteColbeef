@@ -166,8 +166,6 @@
     links.forEach(function (x) {
       x.classList.toggle("active", x.getAttribute("data-app-id") === appId);
     });
-    var pb = document.querySelector(".menuPowerBi");
-    if (pb) pb.classList.toggle("active", appId === "power-bi");
   }
 
   function showView(which) {
@@ -850,7 +848,7 @@
   }
 
   function initPowerBiNav() {
-    var els = document.querySelectorAll(".menuPowerBiChoice, .moduleTile--powerBi .moduleTileBtn");
+    var els = document.querySelectorAll(".moduleTile--powerBi .moduleTileBtn");
     els.forEach(function (el) {
       el.addEventListener("click", function () {
         closeSettingsView();
@@ -870,9 +868,18 @@
         closeSettingsView();
 
         var appId = a.getAttribute("data-app-id") || "";
-        var targetUrl = a.getAttribute("data-target-url") || "";
-        if (targetUrl && targetUrl !== "#") {
+        var targetUrl = a.getAttribute("data-target-url");
+        if (targetUrl && String(targetUrl).trim() !== "" && targetUrl !== "#") {
           window.location.href = targetUrl;
+          return;
+        }
+        if (appId === "power-bi") {
+          var tilePb = document.querySelector(".moduleTile--powerBi");
+          if (tilePb && tilePb.scrollIntoView) {
+            window.requestAnimationFrame(function () {
+              tilePb.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            });
+          }
           return;
         }
         if (appId) {
