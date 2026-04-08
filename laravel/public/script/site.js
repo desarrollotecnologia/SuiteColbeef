@@ -166,6 +166,8 @@
     links.forEach(function (x) {
       x.classList.toggle("active", x.getAttribute("data-app-id") === appId);
     });
+    var pb = document.querySelector(".menuPowerBi");
+    if (pb) pb.classList.toggle("active", appId === "power-bi");
   }
 
   function showView(which) {
@@ -481,11 +483,20 @@
     var items = list.querySelectorAll(".searchModal-item");
     var visible = 0;
     items.forEach(function (li) {
-      var a = li.querySelector("a.searchModal-link");
-      if (!a) return;
-      var label = normalizeSearchText(a.textContent);
-      var extra = normalizeSearchText(a.getAttribute("data-search") || "");
-      var match = !q || label.indexOf(q) !== -1 || extra.indexOf(q) !== -1;
+      var anchors = li.querySelectorAll("a.searchModal-link");
+      var heading = li.querySelector(".searchModal-powerBiHeading");
+      var headingText = heading ? normalizeSearchText(heading.textContent) : "";
+      if (!anchors.length) return;
+      var match = !q;
+      if (q) {
+        match = false;
+        if (headingText && headingText.indexOf(q) !== -1) match = true;
+        anchors.forEach(function (a) {
+          var label = normalizeSearchText(a.textContent);
+          var extra = normalizeSearchText(a.getAttribute("data-search") || "");
+          if (label.indexOf(q) !== -1 || extra.indexOf(q) !== -1) match = true;
+        });
+      }
       li.classList.toggle("is-search-hidden", !match);
       if (match) visible++;
     });
@@ -838,6 +849,16 @@
     }
   }
 
+  function initPowerBiNav() {
+    var els = document.querySelectorAll(".menuPowerBiChoice, .moduleTile--powerBi .moduleTileBtn");
+    els.forEach(function (el) {
+      el.addEventListener("click", function () {
+        closeSettingsView();
+        setActiveMenuByAppId("power-bi");
+      });
+    });
+  }
+
   function initMenuTracking() {
     var links = Array.prototype.slice.call(document.querySelectorAll(".menuItem"));
     links.forEach(function (a) {
@@ -919,6 +940,7 @@
     applySettingsToUI(loadSettings());
     initSidebarHover();
     initMenuTracking();
+    initPowerBiNav();
     initDashboardMosaic();
     initAdminAccessModal();
     initSettingsOpen();

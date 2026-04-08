@@ -335,6 +335,116 @@ body {
   background: var(--row-active);
 }
 
+.menuPowerBi {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 8px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition: background 120ms ease;
+}
+
+.menuPowerBi.active {
+  background: var(--row-active);
+}
+
+.menuPowerBiRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.menuPowerBiBody {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  flex: 1;
+}
+
+.menuPowerBiLabel {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+.menuPowerBiChoices {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.menuPowerBiChoice {
+  font-size: 12.5px;
+  font-weight: 650;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(8, 77, 38, 0.35);
+  background: rgba(8, 77, 38, 0.06);
+  color: var(--green);
+  text-decoration: none;
+  text-align: center;
+  transition: background 120ms ease, border-color 120ms ease;
+}
+
+.menuPowerBiChoice:hover {
+  background: var(--row-hover);
+  border-color: rgba(8, 77, 38, 0.5);
+}
+
+.suiteLayout:not(.sidebar-open) .menuPowerBi {
+  padding: 8px 4px;
+}
+
+.suiteLayout:not(.sidebar-open) .menuPowerBi:hover {
+  background: var(--row-hover);
+}
+
+.suiteLayout:not(.sidebar-open) .menuPowerBi.active {
+  background: var(--row-active);
+}
+
+.suiteLayout:not(.sidebar-open) .menuPowerBiRow {
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.suiteLayout:not(.sidebar-open) .menuPowerBiLabel {
+  display: none;
+}
+
+.suiteLayout:not(.sidebar-open) .menuPowerBiBody {
+  width: 100%;
+  align-items: stretch;
+}
+
+.suiteLayout:not(.sidebar-open) .menuPowerBiChoices {
+  gap: 3px;
+}
+
+.suiteLayout:not(.sidebar-open) .menuPowerBiChoice {
+  font-size: 10px;
+  padding: 4px 2px;
+  line-height: 1.2;
+}
+
+#appsMenu.menu > .menuPowerBi {
+  opacity: 0;
+  transform: translateX(-18px);
+  animation: sidebarMenuRowIn 0.58s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: 0.3s;
+}
+
+#appsMenu.menu > .menuPowerBi .menuIcon {
+  opacity: 0;
+  transform: scale(0.78);
+  animation: sidebarMenuIconSim 0.48s cubic-bezier(0.34, 1.2, 0.64, 1) forwards;
+  animation-delay: 0.36s;
+}
+
 /* Barra lateral: filas del menú “entran” en cascada; icono con mini pop (simula aparición) */
 #appsMenu.menu > .menuItem {
   opacity: 0;
@@ -845,6 +955,120 @@ body {
   color: var(--muted);
 }
 
+.moduleTile--powerBi {
+  cursor: default;
+}
+
+.moduleTile--powerBi .moduleTileDesc {
+  margin-bottom: 0;
+}
+
+.moduleTileHoverHint {
+  margin: 10px 0 0;
+  max-height: 4em;
+  font-size: 12.5px;
+  line-height: 1.45;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  color: rgba(8, 77, 38, 0.82);
+  transition:
+    opacity 0.24s ease,
+    margin 0.24s ease,
+    max-height 0.32s ease;
+}
+
+.moduleTile--powerBi .moduleTileActions {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0;
+  pointer-events: none;
+  transition:
+    max-height 0.4s cubic-bezier(0.33, 1, 0.35, 1),
+    opacity 0.28s ease,
+    padding 0.28s ease,
+    margin 0.28s ease;
+}
+
+.moduleTile--powerBi:hover .moduleTileActions,
+.moduleTile--powerBi:focus-within .moduleTileActions {
+  max-height: 260px;
+  opacity: 1;
+  pointer-events: auto;
+  margin-top: auto !important;
+  padding-top: 10px !important;
+  padding-bottom: 2px;
+}
+
+.moduleTile--powerBi:hover .moduleTileHoverHint,
+.moduleTile--powerBi:focus-within .moduleTileHoverHint {
+  opacity: 0;
+  max-height: 0;
+  margin: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+@media (hover: none) {
+  .moduleTile--powerBi .moduleTileActions {
+    max-height: none !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    margin-top: auto !important;
+    padding-top: 10px !important;
+    padding-bottom: 2px;
+  }
+
+  .moduleTile--powerBi .moduleTileHoverHint {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .moduleTile--powerBi .moduleTileActions,
+  .moduleTileHoverHint {
+    transition: none;
+  }
+}
+
+.moduleTileActions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  margin-top: auto;
+  padding-top: 4px;
+}
+
+.moduleTileBtn {
+  display: block;
+  width: 100%;
+  font-size: 13px;
+  font-weight: 750;
+  letter-spacing: -0.01em;
+  text-align: center;
+  text-decoration: none;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(8, 77, 38, 0.4);
+  background: rgba(8, 77, 38, 0.08);
+  color: var(--green);
+  transition: background 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.moduleTileBtn:hover {
+  background: rgba(8, 77, 38, 0.14);
+  border-color: rgba(8, 77, 38, 0.55);
+  box-shadow: 0 4px 14px rgba(8, 77, 38, 0.12);
+}
+
+.moduleTileBtn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(8, 77, 38, 0.25);
+}
+
 .dashboardScrollHint {
   display: flex;
   flex-direction: column;
@@ -1177,6 +1401,21 @@ body[data-suite-theme="oscuro"] .moduleTile:hover .moduleTileDesc {
 body[data-suite-theme="oscuro"] .moduleTile:hover .moduleTileIcon {
   color: #7fd398;
   filter: drop-shadow(0 2px 10px rgba(8, 77, 38, 0.45));
+}
+
+body[data-suite-theme="oscuro"] .moduleTileBtn {
+  border-color: rgba(107, 189, 136, 0.45);
+  background: rgba(8, 77, 38, 0.25);
+  color: var(--green-on-surface);
+}
+
+body[data-suite-theme="oscuro"] .moduleTileBtn:hover {
+  background: rgba(8, 77, 38, 0.38);
+  border-color: rgba(107, 189, 136, 0.6);
+}
+
+body[data-suite-theme="oscuro"] .moduleTileHoverHint {
+  color: var(--green-on-surface-muted);
 }
 
 body[data-suite-theme="oscuro"] .homePanelArt {
@@ -1551,6 +1790,21 @@ body[data-suite-theme="oscuro"] {
 
 body[data-suite-theme="oscuro"] .sidebar {
   box-shadow: 6px 0 32px rgba(0, 0, 0, 0.5);
+}
+
+body[data-suite-theme="oscuro"] .menuPowerBiLabel {
+  color: var(--green-on-surface);
+}
+
+body[data-suite-theme="oscuro"] .menuPowerBiChoice {
+  border-color: rgba(107, 189, 136, 0.4);
+  background: rgba(8, 77, 38, 0.35);
+  color: var(--green-on-surface);
+}
+
+body[data-suite-theme="oscuro"] .menuPowerBiChoice:hover {
+  background: var(--row-hover);
+  border-color: rgba(107, 189, 136, 0.55);
 }
 
 body[data-suite-theme="oscuro"] .settingsCard {
@@ -2136,6 +2390,39 @@ body[data-suite-theme="oscuro"] .feedbackModal-dialog {
 
 .searchModal-link:hover {
   background: var(--row-hover);
+}
+
+.searchModal-powerBiBlock {
+  padding: 12px 14px;
+}
+
+.searchModal-powerBiHeading {
+  display: block;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.searchModal-powerBiActions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.searchModal-item--powerBi .searchModal-link {
+  border-radius: 8px;
+  border: 1px solid rgba(8, 77, 38, 0.28);
+  background: rgba(8, 77, 38, 0.05);
+  color: var(--green);
+  font-weight: 700;
+}
+
+.searchModal-item--powerBi .searchModal-link:hover {
+  background: var(--row-hover);
+  border-color: rgba(8, 77, 38, 0.4);
 }
 
 .searchModal-hint {
