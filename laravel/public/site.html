@@ -65,19 +65,27 @@
             />
             <span>Logistica</span>
           </a>
-          <a
-            class="menuItem"
-            href="https://app.powerbi.com/view?r=eyJrIjoiOTVmN2UwN2QtNDMyYy00NjZlLTlmMWItYzQyNzNmMTFjYTY1IiwidCI6ImRkNGU4NmViLTcyMGEtNGQ4MC1iNjE2LTliOWNmOTU1ODZmNCJ9"
-            data-app-id="power-bi"
-            data-app-name="Power BI"
-            data-target-url="https://app.powerbi.com/view?r=eyJrIjoiOTVmN2UwN2QtNDMyYy00NjZlLTlmMWItYzQyNzNmMTFjYTY1IiwidCI6ImRkNGU4NmViLTcyMGEtNGQ4MC1iNjE2LTliOWNmOTU1ODZmNCJ9"
-          >
-            <svg class="menuIcon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <rect x="8" y="10" width="32" height="28" rx="3" stroke="currentColor" stroke-width="2" />
-              <path d="M14 34V22M22 34V16M30 34V26" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-            </svg>
-            <span>Power BI</span>
-          </a>
+          <div class="menuPowerBi" data-app-id="power-bi" role="group" aria-label="Power BI, elige informe">
+            <div class="menuPowerBiRow">
+              <svg class="menuIcon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="8" y="10" width="32" height="28" rx="3" stroke="currentColor" stroke-width="2" />
+                <path d="M14 34V22M22 34V16M30 34V26" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              </svg>
+              <div class="menuPowerBiBody">
+                <span class="menuPowerBiLabel">Power BI</span>
+                <div class="menuPowerBiChoices">
+                  <a
+                    class="menuPowerBiChoice"
+                    href="https://app.powerbi.com/view?r=eyJrIjoiOTVmN2UwN2QtNDMyYy00NjZlLTlmMWItYzQyNzNmMTFjYTY1IiwidCI6ImRkNGU4NmViLTcyMGEtNGQ4MC1iNjE2LTliOWNmOTU1ODZmNCJ9"
+                    >Datos y cifras Colbeef</a>
+                  <a
+                    class="menuPowerBiChoice"
+                    href="https://app.powerbi.com/view?r=eyJrIjoiZmViY2FjN2MtZDk2Yy00YWEwLTg2YjQtZjIxZWRlMjMzYzY2IiwidCI6ImRkNGU4NmViLTcyMGEtNGQ4MC1iNjE2LTliOWNmOTU1ODZmNCJ9"
+                    >Control PQRS</a>
+                </div>
+              </div>
+            </div>
+          </div>
         </nav>
 
         <div class="menuDivider" aria-hidden="true"></div>
@@ -182,11 +190,13 @@
                   <span class="moduleTileName">Logística</span>
                   <span class="moduleTileDesc">Rutas, despachos, trazabilidad y movimiento de producto en frío.</span>
                 </a>
-                <a
-                  class="moduleTile"
-                  href="https://app.powerbi.com/view?r=eyJrIjoiOTVmN2UwN2QtNDMyYy00NjZlLTlmMWItYzQyNzNmMTFjYTY1IiwidCI6ImRkNGU4NmViLTcyMGEtNGQ4MC1iNjE2LTliOWNmOTU1ODZmNCJ9"
+                <div
+                  class="moduleTile moduleTile--powerBi"
                   data-app-id="power-bi"
                   data-app-name="Power BI"
+                  role="group"
+                  aria-label="Power BI: pasa el cursor o usa tab para ver Datos y cifras Colbeef y Control PQRS"
+                  tabindex="0"
                 >
                   <span class="moduleTileIcon" aria-hidden="true">
                     <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -195,8 +205,19 @@
                     </svg>
                   </span>
                   <span class="moduleTileName">Power BI</span>
-                  <span class="moduleTileDesc">Reportes y tableros de Microsoft Power BI en vista web (solo lectura).</span>
-                </a>
+                  <span class="moduleTileDesc">Informes en Microsoft Power BI (vista web, solo lectura).</span>
+                  <p class="moduleTileHoverHint">Pasa el cursor por esta tarjeta para ver los informes.</p>
+                  <div class="moduleTileActions">
+                    <a
+                      class="moduleTileBtn"
+                      href="https://app.powerbi.com/view?r=eyJrIjoiOTVmN2UwN2QtNDMyYy00NjZlLTlmMWItYzQyNzNmMTFjYTY1IiwidCI6ImRkNGU4NmViLTcyMGEtNGQ4MC1iNjE2LTliOWNmOTU1ODZmNCJ9"
+                      >Datos y cifras Colbeef</a>
+                    <a
+                      class="moduleTileBtn"
+                      href="https://app.powerbi.com/view?r=eyJrIjoiZmViY2FjN2MtZDk2Yy00YWEwLTg2YjQtZjIxZWRlMjMzYzY2IiwidCI6ImRkNGU4NmViLTcyMGEtNGQ4MC1iNjE2LTliOWNmOTU1ODZmNCJ9"
+                      >Control PQRS</a>
+                  </div>
+                </div>
               </div>
             </div>
           </section>
@@ -348,12 +369,22 @@
           <li class="searchModal-item" data-app="logistica">
             <a class="searchModal-link" href="http://192.168.20.205:8005/" data-search="logistica rutas frio transporte lenguas documentación documentos remisiones">Logística</a>
           </li>
-          <li class="searchModal-item" data-app="power-bi">
-            <a
-              class="searchModal-link"
-              href="https://app.powerbi.com/view?r=eyJrIjoiOTVmN2UwN2QtNDMyYy00NjZlLTlmMWItYzQyNzNmMTFjYTY1IiwidCI6ImRkNGU4NmViLTcyMGEtNGQ4MC1iNjE2LTliOWNmOTU1ODZmNCJ9"
-              data-search="power bi microsoft tableros reportes dashboards datos informes"
-              >Power BI</a>
+          <li class="searchModal-item searchModal-item--powerBi" data-app="power-bi">
+            <div class="searchModal-powerBiBlock">
+              <span class="searchModal-powerBiHeading">Power BI</span>
+              <div class="searchModal-powerBiActions">
+                <a
+                  class="searchModal-link"
+                  href="https://app.powerbi.com/view?r=eyJrIjoiOTVmN2UwN2QtNDMyYy00NjZlLTlmMWItYzQyNzNmMTFjYTY1IiwidCI6ImRkNGU4NmViLTcyMGEtNGQ4MC1iNjE2LTliOWNmOTU1ODZmNCJ9"
+                  data-search="power bi datos cifras colbeef microsoft reportes dashboards informes"
+                  >Datos y cifras Colbeef</a>
+                <a
+                  class="searchModal-link"
+                  href="https://app.powerbi.com/view?r=eyJrIjoiZmViY2FjN2MtZDk2Yy00YWEwLTg2YjQtZjIxZWRlMjMzYzY2IiwidCI6ImRkNGU4NmViLTcyMGEtNGQ4MC1iNjE2LTliOWNmOTU1ODZmNCJ9"
+                  data-search="power bi control pqrs peticiones quejas reclamos sugerencias microsoft"
+                  >Control PQRS</a>
+              </div>
+            </div>
           </li>
         </ul>
         <p class="searchModal-empty" id="searchModalEmpty" hidden>No hay resultados para esa búsqueda.</p>
