@@ -65,6 +65,20 @@
             />
             <span>Logistica</span>
           </a>
+          <a
+            class="menuItem"
+            href="http://192.168.20.205:8006/login"
+            data-app-id="calidad"
+            data-app-name="Calidad"
+            data-target-url="http://192.168.20.205:8006/login"
+          >
+            <svg class="menuIcon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="10" y="8" width="22" height="32" rx="2" stroke="currentColor" stroke-width="2" />
+              <path d="M15 8V7a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v1" stroke="currentColor" stroke-width="2" />
+              <path d="M18 26l4 4 9-10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span>Calidad</span>
+          </a>
           <a class="menuItem" href="#" data-app-id="power-bi" data-app-name="Power BI" aria-label="Power BI: ir al panel y elegir informe">
             <svg class="menuIcon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <rect x="8" y="10" width="32" height="28" rx="3" stroke="currentColor" stroke-width="2" />
@@ -176,6 +190,17 @@
                   <span class="moduleTileName">Logística</span>
                   <span class="moduleTileDesc">Rutas, despachos, trazabilidad y movimiento de producto en frío.</span>
                 </a>
+                <a class="moduleTile" href="http://192.168.20.205:8006/login" data-app-id="calidad" data-app-name="Calidad">
+                  <span class="moduleTileIcon" aria-hidden="true">
+                    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="10" y="8" width="22" height="32" rx="2" stroke="currentColor" stroke-width="2" />
+                      <path d="M15 8V7a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v1" stroke="currentColor" stroke-width="2" />
+                      <path d="M18 26l4 4 9-10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </span>
+                  <span class="moduleTileName">Calidad</span>
+                  <span class="moduleTileDesc">Gestión de procesos, registros y controles de calidad en planta.</span>
+                </a>
                 <div
                   class="moduleTile moduleTile--powerBi"
                   data-app-id="power-bi"
@@ -244,6 +269,7 @@
                           <option value="control-operativo" selected>Control operativo</option>
                           <option value="gestion-humana">Gestión Humana</option>
                           <option value="logistica">Logística</option>
+                          <option value="calidad">Calidad</option>
                           <option value="power-bi">Power BI</option>
                         </select>
                       </label>
@@ -354,6 +380,13 @@
           </li>
           <li class="searchModal-item" data-app="logistica">
             <a class="searchModal-link" href="http://192.168.20.205:8501/" data-search="logistica rutas frio transporte lenguas documentación documentos remisiones">Logística</a>
+          </li>
+          <li class="searchModal-item" data-app="calidad">
+            <a
+              class="searchModal-link"
+              href="http://192.168.20.205:8006/login"
+              data-search="calidad aseguramiento procesos auditoria registros controles planta"
+              >Calidad</a>
           </li>
           <li class="searchModal-item searchModal-item--powerBi" data-app="power-bi">
             <div class="searchModal-powerBiBlock">
