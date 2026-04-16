@@ -199,3 +199,37 @@ Estas URLs se abren desde las tarjetas del panel (mosaico), y la información de
 - **No entra a Ajustes**: revisa `MASTER_PASSWORD_HASH` (Laravel) o `ADMIN_PASSWORD_HASH` (Node) + `ADMIN_JWT_SECRET`.
 - **Cookie de admin cambió**: si cambiaste `ADMIN_COOKIE_NAME`, tendrás que iniciar sesión otra vez.
 
+---
+
+## Inicio automático en Windows (al iniciar sesión)
+
+Este repo trae scripts para crear una **Tarea Programada** que arranca el servidor en segundo plano al iniciar sesión.
+
+### Instalar auto-inicio (Laravel recomendado)
+
+En PowerShell, desde la raíz del proyecto:
+
+```powershell
+.\scripts\windows\autostart.ps1 -Action install -Mode laravel -Method runkey -HostAddress 0.0.0.0 -Port 8000
+```
+
+### Instalar auto-inicio (Node opcional)
+
+```powershell
+.\scripts\windows\autostart.ps1 -Action install -Mode node -Method runkey
+```
+
+### Desinstalar / desactivar
+
+```powershell
+.\scripts\windows\autostart.ps1 -Action uninstall -Method runkey
+```
+
+> Si tu PC permite crear tareas, también puedes usar `-Method task` (a veces requiere abrir PowerShell como Administrador).
+
+### Logs
+
+Los logs se guardan en:
+
+- `%LOCALAPPDATA%\WorkbeefSuite\logs\`
+
