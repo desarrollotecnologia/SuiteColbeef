@@ -211,7 +211,7 @@ Estas URLs se abren desde las tarjetas del panel (mosaico), y la información de
 ## Troubleshooting rápido
 
 - **El chat responde error 503**: falta `GEMINI_API_KEY` en el `.env` del backend que estés usando.
-- **No entra a Ajustes**: revisa `MASTER_PASSWORD_HASH` (Laravel) o `ADMIN_PASSWORD_HASH` (Node) + `ADMIN_JWT_SECRET`.
+- **No entra a Ajustes / contraseña “incorrecta” siempre**: el hash bcrypt lleva caracteres `$`; en el `.env` debe ir entre **comillas simples** (`'...'`). En Laravel, después de editar: `php artisan config:clear` (y si usaste `config:cache`, vuelve a generarla o elimina `bootstrap/cache/config.php`). Comprueba también `ADMIN_JWT_SECRET` y que estés entrando al mismo host donde corre el backend (Laravel vs `npm start`).
 - **Cookie de admin cambió**: si cambiaste `ADMIN_COOKIE_NAME`, tendrás que iniciar sesión otra vez.
 
 ---

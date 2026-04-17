@@ -30,7 +30,7 @@ class AdminAuthController extends Controller
             ], 429);
         }
 
-        $password = (string) $request->input('password', '');
+        $password = trim((string) $request->input('password', ''));
         if ($password === '' || Str::length($password) < 6) {
             return response()->json(['ok' => false, 'error' => 'Contraseña inválida (mínimo 6 caracteres).'], 400);
         }

@@ -17,7 +17,7 @@ var app = express();
 var PORT = process.env.PORT || 3000;
 var GEMINI_API_KEY = process.env.GEMINI_API_KEY || "";
 var GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-2.5-flash";
-var ADMIN_PASSWORD_HASH = process.env.ADMIN_PASSWORD_HASH || "";
+var ADMIN_PASSWORD_HASH = String(process.env.ADMIN_PASSWORD_HASH || "").trim();
 var ADMIN_JWT_SECRET = process.env.ADMIN_JWT_SECRET || "";
 var ADMIN_JWT_EXPIRES = process.env.ADMIN_JWT_EXPIRES || "8h";
 var ADMIN_COOKIE_NAME = process.env.ADMIN_COOKIE_NAME || "workbeef_admin_token";
@@ -259,8 +259,12 @@ app.post("/api/admin/login", function (req, res) {
   }
 
   var password = req.body && req.body.password;
-  if (typeof password !== "string" || password.length < 6) {
-    registerFailedAttempt(req);
+  if (typeof password !== "string") {
+    res.status(400).json({ ok: false, error: "Contraseña inválida." });
+    return;
+  }
+  password = password.trim();
+  if (password.length < 6) {
     res.status(400).json({ ok: false, error: "Contraseña inválida." });
     return;
   }
