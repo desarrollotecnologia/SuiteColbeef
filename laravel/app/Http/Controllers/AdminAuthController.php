@@ -44,13 +44,14 @@ class AdminAuthController extends Controller
 
         RateLimiter::clear($key);
         $token = $this->makeJwt();
+        // Secure solo con HTTPS; si no, la cookie no se guarda en http://IP (red local).
         $cookie = cookie(
             (string) config('admin.cookie_name'),
             $token,
             (int) config('admin.jwt_ttl_minutes', 480),
             '/',
             null,
-            app()->isProduction(),
+            $request->secure(),
             true,
             false,
             'lax'

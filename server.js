@@ -17,11 +17,29 @@ var app = express();
 var PORT = process.env.PORT || 3000;
 var GEMINI_API_KEY = process.env.GEMINI_API_KEY || "";
 var GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-2.5-flash";
-var ADMIN_PASSWORD_HASH = String(process.env.ADMIN_PASSWORD_HASH || "").trim();
+
+function loadAdminPasswordHash() {
+  var b64 = process.env.ADMIN_PASSWORD_HASH_B64;
+  if (b64 && String(b64).trim() !== "") {
+    try {
+      var s = Buffer.from(String(b64).trim(), "base64").toString("utf8");
+      if (s.length >= 50) {
+        return s.trim();
+      }
+    } catch (e) {
+      /* fall through */
+    }
+  }
+  return String(process.env.ADMIN_PASSWORD_HASH || "").trim();
+}
+
+var ADMIN_PASSWORD_HASH = loadAdminPasswordHash();
 var ADMIN_JWT_SECRET = process.env.ADMIN_JWT_SECRET || "";
 var ADMIN_JWT_EXPIRES = process.env.ADMIN_JWT_EXPIRES || "8h";
 var ADMIN_COOKIE_NAME = process.env.ADMIN_COOKIE_NAME || "workbeef_admin_token";
-var IS_PROD = String(process.env.NODE_ENV || "").toLowerCase() === "production";
+/** Solo true si sirves HTTPS; en http://IP en red local debe ser false o la cookie no se guarda. */
+var COOKIE_SECURE =
+  process.env.ADMIN_COOKIE_SECURE === "1" || String(process.env.ADMIN_COOKIE_SECURE || "").toLowerCase() === "true";
 
 function normalizeModelName(rawModel) {
   var model = String(rawModel || "").trim().toLowerCase();
@@ -210,7 +228,7 @@ function issueAdminCookie(res) {
   var token = jwt.sign({ scope: "admin" }, ADMIN_JWT_SECRET, { expiresIn: ADMIN_JWT_EXPIRES });
   res.cookie(ADMIN_COOKIE_NAME, token, {
     httpOnly: true,
-    secure: IS_PROD,
+    secure: COOKIE_SECURE,
     sameSite: "lax",
     path: "/",
     maxAge: 8 * 60 * 60 * 1000
@@ -242,7 +260,7 @@ function requireAdminJwt(req, res, next) {
 }
 
 if (!ADMIN_PASSWORD_HASH) {
-  console.warn("[ADMIN] Falta ADMIN_PASSWORD_HASH en .env; el acceso privado quedará deshabilitado.");
+  console.warn("[ADMIN] Falta ADMIN_PASSWORD_HASH o ADMIN_PASSWORD_HASH_B64 en .env; acceso admin deshabilitado.");
 }
 if (!ADMIN_JWT_SECRET || ADMIN_JWT_SECRET.length < 24) {
   console.warn("[ADMIN] Falta ADMIN_JWT_SECRET robusto en .env (mínimo recomendado: 24 caracteres).");
@@ -297,7 +315,7 @@ app.get("/api/admin/session", function (req, res) {
 app.post("/api/admin/logout", function (req, res) {
   res.clearCookie(ADMIN_COOKIE_NAME, {
     httpOnly: true,
-    secure: IS_PROD,
+    secure: COOKIE_SECURE,
     sameSite: "lax",
     path: "/"
   });
