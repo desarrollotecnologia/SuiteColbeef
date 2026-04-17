@@ -18,19 +18,27 @@ class AdminAuthController extends Controller
         }
 
         $key = 'admin-login:'.$request->ip();
-        if (RateLimiter::tooManyAttempts($key, 5)) {
-            return response()->json(['ok' => false, 'error' => 'Demasiados intentos. Espera 15 minutos.'], 429);
+        $maxAttempts = 30;
+        $decaySeconds = 5 * 60;
+
+        if (RateLimiter::tooManyAttempts($key, $maxAttempts)) {
+            $wait = RateLimiter::availableIn($key);
+
+            return response()->json([
+                'ok' => false,
+                'error' => 'Demasiados intentos fallidos. Espera '.max(1, (int) ceil($wait / 60)).' minuto(s). (En el servidor: php artisan cache:clear)',
+            ], 429);
         }
 
         $password = (string) $request->input('password', '');
         if ($password === '' || Str::length($password) < 6) {
-            RateLimiter::hit($key, 15 * 60);
-            return response()->json(['ok' => false, 'error' => 'Contraseña inválida.'], 400);
+            return response()->json(['ok' => false, 'error' => 'Contraseña inválida (mínimo 6 caracteres).'], 400);
         }
 
         $hash = (string) config('admin.password_hash');
         if (!Hash::check($password, $hash)) {
-            RateLimiter::hit($key, 15 * 60);
+            RateLimiter::hit($key, $decaySeconds);
+
             return response()->json(['ok' => false, 'error' => 'Contraseña incorrecta.'], 401);
         }
 
