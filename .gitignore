@@ -27,6 +27,9 @@ tmp/
 temp/
 .cache/
 
+## Estadísticas locales (Node)
+data/usage-stats.json
+
 ## Laravel (rutas explícitas; también aplica laravel/.gitignore)
 laravel/vendor/
 laravel/node_modules/

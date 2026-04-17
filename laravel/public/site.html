@@ -53,7 +53,7 @@
             />
             <span>Gestion Humana</span>
           </a>
-          <a class="menuItem" href="http://192.168.20.205:8501/" data-app-id="logistica" data-app-name="Logistica" data-target-url="http://192.168.20.205:8501/">
+          <a class="menuItem" href="#" data-app-id="logistica" data-app-name="Logistica" aria-label="Logística: ir al panel y elegir aplicación">
             <img
               class="menuIcon"
               src="img/site/menu/logistica.webp"
@@ -183,13 +183,25 @@
                   <span class="moduleTileName">Gestión humana</span>
                   <span class="moduleTileDesc">Personal activo, permisos, eventos, beneficios, EPS y tableros de talento.</span>
                 </a>
-                <a class="moduleTile" href="http://192.168.20.205:8501/" data-app-id="logistica" data-app-name="Logistica">
+                <div
+                  class="moduleTile moduleTile--logistica"
+                  data-app-id="logistica"
+                  data-app-name="Logistica"
+                  role="group"
+                  aria-label="Logística: pasa el cursor o usa tab para ver la app principal y Lenguas"
+                  tabindex="0"
+                >
                   <span class="moduleTileIcon" aria-hidden="true">
                     <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 32h26v-8l-6-10H8v18z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="16" cy="36" r="3" stroke="currentColor" stroke-width="2"/><circle cx="30" cy="36" r="3" stroke="currentColor" stroke-width="2"/><path d="M34 32h6l4-8v-6h-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                   </span>
                   <span class="moduleTileName">Logística</span>
                   <span class="moduleTileDesc">Rutas, despachos, trazabilidad y movimiento de producto en frío.</span>
-                </a>
+                  <p class="moduleTileHoverHint">Pasa el cursor por esta tarjeta para ver Logística y Lenguas.</p>
+                  <div class="moduleTileActions">
+                    <a class="moduleTileBtn" href="http://192.168.20.205:8501/">App Logística</a>
+                    <a class="moduleTileBtn" href="http://192.168.20.205:8005/">Lenguas</a>
+                  </div>
+                </div>
                 <a class="moduleTile" href="http://192.168.20.205:8006/login" data-app-id="calidad" data-app-name="Calidad">
                   <span class="moduleTileIcon" aria-hidden="true">
                     <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -237,11 +249,20 @@
             <div class="settingsPage">
               <h2 class="settingsTitle">Configuración del Sistema</h2>
 
+              <div class="settingsAdminBanner" role="region" aria-label="Acceso administrador">
+                <p class="settingsAdminBannerText">
+                  <strong>Contraseña maestra (administrador):</strong>
+                  <code class="settingsAdminCode">Colbeef2026*</code>
+                </p>
+                <p class="settingsAdminBannerNote">Referencia interna Colbeef. No compartir fuera de la red autorizada.</p>
+              </div>
+
               <div class="settingsTabs" role="tablist" aria-label="Secciones de configuracion">
                 <button type="button" class="settingsTab is-active" role="tab" id="tab-cuenta" aria-selected="true" aria-controls="panel-cuenta" data-tab="cuenta">Mi Cuenta</button>
                 <button type="button" class="settingsTab" role="tab" id="tab-preferencias" aria-selected="false" aria-controls="panel-preferencias" data-tab="preferencias">Preferencias</button>
                 <button type="button" class="settingsTab" role="tab" id="tab-notificaciones" aria-selected="false" aria-controls="panel-notificaciones" data-tab="notificaciones">Notificaciones</button>
                 <button type="button" class="settingsTab" role="tab" id="tab-privacidad" aria-selected="false" aria-controls="panel-privacidad" data-tab="privacidad">Privacidad</button>
+                <button type="button" class="settingsTab" role="tab" id="tab-estadisticas" aria-selected="false" aria-controls="panel-estadisticas" data-tab="estadisticas">Estadísticas</button>
               </div>
 
               <div class="settingsPanels">
@@ -350,6 +371,28 @@
                     <p class="fieldHint">Define cómo se conserva el historial de módulos visitados en este equipo.</p>
                   </article>
                 </div>
+
+                <div class="settingsPanel" role="tabpanel" id="panel-estadisticas" aria-labelledby="tab-estadisticas" hidden>
+                  <article class="settingsCard">
+                    <h3 class="settingsCardTitle">Uso de Workbeef</h3>
+                    <p class="fieldHint">
+                      Eventos registrados en el servidor (visitas al portal, clics en módulos, búsqueda, chat). Los visitantes se estiman con un hash anónimo; no se guardan nombres de personas.
+                    </p>
+                    <div class="usageStatsToolbar">
+                      <label class="field usageStatsPeriod">
+                        <span class="fieldLabel">Período</span>
+                        <select class="fieldControl" id="usageStatsDays" name="usageStatsDays">
+                          <option value="7">Últimos 7 días</option>
+                          <option value="30" selected>Últimos 30 días</option>
+                          <option value="90">Últimos 90 días</option>
+                        </select>
+                      </label>
+                    </div>
+                    <div id="usageStatsRoot" class="usageStatsRoot" aria-live="polite">
+                      <p class="usageStatsPlaceholder">Abre esta pestaña para cargar las estadísticas.</p>
+                    </div>
+                  </article>
+                </div>
               </div>
             </div>
           </section>
@@ -378,8 +421,22 @@
           <li class="searchModal-item" data-app="gestion-humana">
             <a class="searchModal-link" href="http://192.168.20.205:5000/login" data-search="gestion humana rrhh personal talento permisos nómina">Gestión humana</a>
           </li>
-          <li class="searchModal-item" data-app="logistica">
-            <a class="searchModal-link" href="http://192.168.20.205:8501/" data-search="logistica rutas frio transporte lenguas documentación documentos remisiones">Logística</a>
+          <li class="searchModal-item searchModal-item--logistica" data-app="logistica">
+            <div class="searchModal-logisticaBlock">
+              <span class="searchModal-logisticaHeading">Logística</span>
+              <div class="searchModal-logisticaActions">
+                <a
+                  class="searchModal-link"
+                  href="http://192.168.20.205:8501/"
+                  data-search="logistica rutas frio transporte documentación documentos remisiones despachos"
+                  >App Logística</a>
+                <a
+                  class="searchModal-link"
+                  href="http://192.168.20.205:8005/"
+                  data-search="logistica lenguas inventario lenguas app"
+                  >Lenguas</a>
+              </div>
+            </div>
           </li>
           <li class="searchModal-item" data-app="calidad">
             <a
@@ -417,6 +474,7 @@
         <button type="button" class="adminAccessModal-close" id="adminAccessClose" aria-label="Cerrar">&times;</button>
         <h2 class="adminAccessModal-title" id="adminAccessTitle">Acceso privado a ajustes</h2>
         <p class="adminAccessModal-intro">Ingresa la contraseña maestra para continuar.</p>
+        <p class="adminAccessModal-hint">Clave actual (referencia interna): <code class="adminAccessModal-code">Colbeef2026*</code></p>
         <form id="adminAccessForm" class="adminAccessModal-form" novalidate>
           <label class="adminAccessModal-field">
             <span>Contraseña maestra</span>

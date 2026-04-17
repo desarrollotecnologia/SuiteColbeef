@@ -153,6 +153,8 @@ Abrir:
 - **Admin session**: `GET /api/admin/session`
 - **Admin logout**: `POST /api/admin/logout`
 - **Ping protegido**: `GET /api/admin/ping` (requiere cookie admin)
+- **Registrar evento de uso** (público, con límite de frecuencia): `POST /api/stats/event`
+- **Resumen de estadísticas** (admin): `GET /api/admin/stats?days=30`
 
 ### Node
 
@@ -161,6 +163,19 @@ Abrir:
 - **Admin session**: `GET /api/admin/session`
 - **Admin logout**: `POST /api/admin/logout`
 - **Ping protegido**: `GET /api/admin/ping` (requiere cookie admin)
+- **Registrar evento de uso**: `POST /api/stats/event`
+- **Resumen de estadísticas** (admin): `GET /api/admin/stats?days=30`
+
+---
+
+## Estadísticas de uso (Workbeef)
+
+El portal registra en el servidor eventos anónimos (visitas al portal, clics en módulos, búsqueda, chat). El resumen se ve en **Ajustes → Estadísticas** (requiere contraseña maestra).
+
+- **Laravel**: hace falta la tabla de eventos. Desde `laravel/` ejecuta `php artisan migrate` (usa tu base configurada en `.env`).
+- **Node (`npm start`)**: los eventos se guardan en `data/usage-stats.json` (ignorado por Git). No requiere base de datos.
+
+Los “visitantes únicos” son una **estimación** por hash (IP + navegador), no identifican personas por nombre.
 
 ---
 
@@ -170,8 +185,8 @@ Estas URLs se abren desde las tarjetas del panel (mosaico), y la información de
 
 - **Control operativo**: `http://192.168.100.241:5001/`
 - **Gestión humana**: `http://192.168.20.205:5000/login`
-- **Logística**: `http://192.168.20.205:8005/`
-- **Inventario**: `http://192.168.20.205:8501/`
+- **Logística (app principal)**: `http://192.168.20.205:8501/`
+- **Lenguas (logística)**: `http://192.168.20.205:8005/`
 - **Canales**: `http://192.168.20.205:8006/login`
 - **Locker (Lockerbeef)**: `http://192.168.20.205:5001/login`
 

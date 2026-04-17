@@ -290,6 +290,9 @@
       panel.classList.toggle("is-visible", active);
       panel.hidden = !active;
     });
+    if (tabId === "estadisticas") {
+      loadUsageStats();
+    }
   }
 
   function initSettingsTabs() {
@@ -422,6 +425,182 @@
     });
   }
 
+  function sendUsageEvent(event, appId) {
+    var payload = { event: event };
+    if (appId) {
+      payload.app_id = String(appId);
+    }
+    fetch("/api/stats/event", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    }).catch(function () {});
+  }
+
+  function recordPageViewOnce() {
+    try {
+      if (sessionStorage.getItem("workbeef_usage_pv") === "1") {
+        return;
+      }
+      sessionStorage.setItem("workbeef_usage_pv", "1");
+    } catch (e) {
+      return;
+    }
+    sendUsageEvent("page_view");
+  }
+
+  function escapeForUsageHtml(s) {
+    return String(s || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+  }
+
+  function loadUsageStats() {
+    var root = document.getElementById("usageStatsRoot");
+    var daysEl = document.getElementById("usageStatsDays");
+    if (!root) {
+      return;
+    }
+    var days = daysEl ? parseInt(daysEl.value, 10) || 30 : 30;
+    root.innerHTML = '<p class="usageStatsPlaceholder">Cargando…</p>';
+
+    fetch("/api/admin/stats?days=" + encodeURIComponent(String(days)), {
+      credentials: "include"
+    })
+      .then(function (res) {
+        return res.json().then(function (data) {
+          return { res: res, data: data };
+        });
+      })
+      .then(function (out) {
+        var res = out.res;
+        var data = out.data;
+        if (!res.ok || !data || data.ok === false) {
+          var msg =
+            (data && data.error) ||
+            (res.status === 401 ? "Inicia con la contraseña maestra en Ajustes." : "No se pudieron cargar las estadísticas.");
+          root.innerHTML = '<p class="usageStatsErr">' + escapeForUsageHtml(msg) + "</p>";
+          return;
+        }
+        renderUsageStats(data);
+      })
+      .catch(function () {
+        root.innerHTML =
+          '<p class="usageStatsErr">Sin conexión al servidor o falta migrar la base en Laravel (<code>php artisan migrate</code>).</p>';
+      });
+  }
+
+  function renderUsageStats(data) {
+    var root = document.getElementById("usageStatsRoot");
+    if (!root) {
+      return;
+    }
+    root.textContent = "";
+
+    var totals = data.totals || {};
+    var order = [
+      ["page_view", "Visitas al portal"],
+      ["module_click", "Clics en módulos"],
+      ["search_open", "Búsquedas abiertas"],
+      ["chat_open", "Aperturas del chat"],
+      ["chat_message", "Mensajes al asistente"]
+    ];
+
+    var intro = document.createElement("p");
+    intro.className = "usageStatsPlaceholder";
+    var u = data.unique_visitors_estimate;
+    intro.textContent =
+      "Período: " +
+      (data.days || "—") +
+      " día(s). Visitantes únicos (estimado): " +
+      (u != null ? String(u) : "—");
+    root.appendChild(intro);
+
+    var grid = document.createElement("div");
+    grid.className = "usageStatsSummary";
+    order.forEach(function (pair) {
+      var key = pair[0];
+      var label = pair[1];
+      var pill = document.createElement("div");
+      pill.className = "usageStatPill";
+      var strong = document.createElement("strong");
+      strong.textContent = String(totals[key] != null ? totals[key] : 0);
+      var span = document.createElement("span");
+      span.textContent = label;
+      pill.appendChild(strong);
+      pill.appendChild(span);
+      grid.appendChild(pill);
+    });
+    root.appendChild(grid);
+
+    var byApp = Array.isArray(data.by_app) ? data.by_app : [];
+    if (byApp.length) {
+      var sub = document.createElement("h4");
+      sub.className = "usageStatsSubTitle";
+      sub.textContent = "Clics por módulo";
+      root.appendChild(sub);
+      var maxC = 0;
+      byApp.forEach(function (row) {
+        if (row.clicks > maxC) {
+          maxC = row.clicks;
+        }
+      });
+      if (maxC < 1) {
+        maxC = 1;
+      }
+      var list = document.createElement("div");
+      list.className = "usageBarList";
+      byApp.forEach(function (row) {
+        var rowEl = document.createElement("div");
+        rowEl.className = "usageBarRow";
+        var name = document.createElement("span");
+        name.textContent = row.label || row.app_id || "";
+        var count = document.createElement("span");
+        count.className = "usageBarCount";
+        count.textContent = String(row.clicks != null ? row.clicks : 0);
+        var track = document.createElement("div");
+        track.className = "usageBarTrack";
+        var fill = document.createElement("div");
+        fill.className = "usageBarFill";
+        var pct = (row.clicks / maxC) * 100;
+        fill.style.width = pct + "%";
+        track.appendChild(fill);
+        rowEl.appendChild(name);
+        rowEl.appendChild(count);
+        rowEl.appendChild(track);
+        list.appendChild(rowEl);
+      });
+      root.appendChild(list);
+    }
+
+    var daily = Array.isArray(data.daily) ? data.daily : [];
+    if (daily.length) {
+      var dsub = document.createElement("h4");
+      dsub.className = "usageStatsSubTitle";
+      dsub.textContent = "Actividad por día";
+      root.appendChild(dsub);
+      var ul = document.createElement("ul");
+      ul.className = "usageDailyList";
+      daily.slice(-14).forEach(function (d) {
+        var li = document.createElement("li");
+        li.textContent = (d.date || "—") + ": " + (d.events != null ? d.events : 0) + " evento(s)";
+        ul.appendChild(li);
+      });
+      root.appendChild(ul);
+    }
+  }
+
+  function initUsageStatsPeriod() {
+    var sel = document.getElementById("usageStatsDays");
+    if (!sel) {
+      return;
+    }
+    sel.addEventListener("change", function () {
+      loadUsageStats();
+    });
+  }
+
   var FEEDBACK_EMAIL = "desarrollo.tecnologia@colbeef.com";
   var DETALLES_POR_TEMA = {
     "Error o fallo": ["Pantalla en blanco", "Mensaje de error visible", "No carga un módulo", "Comportamiento inesperado", "Otro"],
@@ -450,6 +629,7 @@
   }
 
   function openSearchModal() {
+    sendUsageEvent("search_open");
     closeFeedbackModal();
     var modal = document.getElementById("searchModal");
     if (!modal) return;
@@ -482,7 +662,7 @@
     var visible = 0;
     items.forEach(function (li) {
       var anchors = li.querySelectorAll("a.searchModal-link");
-      var heading = li.querySelector(".searchModal-powerBiHeading");
+      var heading = li.querySelector(".searchModal-powerBiHeading, .searchModal-logisticaHeading");
       var headingText = heading ? normalizeSearchText(heading.textContent) : "";
       if (!anchors.length) return;
       var match = !q;
@@ -583,7 +763,10 @@
         closeSettingsView();
         var li = a.closest(".searchModal-item");
         var appId = li && li.getAttribute("data-app");
-        if (appId) setActiveMenuByAppId(appId);
+        if (appId) {
+          sendUsageEvent("module_click", appId);
+          setActiveMenuByAppId(appId);
+        }
         if (/^https?:\/\//i.test(href)) {
           window.location.href = href;
         }
@@ -592,6 +775,7 @@
   }
 
   function openColbeefChatPanel() {
+    sendUsageEvent("chat_open");
     var panel = document.getElementById("colbeefChatPanel");
     var fab = document.getElementById("colbeefChatToggle");
     if (!panel) return;
@@ -736,6 +920,7 @@
         geminiChatHistory.push({ role: "model", parts: [{ text: botText }] });
         colbeefChatSetThinking(false);
         appendColbeefChatMsg("bot", botText);
+        sendUsageEvent("chat_message");
       })
       .catch(function (err) {
         geminiChatHistory.pop();
@@ -851,8 +1036,20 @@
     var els = document.querySelectorAll(".moduleTile--powerBi .moduleTileBtn");
     els.forEach(function (el) {
       el.addEventListener("click", function () {
+        sendUsageEvent("module_click", "power-bi");
         closeSettingsView();
         setActiveMenuByAppId("power-bi");
+      });
+    });
+  }
+
+  function initLogisticaNav() {
+    var els = document.querySelectorAll(".moduleTile--logistica .moduleTileBtn");
+    els.forEach(function (el) {
+      el.addEventListener("click", function () {
+        sendUsageEvent("module_click", "logistica");
+        closeSettingsView();
+        setActiveMenuByAppId("logistica");
       });
     });
   }
@@ -868,6 +1065,9 @@
         closeSettingsView();
 
         var appId = a.getAttribute("data-app-id") || "";
+        if (appId) {
+          sendUsageEvent("module_click", appId);
+        }
         var targetUrl = a.getAttribute("data-target-url");
         if (targetUrl && String(targetUrl).trim() !== "" && targetUrl !== "#") {
           window.location.href = targetUrl;
@@ -878,6 +1078,15 @@
           if (tilePb && tilePb.scrollIntoView) {
             window.requestAnimationFrame(function () {
               tilePb.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            });
+          }
+          return;
+        }
+        if (appId === "logistica") {
+          var tileLog = document.querySelector(".moduleTile--logistica");
+          if (tileLog && tileLog.scrollIntoView) {
+            window.requestAnimationFrame(function () {
+              tileLog.scrollIntoView({ behavior: "smooth", block: "nearest" });
             });
           }
           return;
@@ -898,7 +1107,10 @@
     tiles.forEach(function (tile) {
       tile.addEventListener("click", function () {
         var id = tile.getAttribute("data-app-id");
-        if (id) setActiveMenuByAppId(id);
+        if (id) {
+          sendUsageEvent("module_click", id);
+          setActiveMenuByAppId(id);
+        }
       });
     });
   }
@@ -948,6 +1160,7 @@
     initSidebarHover();
     initMenuTracking();
     initPowerBiNav();
+    initLogisticaNav();
     initDashboardMosaic();
     initAdminAccessModal();
     initSettingsOpen();
@@ -955,9 +1168,11 @@
     initSettingsTabs();
     initToggleAria();
     initSettingsAutoSave();
+    initUsageStatsPeriod();
     initSearchModal();
     initColbeefChat();
     initBugReportModal();
+    recordPageViewOnce();
 
     document.addEventListener("keydown", function (e) {
       if (e.key !== "Escape") return;

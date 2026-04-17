@@ -5,6 +5,8 @@
 require("dotenv").config();
 
 var path = require("path");
+var fs = require("fs");
+var crypto = require("crypto");
 var express = require("express");
 var compression = require("compression");
 var bcrypt = require("bcryptjs");
@@ -33,9 +35,11 @@ function normalizeModelName(rawModel) {
 }
 
 var COLBEEF_CHAT_SYSTEM =
-  "Eres el asistente virtual del sistema Workbeef de Colbeef. Respondes de forma breve, amable y profesional en español. CONTEXTO DE LA EMPRESA: Colbeef es un matadero de bovinos ubicado en el municipio de Floridablanca (Santander, Colombia); allí se presta el servicio de faena o beneficio de bovinos. La suite Workbeef agrupa el acceso a las aplicaciones internas; no inventes datos operativos ni cifras que no estén en esta descripción. MÓDULOS: 1) GESTIÓN HUMANA — Es el espacio donde se concentran los temas de talento y bienestar del personal: accesos rápidos típicos como gráficos, enlace al sitio principal, cumpleaños y tarjeta del mes, aniversario laboral, áreas de trabajo, EPS, fondo de pensiones, personal activo, hijos activos, solicitudes de permiso y de vacaciones, entre otros. Orienta al usuario a usar ese módulo para RRHH, beneficios y trámites de personal. 2) CONTROL OPERATIVO — Corresponde a la operación de planta y consulta operativa: ingreso de vehículos, plan de faena, pesaje, corrales, insensibilización, rendimientos, consulta de facturas, ranking de clientes, panel o monitor operativo, historial/descargas según la app, etc. 3) LOGÍSTICA — Inventario de lenguas y documentación operativa de despacho. 4) CALIDAD — Aplicación de gestión de calidad y controles en planta; el acceso es por pantalla de login en http://192.168.20.205:8006/login . 5) POWER BI — Dos informes en vista web pública de solo lectura (Microsoft Power BI): Datos y cifras Colbeef y Control PQRS. En el panel principal la tarjeta Power BI muestra esas opciones al pasar el cursor o al enfocar con teclado; el ítem Power BI del menú lleva a esa tarjeta. Enlaces: Datos y cifras Colbeef → https://app.powerbi.com/view?r=eyJrIjoiOTVmN2UwN2QtNDMyYy00NjZlLTlmMWItYzQyNzNmMTFjYTY1IiwidCI6ImRkNGU4NmViLTcyMGEtNGQ4MC1iNjE2LTliOWNmOTU1ODZmNCJ9 ; Control PQRS → https://app.powerbi.com/view?r=eyJrIjoiZmViY2FjN2MtZDk2Yy00YWEwLTg2YjQtZjIxZWRlMjMzYzY2IiwidCI6ImRkNGU4NmViLTcyMGEtNGQ4MC1iNjE2LTliOWNmOTU1ODZmNCJ9 . Si preguntan algo fuera de esta suite o de Colbeef como empresa genérica sin relación con estas herramientas, indica amablemente que solo puedes orientar sobre el uso de Workbeef y los módulos descritos.";
+  "Eres el asistente virtual del sistema Workbeef de Colbeef. Respondes de forma breve, amable y profesional en español. CONTEXTO DE LA EMPRESA: Colbeef es un matadero de bovinos ubicado en el municipio de Floridablanca (Santander, Colombia); allí se presta el servicio de faena o beneficio de bovinos. La suite Workbeef agrupa el acceso a las aplicaciones internas; no inventes datos operativos ni cifras que no estén en esta descripción. MÓDULOS: 1) GESTIÓN HUMANA — Es el espacio donde se concentran los temas de talento y bienestar del personal: accesos rápidos típicos como gráficos, enlace al sitio principal, cumpleaños y tarjeta del mes, aniversario laboral, áreas de trabajo, EPS, fondo de pensiones, personal activo, hijos activos, solicitudes de permiso y de vacaciones, entre otros. Orienta al usuario a usar ese módulo para RRHH, beneficios y trámites de personal. 2) CONTROL OPERATIVO — Corresponde a la operación de planta y consulta operativa: ingreso de vehículos, plan de faena, pesaje, corrales, insensibilización, rendimientos, consulta de facturas, ranking de clientes, panel o monitor operativo, historial/descargas según la app, etc. 3) LOGÍSTICA — App principal (rutas, despacho, frío) en http://192.168.20.205:8501/ ; aplicación Lenguas (inventario de lenguas) en http://192.168.20.205:8005/ . 4) CALIDAD — Aplicación de gestión de calidad y controles en planta; el acceso es por pantalla de login en http://192.168.20.205:8006/login . 5) POWER BI — Dos informes en vista web pública de solo lectura (Microsoft Power BI): Datos y cifras Colbeef y Control PQRS. En el panel principal la tarjeta Power BI muestra esas opciones al pasar el cursor o al enfocar con teclado; el ítem Power BI del menú lleva a esa tarjeta. Enlaces: Datos y cifras Colbeef → https://app.powerbi.com/view?r=eyJrIjoiOTVmN2UwN2QtNDMyYy00NjZlLTlmMWItYzQyNzNmMTFjYTY1IiwidCI6ImRkNGU4NmViLTcyMGEtNGQ4MC1iNjE2LTliOWNmOTU1ODZmNCJ9 ; Control PQRS → https://app.powerbi.com/view?r=eyJrIjoiZmViY2FjN2MtZDk2Yy00YWEwLTg2YjQtZjIxZWRlMjMzYzY2IiwidCI6ImRkNGU4NmViLTcyMGEtNGQ4MC1iNjE2LTliOWNmOTU1ODZmNCJ9 . Si preguntan algo fuera de esta suite o de Colbeef como empresa genérica sin relación con estas herramientas, indica amablemente que solo puedes orientar sobre el uso de Workbeef y los módulos descritos.";
 
 var rootDir = path.join(__dirname);
+var STATS_FILE = path.join(rootDir, "data", "usage-stats.json");
+var statsPostByIp = new Map();
 var loginAttemptsByIp = new Map();
 var MAX_ATTEMPTS = 5;
 var ATTEMPT_WINDOW_MS = 15 * 60 * 1000;
@@ -72,6 +76,134 @@ function registerFailedAttempt(req) {
 
 function clearAttempts(req) {
   loginAttemptsByIp.delete(String(getClientIp(req)));
+}
+
+function isStatsPostRateLimited(req) {
+  var ip = String(getClientIp(req));
+  var now = Date.now();
+  var windowMs = 60 * 1000;
+  var state = statsPostByIp.get(ip);
+  if (!state || now - state.start > windowMs) {
+    statsPostByIp.set(ip, { start: now, count: 1 });
+    return false;
+  }
+  if (state.count >= 120) {
+    return true;
+  }
+  state.count += 1;
+  return false;
+}
+
+function visitorHashNode(req) {
+  var ip = String(getClientIp(req));
+  var ua = String(req.headers["user-agent"] || "").slice(0, 512);
+  var secret = ADMIN_JWT_SECRET && ADMIN_JWT_SECRET.length >= 8 ? ADMIN_JWT_SECRET : "workbeef-node-stats";
+  return crypto.createHmac("sha256", secret).update(ip + "|" + ua).digest("hex").slice(0, 32);
+}
+
+function appendUsageEvent(ev) {
+  var dir = path.dirname(STATS_FILE);
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
+  var data = { events: [] };
+  try {
+    data = JSON.parse(fs.readFileSync(STATS_FILE, "utf8"));
+  } catch (e) {
+    data = { events: [] };
+  }
+  if (!data.events) {
+    data.events = [];
+  }
+  data.events.push(ev);
+  if (data.events.length > 12000) {
+    data.events = data.events.slice(-10000);
+  }
+  fs.writeFileSync(STATS_FILE, JSON.stringify(data));
+}
+
+function ymdFromTs(ts) {
+  var d = new Date(ts);
+  var y = d.getFullYear();
+  var m = String(d.getMonth() + 1).padStart(2, "0");
+  var day = String(d.getDate()).padStart(2, "0");
+  return y + "-" + m + "-" + day;
+}
+
+function buildUsageSummary(days) {
+  var EVENT_ORDER = ["page_view", "module_click", "search_open", "chat_open", "chat_message"];
+  var APP_LABELS = {
+    "control-operativo": "Control operativo",
+    "gestion-humana": "Gestión humana",
+    logistica: "Logística",
+    calidad: "Calidad",
+    "power-bi": "Power BI"
+  };
+  var data = { events: [] };
+  try {
+    data = JSON.parse(fs.readFileSync(STATS_FILE, "utf8"));
+  } catch (e) {
+    data = { events: [] };
+  }
+  var events = Array.isArray(data.events) ? data.events : [];
+  var cutoff = Date.now() - days * 24 * 60 * 60 * 1000;
+  var filtered = events.filter(function (e) {
+    return e && typeof e.t === "number" && e.t >= cutoff;
+  });
+
+  var totals = {};
+  EVENT_ORDER.forEach(function (k) {
+    totals[k] = 0;
+  });
+  var byAppMap = {};
+  var dailyMap = {};
+  var uniq = {};
+
+  filtered.forEach(function (e) {
+    var ev = e.event;
+    if (EVENT_ORDER.indexOf(ev) !== -1) {
+      totals[ev] += 1;
+    }
+    if (ev === "module_click" && e.app_id) {
+      var aid = String(e.app_id);
+      byAppMap[aid] = (byAppMap[aid] || 0) + 1;
+    }
+    var dk = ymdFromTs(e.t);
+    dailyMap[dk] = (dailyMap[dk] || 0) + 1;
+    if (e.visitor_hash) {
+      uniq[e.visitor_hash] = true;
+    }
+  });
+
+  var byApp = Object.keys(byAppMap)
+    .map(function (id) {
+      return {
+        app_id: id,
+        label: APP_LABELS[id] || id,
+        clicks: byAppMap[id]
+      };
+    })
+    .sort(function (a, b) {
+      return b.clicks - a.clicks;
+    });
+
+  var daily = Object.keys(dailyMap)
+    .sort()
+    .map(function (d) {
+      return { date: d, events: dailyMap[d] };
+    });
+
+  var sinceIso = new Date(cutoff).toISOString();
+
+  return {
+    ok: true,
+    days: days,
+    since: sinceIso,
+    totals: totals,
+    unique_visitors_estimate: Object.keys(uniq).length,
+    by_app: byApp,
+    daily: daily
+  };
 }
 
 function issueAdminCookie(res) {
@@ -170,6 +302,45 @@ app.post("/api/admin/logout", function (req, res) {
 
 app.get("/api/admin/ping", requireAdminJwt, function (req, res) {
   res.json({ ok: true, status: "authenticated" });
+});
+
+app.post("/api/stats/event", function (req, res) {
+  if (isStatsPostRateLimited(req)) {
+    res.status(429).json({ ok: false, error: "Demasiadas solicitudes." });
+    return;
+  }
+  var allowed = ["page_view", "module_click", "search_open", "chat_open", "chat_message"];
+  var body = req.body || {};
+  var event = body.event;
+  if (typeof event !== "string" || allowed.indexOf(event) === -1) {
+    res.status(422).json({ ok: false, error: "evento inválido" });
+    return;
+  }
+  var appId = body.app_id;
+  if (appId != null && typeof appId !== "string") {
+    appId = null;
+  }
+  if (appId && appId.length > 96) {
+    appId = appId.slice(0, 96);
+  }
+  appendUsageEvent({
+    t: Date.now(),
+    event: event,
+    app_id: appId || null,
+    visitor_hash: visitorHashNode(req)
+  });
+  res.json({ ok: true });
+});
+
+app.get("/api/admin/stats", requireAdminJwt, function (req, res) {
+  var days = parseInt(String(req.query.days || "7"), 10);
+  if (isNaN(days) || days < 1) {
+    days = 1;
+  }
+  if (days > 90) {
+    days = 90;
+  }
+  res.json(buildUsageSummary(days));
 });
 
 app.post("/api/chat", function (req, res) {
