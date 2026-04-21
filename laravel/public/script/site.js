@@ -6,6 +6,7 @@
   var geminiChatHistory = [];
   var hasAdminSession = false;
   var pendingAdminAccessResolver = null;
+  var ADMIN_UNLOCKED_KEY = "workbeef_admin_unlocked_v1";
 
   /** Modelo por defecto (alineado con data/suite-settings-default.json) */
   var DEFAULT_SETTINGS = {
@@ -262,16 +263,19 @@
 
   function requestAdminAccess() {
     if (hasAdminSession) return Promise.resolve(true);
-    return checkAdminSession().then(function (isValid) {
-      if (isValid) {
+    // Requiere contraseña por pestaña: solo recuerda en sessionStorage.
+    // Si cierras el navegador/la pestaña (sales del programa), vuelve a pedirla.
+    try {
+      if (sessionStorage.getItem(ADMIN_UNLOCKED_KEY) === "1") {
         hasAdminSession = true;
-        return true;
+        return Promise.resolve(true);
       }
-      if (pendingAdminAccessResolver) return Promise.resolve(false);
-      openAdminAccessModal();
-      return new Promise(function (resolve) {
-        pendingAdminAccessResolver = resolve;
-      });
+    } catch (e) {}
+
+    if (pendingAdminAccessResolver) return Promise.resolve(false);
+    openAdminAccessModal();
+    return new Promise(function (resolve) {
+      pendingAdminAccessResolver = resolve;
     });
   }
 
@@ -376,6 +380,7 @@
             return;
           }
           hasAdminSession = true;
+          try { sessionStorage.setItem(ADMIN_UNLOCKED_KEY, "1"); } catch (e) {}
           closeAdminAccessModal();
           resolvePendingAdminAccess(true);
         })
@@ -1299,6 +1304,10 @@
   }
 
   function init() {
+    // Si recargas en la misma pestaña, mantiene el desbloqueo.
+    // Si cierras y vuelves a abrir, sessionStorage se pierde y vuelve a pedir contraseña.
+    try { hasAdminSession = sessionStorage.getItem(ADMIN_UNLOCKED_KEY) === "1"; } catch (e) {}
+
     applySettingsToUI(loadSettings());
     initSidebarHover();
     initMenuTracking();
