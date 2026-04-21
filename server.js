@@ -41,6 +41,25 @@ var ADMIN_COOKIE_NAME = process.env.ADMIN_COOKIE_NAME || "workbeef_admin_token";
 var COOKIE_SECURE =
   process.env.ADMIN_COOKIE_SECURE === "1" || String(process.env.ADMIN_COOKIE_SECURE || "").toLowerCase() === "true";
 
+function loadPowerBiPinHash() {
+  var b64 = process.env.POWERBI_PIN_HASH_B64;
+  if (b64 && String(b64).trim() !== "") {
+    try {
+      var s = Buffer.from(String(b64).trim(), "base64").toString("utf8");
+      if (s.length >= 50) {
+        return s.trim();
+      }
+    } catch (e) {
+      /* fall through */
+    }
+  }
+  return String(process.env.POWERBI_PIN_HASH || "").trim();
+}
+
+var POWERBI_PIN_HASH = loadPowerBiPinHash();
+var POWERBI_PIN_COOKIE = process.env.POWERBI_PIN_COOKIE || "workbeef_powerbi_unlocked";
+var POWERBI_PIN_TTL_MINUTES = parseInt(String(process.env.POWERBI_PIN_TTL_MINUTES || "120"), 10) || 120;
+
 function normalizeModelName(rawModel) {
   var model = String(rawModel || "").trim().toLowerCase();
   if (!model) return "gemini-2.5-flash";
@@ -324,6 +343,47 @@ app.post("/api/admin/logout", function (req, res) {
 
 app.get("/api/admin/ping", requireAdminJwt, function (req, res) {
   res.json({ ok: true, status: "authenticated" });
+});
+
+app.get("/api/powerbi/pin/session", function (req, res) {
+  var val = req.cookies && req.cookies[POWERBI_PIN_COOKIE];
+  res.json({ ok: true, unlocked: val === "1" });
+});
+
+app.post("/api/powerbi/pin", function (req, res) {
+  if (!POWERBI_PIN_HASH) {
+    res.status(503).json({ ok: false, error: "PIN de Power BI no configurado en servidor." });
+    return;
+  }
+  var pin = req.body && req.body.pin;
+  if (typeof pin !== "string") {
+    res.status(400).json({ ok: false, error: "PIN inválido." });
+    return;
+  }
+  pin = pin.trim();
+  if (pin.length < 4) {
+    res.status(400).json({ ok: false, error: "PIN inválido." });
+    return;
+  }
+  bcrypt
+    .compare(pin, POWERBI_PIN_HASH)
+    .then(function (ok) {
+      if (!ok) {
+        res.status(401).json({ ok: false, error: "PIN incorrecto." });
+        return;
+      }
+      res.cookie(POWERBI_PIN_COOKIE, "1", {
+        httpOnly: true,
+        secure: COOKIE_SECURE,
+        sameSite: "lax",
+        path: "/",
+        maxAge: POWERBI_PIN_TTL_MINUTES * 60 * 1000
+      });
+      res.json({ ok: true, unlocked: true });
+    })
+    .catch(function () {
+      res.status(500).json({ ok: false, error: "No se pudo validar el PIN." });
+    });
 });
 
 app.post("/api/stats/event", function (req, res) {

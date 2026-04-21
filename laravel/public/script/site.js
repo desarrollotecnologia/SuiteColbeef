@@ -392,6 +392,141 @@
     });
   }
 
+  // --- PIN para Power BI (privacidad) ---
+  var powerBiPinOk = false;
+  var pendingPowerBiHref = null;
+
+  function setPowerBiPinError(msg) {
+    var err = document.getElementById("powerBiPinError");
+    if (!err) return;
+    var hasMsg = !!(msg && String(msg).trim());
+    err.hidden = !hasMsg;
+    err.textContent = hasMsg ? String(msg) : "";
+  }
+
+  function openPowerBiPinModal() {
+    closeSearchModal();
+    closeFeedbackModal();
+    var modal = document.getElementById("powerBiPinModal");
+    if (!modal) return;
+    modal.hidden = false;
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    setPowerBiPinError("");
+    var inp = document.getElementById("powerBiPinInput");
+    if (inp) {
+      inp.value = "";
+      inp.focus();
+    }
+  }
+
+  function closePowerBiPinModal() {
+    var modal = document.getElementById("powerBiPinModal");
+    if (!modal) return;
+    modal.hidden = true;
+    modal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+    setPowerBiPinError("");
+    pendingPowerBiHref = null;
+  }
+
+  function checkPowerBiPinSession() {
+    return fetch("/api/powerbi/pin/session", { method: "GET", credentials: "include" })
+      .then(function (res) {
+        return res.json().then(function (data) {
+          if (!res.ok) return false;
+          return !!(data && data.ok && data.unlocked);
+        });
+      })
+      .catch(function () {
+        return false;
+      });
+  }
+
+  function requirePowerBiPinThenOpen(href) {
+    if (!href || !/^https?:\/\//i.test(String(href))) return;
+    if (powerBiPinOk) {
+      window.location.href = href;
+      return;
+    }
+    pendingPowerBiHref = href;
+    checkPowerBiPinSession().then(function (ok) {
+      if (ok) {
+        powerBiPinOk = true;
+        window.location.href = href;
+        return;
+      }
+      openPowerBiPinModal();
+    });
+  }
+
+  function initPowerBiPinModal() {
+    var modal = document.getElementById("powerBiPinModal");
+    var form = document.getElementById("powerBiPinForm");
+    var backdrop = document.getElementById("powerBiPinBackdrop");
+    var closeBtn = document.getElementById("powerBiPinClose");
+    var cancelBtn = document.getElementById("powerBiPinCancel");
+    var submitBtn = document.getElementById("powerBiPinSubmit");
+    var inp = document.getElementById("powerBiPinInput");
+    if (!modal || !form) return;
+
+    function cancelFlow() {
+      closePowerBiPinModal();
+    }
+
+    if (backdrop) backdrop.addEventListener("click", cancelFlow);
+    if (closeBtn) closeBtn.addEventListener("click", cancelFlow);
+    if (cancelBtn) cancelBtn.addEventListener("click", cancelFlow);
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var pin = ((inp && inp.value) || "").trim();
+      if (!pin) {
+        setPowerBiPinError("Ingresa el PIN.");
+        return;
+      }
+      setPowerBiPinError("");
+      if (submitBtn) submitBtn.disabled = true;
+      if (inp) inp.disabled = true;
+
+      fetch("/api/powerbi/pin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ pin: pin })
+      })
+        .then(function (res) {
+          return res.json().then(function (data) {
+            return { res: res, data: data };
+          });
+        })
+        .then(function (out) {
+          var res = out.res;
+          var data = out.data;
+          if (!res.ok) {
+            setPowerBiPinError((data && data.error) || "PIN incorrecto.");
+            return;
+          }
+          powerBiPinOk = true;
+          var href = pendingPowerBiHref;
+          closePowerBiPinModal();
+          if (href) {
+            window.location.href = href;
+          }
+        })
+        .catch(function () {
+          setPowerBiPinError("Error de conexión con el servidor.");
+        })
+        .finally(function () {
+          if (submitBtn) submitBtn.disabled = false;
+          if (inp) {
+            inp.disabled = false;
+            inp.focus();
+          }
+        });
+    });
+  }
+
   function initBackFromSettings() {
     var b = document.getElementById("backFromSettingsBtn");
     if (!b) return;
@@ -768,7 +903,11 @@
           setActiveMenuByAppId(appId);
         }
         if (/^https?:\/\//i.test(href)) {
-          window.location.href = href;
+          if (appId === "power-bi") {
+            requirePowerBiPinThenOpen(href);
+          } else {
+            window.location.href = href;
+          }
         }
       });
     });
@@ -1035,10 +1174,14 @@
   function initPowerBiNav() {
     var els = document.querySelectorAll(".moduleTile--powerBi .moduleTileBtn");
     els.forEach(function (el) {
-      el.addEventListener("click", function () {
+      el.addEventListener("click", function (e) {
+        if (e && e.preventDefault) e.preventDefault();
+        var href = el.getAttribute("href");
+        if (!href) return;
         sendUsageEvent("module_click", "power-bi");
         closeSettingsView();
         setActiveMenuByAppId("power-bi");
+        requirePowerBiPinThenOpen(href);
       });
     });
   }
@@ -1160,6 +1303,7 @@
     initSidebarHover();
     initMenuTracking();
     initPowerBiNav();
+    initPowerBiPinModal();
     initLogisticaNav();
     initDashboardMosaic();
     initAdminAccessModal();
@@ -1180,6 +1324,11 @@
       if (am && !am.hidden) {
         closeAdminAccessModal();
         resolvePendingAdminAccess(false);
+        return;
+      }
+      var pm = document.getElementById("powerBiPinModal");
+      if (pm && !pm.hidden) {
+        closePowerBiPinModal();
         return;
       }
       var chatPanel = document.getElementById("colbeefChatPanel");

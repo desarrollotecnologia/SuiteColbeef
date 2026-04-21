@@ -104,13 +104,13 @@
               <path d="M12 17h.01" />
             </svg>
           </a>
-          <a class="toolItem" href="#" id="searchOpenBtn" data-tip="Buscar" aria-label="Buscar en la suite">
+          <a class="toolItem" href="#" id="searchOpenBtn" data-tip="Buscador" aria-label="Buscar en la suite">
             <svg class="toolIcon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="11" cy="11" r="6.5" />
               <path d="m16.5 16.5 5 5" />
             </svg>
           </a>
-          <a class="toolItem" href="#" id="bugReportOpenBtn" data-tip="Bug" aria-label="Reportar error o bug">
+          <a class="toolItem" href="#" id="bugReportOpenBtn" data-tip="Errores / PQR" aria-label="Reportar error o bug">
             <svg class="toolIcon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
               <ellipse cx="12" cy="14" rx="5" ry="3.5" />
               <path d="M12 7v3.5M9 5.5l1.2 2M15 5.5l-1.2 2M7 11H5M19 11h-2M7 17H5M19 17h-2" />
@@ -483,6 +483,35 @@
           <div class="adminAccessModal-actions">
             <button type="button" class="adminAccessModal-btn adminAccessModal-btn--ghost" id="adminAccessCancel">Cancelar</button>
             <button type="submit" class="adminAccessModal-btn adminAccessModal-btn--primary" id="adminAccessSubmit">Entrar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="powerBiPinModal" class="pinModal" hidden aria-hidden="true">
+      <div class="pinModal-backdrop" id="powerBiPinBackdrop" tabindex="-1"></div>
+      <div class="pinModal-dialog" role="dialog" aria-modal="true" aria-labelledby="powerBiPinTitle">
+        <button type="button" class="pinModal-close" id="powerBiPinClose" aria-label="Cerrar">&times;</button>
+        <h2 class="pinModal-title" id="powerBiPinTitle">Power BI protegido</h2>
+        <p class="pinModal-intro">Ingresa el PIN para abrir Power BI.</p>
+        <form id="powerBiPinForm" class="pinModal-form" novalidate>
+          <label class="pinModal-field">
+            <span>PIN</span>
+            <input
+              type="password"
+              inputmode="numeric"
+              id="powerBiPinInput"
+              class="pinModal-input"
+              placeholder="•••••••••"
+              minlength="4"
+              autocomplete="one-time-code"
+              required
+            />
+          </label>
+          <p id="powerBiPinError" class="pinModal-error" hidden></p>
+          <div class="pinModal-actions">
+            <button type="button" class="pinModal-btn pinModal-btn--ghost" id="powerBiPinCancel">Cancelar</button>
+            <button type="submit" class="pinModal-btn pinModal-btn--primary" id="powerBiPinSubmit">Entrar</button>
           </div>
         </form>
       </div>
