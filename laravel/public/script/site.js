@@ -400,6 +400,7 @@
   // --- PIN para Power BI (privacidad) ---
   var powerBiPinOk = false;
   var pendingPowerBiHref = null;
+  var POWERBI_UNLOCKED_KEY = "workbeef_powerbi_unlocked_v1";
 
   function setPowerBiPinError(msg) {
     var err = document.getElementById("powerBiPinError");
@@ -435,34 +436,20 @@
     pendingPowerBiHref = null;
   }
 
-  function checkPowerBiPinSession() {
-    return fetch("/api/powerbi/pin/session", { method: "GET", credentials: "include" })
-      .then(function (res) {
-        return res.json().then(function (data) {
-          if (!res.ok) return false;
-          return !!(data && data.ok && data.unlocked);
-        });
-      })
-      .catch(function () {
-        return false;
-      });
-  }
-
   function requirePowerBiPinThenOpen(href) {
     if (!href || !/^https?:\/\//i.test(String(href))) return;
+    // Requiere PIN por pestaña: si cierras el navegador/la pestaña, vuelve a pedirlo.
+    try {
+      powerBiPinOk = sessionStorage.getItem(POWERBI_UNLOCKED_KEY) === "1";
+    } catch (e) {}
+
     if (powerBiPinOk) {
       window.location.href = href;
       return;
     }
+
     pendingPowerBiHref = href;
-    checkPowerBiPinSession().then(function (ok) {
-      if (ok) {
-        powerBiPinOk = true;
-        window.location.href = href;
-        return;
-      }
-      openPowerBiPinModal();
-    });
+    openPowerBiPinModal();
   }
 
   function initPowerBiPinModal() {
@@ -513,6 +500,7 @@
             return;
           }
           powerBiPinOk = true;
+          try { sessionStorage.setItem(POWERBI_UNLOCKED_KEY, "1"); } catch (e) {}
           var href = pendingPowerBiHref;
           closePowerBiPinModal();
           if (href) {
@@ -1307,6 +1295,7 @@
     // Si recargas en la misma pestaña, mantiene el desbloqueo.
     // Si cierras y vuelves a abrir, sessionStorage se pierde y vuelve a pedir contraseña.
     try { hasAdminSession = sessionStorage.getItem(ADMIN_UNLOCKED_KEY) === "1"; } catch (e) {}
+    try { powerBiPinOk = sessionStorage.getItem(POWERBI_UNLOCKED_KEY) === "1"; } catch (e) {}
 
     applySettingsToUI(loadSettings());
     initSidebarHover();
