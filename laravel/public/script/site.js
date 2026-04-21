@@ -400,7 +400,6 @@
   // --- PIN para Power BI (privacidad) ---
   var powerBiPinOk = false;
   var pendingPowerBiHref = null;
-  var POWERBI_UNLOCKED_KEY = "workbeef_powerbi_unlocked_v1";
 
   function setPowerBiPinError(msg) {
     var err = document.getElementById("powerBiPinError");
@@ -438,16 +437,7 @@
 
   function requirePowerBiPinThenOpen(href) {
     if (!href || !/^https?:\/\//i.test(String(href))) return;
-    // Requiere PIN por pestaña: si cierras el navegador/la pestaña, vuelve a pedirlo.
-    try {
-      powerBiPinOk = sessionStorage.getItem(POWERBI_UNLOCKED_KEY) === "1";
-    } catch (e) {}
-
-    if (powerBiPinOk) {
-      window.location.href = href;
-      return;
-    }
-
+    // Modo estricto: siempre pedir PIN al abrir Power BI
     pendingPowerBiHref = href;
     openPowerBiPinModal();
   }
@@ -500,7 +490,6 @@
             return;
           }
           powerBiPinOk = true;
-          try { sessionStorage.setItem(POWERBI_UNLOCKED_KEY, "1"); } catch (e) {}
           var href = pendingPowerBiHref;
           closePowerBiPinModal();
           if (href) {
@@ -1295,7 +1284,7 @@
     // Si recargas en la misma pestaña, mantiene el desbloqueo.
     // Si cierras y vuelves a abrir, sessionStorage se pierde y vuelve a pedir contraseña.
     try { hasAdminSession = sessionStorage.getItem(ADMIN_UNLOCKED_KEY) === "1"; } catch (e) {}
-    try { powerBiPinOk = sessionStorage.getItem(POWERBI_UNLOCKED_KEY) === "1"; } catch (e) {}
+    powerBiPinOk = false;
 
     applySettingsToUI(loadSettings());
     initSidebarHover();
