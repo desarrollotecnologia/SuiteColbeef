@@ -188,7 +188,7 @@
                   data-app-id="logistica"
                   data-app-name="Logistica"
                   role="group"
-                  aria-label="Logística: pasa el cursor o usa tab para ver la app principal y Lenguas"
+                  aria-label="Logística: pasa el cursor o usa tab para ver Inventarios, App Logística y Lenguas"
                   tabindex="0"
                 >
                   <span class="moduleTileIcon" aria-hidden="true">
@@ -196,9 +196,10 @@
                   </span>
                   <span class="moduleTileName">Logística</span>
                   <span class="moduleTileDesc">Rutas, despachos, trazabilidad y movimiento de producto en frío.</span>
-                  <p class="moduleTileHoverHint">Pasa el cursor por esta tarjeta para ver Logística y Lenguas.</p>
+                  <p class="moduleTileHoverHint">Pasa el cursor por esta tarjeta para ver Inventarios, App Logística y Lenguas.</p>
                   <div class="moduleTileActions">
-                    <a class="moduleTileBtn" href="http://192.168.20.205:8501/">App Logística</a>
+                    <a class="moduleTileBtn" href="http://192.168.20.205:8501/">Inventarios</a>
+                    <a class="moduleTileBtn" href="http://192.168.20.90/logimeat/login.php?msg=off">App Logística</a>
                     <a class="moduleTileBtn" href="http://192.168.20.205:8005/">Lenguas</a>
                   </div>
                 </div>
@@ -420,12 +421,17 @@
                 <a
                   class="searchModal-link"
                   href="http://192.168.20.205:8501/"
-                  data-search="logistica rutas frio transporte documentación documentos remisiones despachos"
+                  data-search="logistica rutas frio transporte documentación documentos remisiones despachos app principal"
+                  >Inventarios</a>
+                <a
+                  class="searchModal-link"
+                  href="http://192.168.20.90/logimeat/login.php?msg=off"
+                  data-search="app logistica logimeat login logística"
                   >App Logística</a>
                 <a
                   class="searchModal-link"
                   href="http://192.168.20.205:8005/"
-                  data-search="logistica lenguas inventario lenguas app"
+                  data-search="logistica lenguas app"
                   >Lenguas</a>
               </div>
             </div>
