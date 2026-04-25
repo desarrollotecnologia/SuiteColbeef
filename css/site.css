@@ -3008,3 +3008,81 @@ body[data-suite-theme="oscuro"] .usageBarTrack {
   background: rgba(255, 255, 255, 0.08);
 }
 
+/* Registro de bugs (modal + Ajustes) */
+.feedbackTicketBox {
+  margin: 0.75rem 0 0;
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(31, 157, 58, 0.35);
+  background: rgba(31, 157, 58, 0.08);
+}
+
+.feedbackTicketLine {
+  margin: 0 0 0.4rem;
+  font-size: 0.92rem;
+  color: var(--text);
+}
+
+.feedbackTicketLine code {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--green);
+}
+
+.feedbackTicketActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.65rem;
+}
+
+.bugStatsTableWrap {
+  overflow-x: auto;
+  margin-top: 0.75rem;
+}
+
+.bugStatsTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.bugStatsTable th,
+.bugStatsTable td {
+  border: 1px solid var(--border);
+  padding: 0.45rem 0.5rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.bugStatsTable th {
+  background: var(--panel);
+  font-weight: 600;
+}
+
+.bugStatsTable code {
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+
+.bugResolveBtn {
+  font: inherit;
+  font-size: 0.78rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  cursor: pointer;
+  color: var(--text);
+}
+
+.bugResolveBtn:hover {
+  border-color: var(--green);
+  color: var(--green);
+}
+
+.bugResolveBtn:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+

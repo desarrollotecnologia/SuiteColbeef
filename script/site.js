@@ -297,6 +297,9 @@
     if (tabId === "estadisticas") {
       loadUsageStats();
     }
+    if (tabId === "bugs") {
+      loadBugAdminStats();
+    }
   }
 
   function initSettingsTabs() {
@@ -718,7 +721,213 @@
     });
   }
 
+  function formatBugReportDateTime(iso) {
+    try {
+      var d = new Date(iso);
+      if (isNaN(d.getTime())) {
+        return String(iso || "—");
+      }
+      return d.toLocaleString("es-CO", { dateStyle: "medium", timeStyle: "short" });
+    } catch (e) {
+      return "—";
+    }
+  }
+
+  function loadBugAdminStats() {
+    var root = document.getElementById("bugStatsRoot");
+    var daysEl = document.getElementById("bugStatsDays");
+    if (!root) {
+      return;
+    }
+    var days = daysEl ? parseInt(daysEl.value, 10) || 30 : 30;
+    root.innerHTML = '<p class="usageStatsPlaceholder">Cargando…</p>';
+
+    fetch("/api/admin/bugs/summary?days=" + encodeURIComponent(String(days)), {
+      credentials: "include"
+    })
+      .then(function (res) {
+        return res.json().then(function (data) {
+          return { res: res, data: data };
+        });
+      })
+      .then(function (out) {
+        var res = out.res;
+        var data = out.data;
+        if (!res.ok || !data || data.ok === false) {
+          var msg =
+            (data && data.error) ||
+            (res.status === 401 ? "Inicia con la contraseña maestra en Ajustes." : "No se pudieron cargar los bugs.");
+          root.innerHTML = '<p class="usageStatsErr">' + escapeForUsageHtml(msg) + "</p>";
+          return;
+        }
+        renderBugAdminStats(data);
+      })
+      .catch(function () {
+        root.innerHTML =
+          '<p class="usageStatsErr">Sin conexión o falta migrar la base (<code>php artisan migrate</code>).</p>';
+      });
+  }
+
+  function renderBugAdminStats(data) {
+    var root = document.getElementById("bugStatsRoot");
+    if (!root) {
+      return;
+    }
+    root.textContent = "";
+
+    var totals = data.totals || {};
+    var intro = document.createElement("p");
+    intro.className = "usageStatsPlaceholder";
+    intro.textContent =
+      "Período: " +
+      (data.days || "—") +
+      " día(s). Reportados en período: " +
+      (totals.reported_in_period != null ? totals.reported_in_period : "—") +
+      " | Abiertos ahora (todos): " +
+      (totals.open_global != null ? totals.open_global : "—") +
+      " | Resueltos en período: " +
+      (totals.resolved_in_period != null ? totals.resolved_in_period : "—") +
+      " | Tiempo medio hasta resolver: " +
+      (data.avg_resolution_hours != null ? data.avg_resolution_hours + " h" : "— (sin resueltos en el período)");
+    root.appendChild(intro);
+
+    var bySoft = Array.isArray(data.by_software) ? data.by_software : [];
+    var sub = document.createElement("h4");
+    sub.className = "usageStatsSubTitle";
+    sub.textContent = "Casos por software (creados en el período)";
+    root.appendChild(sub);
+    var grid = document.createElement("div");
+    grid.className = "usageStatsSummary";
+    bySoft.forEach(function (row) {
+      if (!row.total) {
+        return;
+      }
+      var pill = document.createElement("div");
+      pill.className = "usageStatPill";
+      var strong = document.createElement("strong");
+      strong.textContent = String(row.total);
+      var span = document.createElement("span");
+      span.textContent = row.label || row.software;
+      pill.appendChild(strong);
+      pill.appendChild(span);
+      grid.appendChild(pill);
+    });
+    if (grid.childNodes.length) {
+      root.appendChild(grid);
+    }
+
+    var recent = Array.isArray(data.recent) ? data.recent : [];
+    var h4 = document.createElement("h4");
+    h4.className = "usageStatsSubTitle";
+    h4.textContent = "Casos recientes";
+    root.appendChild(h4);
+    if (!recent.length) {
+      var p = document.createElement("p");
+      p.className = "usageStatsPlaceholder";
+      p.textContent = "No hay casos en este período.";
+      root.appendChild(p);
+      return;
+    }
+    var wrap = document.createElement("div");
+    wrap.className = "bugStatsTableWrap";
+    var table = document.createElement("table");
+    table.className = "bugStatsTable";
+    var thead = document.createElement("thead");
+    thead.innerHTML =
+      "<tr><th>ID</th><th>Software</th><th>Tema</th><th>Fecha petición</th><th>Estado</th><th>Resuelto / acción</th></tr>";
+    table.appendChild(thead);
+    var tbody = document.createElement("tbody");
+    recent.forEach(function (r) {
+      var tr = document.createElement("tr");
+      var tdId = document.createElement("td");
+      var code = document.createElement("code");
+      code.textContent = r.ticket_code || "";
+      tdId.appendChild(code);
+      tr.appendChild(tdId);
+      var tdSoft = document.createElement("td");
+      tdSoft.textContent = r.software_label || r.software || "";
+      tr.appendChild(tdSoft);
+      var tdTema = document.createElement("td");
+      tdTema.textContent = (r.tema || "") + (r.detalle ? " — " + r.detalle : "");
+      tr.appendChild(tdTema);
+      var tdWhen = document.createElement("td");
+      tdWhen.textContent = formatBugReportDateTime(r.created_at);
+      tr.appendChild(tdWhen);
+      var tdSt = document.createElement("td");
+      tdSt.textContent = r.status === "resolved" ? "Resuelto" : "Abierto";
+      tr.appendChild(tdSt);
+      var tdAct = document.createElement("td");
+      if (r.status !== "resolved") {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "bugResolveBtn";
+        btn.textContent = "Marcar resuelto";
+        btn.setAttribute("data-bug-resolve-id", String(r.id));
+        tdAct.appendChild(btn);
+      } else {
+        tdAct.textContent = formatBugReportDateTime(r.resolved_at);
+      }
+      tr.appendChild(tdAct);
+      tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);
+    wrap.appendChild(table);
+    root.appendChild(wrap);
+  }
+
+  function initBugStatsPeriod() {
+    var sel = document.getElementById("bugStatsDays");
+    if (!sel) {
+      return;
+    }
+    sel.addEventListener("change", function () {
+      loadBugAdminStats();
+    });
+  }
+
+  function initBugStatsResolveDelegation() {
+    var root = document.getElementById("bugStatsRoot");
+    if (!root || root.getAttribute("data-bug-delegation") === "1") {
+      return;
+    }
+    root.setAttribute("data-bug-delegation", "1");
+    root.addEventListener("click", function (e) {
+      var t = e.target;
+      if (!t || !t.getAttribute) {
+        return;
+      }
+      var id = t.getAttribute("data-bug-resolve-id");
+      if (!id) {
+        return;
+      }
+      t.disabled = true;
+      fetch("/api/admin/bugs/" + encodeURIComponent(id) + "/resolve", {
+        method: "PATCH",
+        credentials: "include",
+        headers: { Accept: "application/json" }
+      })
+        .then(function (res) {
+          return res.json().then(function (data) {
+            return { res: res, data: data };
+          });
+        })
+        .then(function (out) {
+          if (!out.res.ok || !out.data || out.data.ok === false) {
+            window.alert((out.data && out.data.error) || "No se pudo actualizar.");
+            t.disabled = false;
+            return;
+          }
+          loadBugAdminStats();
+        })
+        .catch(function () {
+          window.alert("Error de red.");
+          t.disabled = false;
+        });
+    });
+  }
+
   var FEEDBACK_EMAIL = "desarrollo.tecnologia@colbeef.com";
+  var lastBugMailtoPayload = null;
   var DETALLES_POR_TEMA = {
     "Error o fallo": ["Pantalla en blanco", "Mensaje de error visible", "No carga un módulo", "Comportamiento inesperado", "Otro"],
     "Rendimiento o lentitud": ["Carga lenta en general", "Solo un módulo lento", "Timeout o cierre de sesión", "Otro"],
@@ -831,6 +1040,11 @@
     document.body.style.overflow = "hidden";
     var form = document.getElementById("feedbackForm");
     if (form) form.reset();
+    var ticketBox = document.getElementById("feedbackTicketBox");
+    if (ticketBox) ticketBox.hidden = true;
+    lastBugMailtoPayload = null;
+    var sw = document.getElementById("feedbackSoftware");
+    if (sw) sw.value = "workbeef-portal";
     fillFeedbackDetalleOptions("");
     var firstField = document.getElementById("feedbackTema");
     if (firstField) firstField.focus();
@@ -1091,12 +1305,14 @@
 
   function initBugReportModal() {
     var openBtn = document.getElementById("bugReportOpenBtn");
-    var modal = document.getElementById("feedbackModal");
     var backdrop = document.getElementById("feedbackModalBackdrop");
     var closeBtn = document.getElementById("feedbackModalClose");
     var cancelBtn = document.getElementById("feedbackCancelBtn");
     var form = document.getElementById("feedbackForm");
     var temaEl = document.getElementById("feedbackTema");
+    var mailBtn = document.getElementById("feedbackMailtoBtn");
+    var copyBtn = document.getElementById("feedbackCopyIdBtn");
+    var submitBtn = document.getElementById("feedbackSubmitBtn");
 
     if (openBtn) {
       openBtn.addEventListener("click", function (e) {
@@ -1115,13 +1331,68 @@
     if (closeBtn) closeBtn.addEventListener("click", closeFeedbackModal);
     if (cancelBtn) cancelBtn.addEventListener("click", closeFeedbackModal);
 
+    if (copyBtn) {
+      copyBtn.addEventListener("click", function () {
+        var codeEl = document.getElementById("feedbackTicketCode");
+        var code = codeEl ? codeEl.textContent : "";
+        if (!code) return;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(code).then(
+            function () {
+              window.alert("ID copiado al portapapeles.");
+            },
+            function () {
+              window.alert(code);
+            }
+          );
+        } else {
+          window.prompt("Copia el ID:", code);
+        }
+      });
+    }
+
+    if (mailBtn) {
+      mailBtn.addEventListener("click", function () {
+        if (!lastBugMailtoPayload) {
+          window.alert("Primero registra el caso con el botón «Registrar caso».");
+          return;
+        }
+        var p = lastBugMailtoPayload;
+        var subject = "[Workbeef] " + p.tema + " — " + p.detalle + " [" + p.ticket_code + "]";
+        var body =
+          "ID caso: " +
+          p.ticket_code +
+          "\nFecha registro: " +
+          p.reported_at_label +
+          "\nSoftware: " +
+          p.software_label +
+          "\n\nTema: " +
+          p.tema +
+          "\nDetalle: " +
+          p.detalle +
+          "\n\nDescripción:\n" +
+          p.mensaje +
+          "\n\n---\nWorkbeef (bugs / PQR)";
+        var url =
+          "mailto:" + FEEDBACK_EMAIL +
+          "?subject=" + encodeURIComponent(subject) +
+          "&body=" + encodeURIComponent(body);
+        window.location.href = url;
+      });
+    }
+
     if (form) {
       form.addEventListener("submit", function (e) {
         e.preventDefault();
+        var software = ((document.getElementById("feedbackSoftware") || {}).value || "").trim();
         var tema = (document.getElementById("feedbackTema") || {}).value || "";
         var detalle = (document.getElementById("feedbackDetalle") || {}).value || "";
         var mensaje = ((document.getElementById("feedbackMensaje") || {}).value || "").trim();
 
+        if (!software) {
+          window.alert("Selecciona el software o módulo.");
+          return;
+        }
         if (!tema) {
           window.alert("Selecciona un tema.");
           return;
@@ -1135,20 +1406,58 @@
           return;
         }
 
-        var subject = "[Workbeef] " + tema + " — " + detalle;
-        var body =
-          "Tema: " + tema + "\n" +
-          "Detalle: " + detalle + "\n\n" +
-          "Descripción:\n" + mensaje + "\n\n" +
-          "---\nEnviado desde Workbeef (reporte de bug / comentario)";
+        if (submitBtn) submitBtn.disabled = true;
 
-        var url =
-          "mailto:" + FEEDBACK_EMAIL +
-          "?subject=" + encodeURIComponent(subject) +
-          "&body=" + encodeURIComponent(body);
-
-        closeFeedbackModal();
-        window.location.href = url;
+        fetch("/api/bugs/report", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({
+            software: software,
+            tema: tema,
+            detalle: detalle,
+            mensaje: mensaje
+          })
+        })
+          .then(function (res) {
+            return res.json().then(function (data) {
+              return { res: res, data: data };
+            });
+          })
+          .then(function (out) {
+            if (submitBtn) submitBtn.disabled = false;
+            var data = out.data;
+            if (!out.res.ok || !data || data.ok === false) {
+              var err =
+                (data && (data.error || data.message)) || "No se pudo registrar el caso.";
+              if (data && data.errors) {
+                err = err + " " + JSON.stringify(data.errors);
+              }
+              window.alert(err);
+              return;
+            }
+            var ticket = data.ticket_code || "—";
+            var whenIso = data.reported_at || "";
+            var whenLabel = formatBugReportDateTime(whenIso);
+            var swLabel = data.software_label || software;
+            var codeEl = document.getElementById("feedbackTicketCode");
+            var whenEl = document.getElementById("feedbackTicketWhen");
+            var box = document.getElementById("feedbackTicketBox");
+            if (codeEl) codeEl.textContent = ticket;
+            if (whenEl) whenEl.textContent = whenLabel;
+            if (box) box.hidden = false;
+            lastBugMailtoPayload = {
+              ticket_code: ticket,
+              reported_at_label: whenLabel,
+              software_label: swLabel,
+              tema: tema,
+              detalle: detalle,
+              mensaje: mensaje
+            };
+          })
+          .catch(function () {
+            if (submitBtn) submitBtn.disabled = false;
+            window.alert("No hay conexión con el servidor o falta migrar la base (Laravel + migrate).");
+          });
       });
     }
   }
@@ -1300,6 +1609,8 @@
     initToggleAria();
     initSettingsAutoSave();
     initUsageStatsPeriod();
+    initBugStatsPeriod();
+    initBugStatsResolveDelegation();
     initSearchModal();
     initColbeefChat();
     initBugReportModal();
