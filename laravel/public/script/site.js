@@ -403,6 +403,7 @@
   // --- PIN para Power BI (privacidad) ---
   var powerBiPinOk = false;
   var pendingPowerBiHref = null;
+  var RENDIMIENTOS_PIN = "250626";
 
   function setPowerBiPinError(msg) {
     var err = document.getElementById("powerBiPinError");
@@ -443,6 +444,20 @@
     // Modo estricto: siempre pedir PIN al abrir Power BI
     pendingPowerBiHref = href;
     openPowerBiPinModal();
+  }
+
+  function requireRendimientosPinThenOpen(href) {
+    if (!href || !/^https?:\/\//i.test(String(href))) return;
+    var pin = window.prompt("Ingresa el PIN para abrir Rendimientos:");
+    if (pin === null) return;
+    if (String(pin).trim() !== RENDIMIENTOS_PIN) {
+      window.alert("PIN incorrecto.");
+      return;
+    }
+    sendUsageEvent("module_click", "logistica");
+    closeSettingsView();
+    setActiveMenuByAppId("logistica");
+    window.location.href = href;
   }
 
   function initPowerBiPinModal() {
@@ -1101,6 +1116,8 @@
         if (/^https?:\/\//i.test(href)) {
           if (appId === "power-bi") {
             requirePowerBiPinThenOpen(href);
+          } else if (a.getAttribute("data-requires-pin") === "rendimientos") {
+            requireRendimientosPinThenOpen(href);
           } else {
             window.location.href = href;
           }
@@ -1480,7 +1497,13 @@
   function initLogisticaNav() {
     var els = document.querySelectorAll(".moduleTile--logistica .moduleTileBtn");
     els.forEach(function (el) {
-      el.addEventListener("click", function () {
+      el.addEventListener("click", function (e) {
+        var href = el.getAttribute("href");
+        if (el.getAttribute("data-requires-pin") === "rendimientos") {
+          if (e && e.preventDefault) e.preventDefault();
+          requireRendimientosPinThenOpen(href);
+          return;
+        }
         sendUsageEvent("module_click", "logistica");
         closeSettingsView();
         setActiveMenuByAppId("logistica");
